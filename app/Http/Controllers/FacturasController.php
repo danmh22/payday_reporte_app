@@ -27,14 +27,18 @@ class FacturasController extends Controller
         ]);
     }
 
-    public function facturasPendientes() : View
+    public function facturasPendientes(Request $request) : View
     {
-        return view('facturas.facturas_pendientes');
+        return view('facturas.facturas_pendientes', [
+            'facturas_pendientes'        => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->get()
+        ]);
     }
 
-    public function historial() : View
+    public function historial(Request $request) : View
     {
-        return view('facturas.historial');
+        return view('facturas.historial', [
+            'facturas_reportadas'        => Factura::where('users_id', $request->user()->id)->where('status', '>', 1)->get(),
+        ]);
     }
 
     public function reportarPago() : View

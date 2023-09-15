@@ -26,20 +26,21 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
+                            @foreach ($facturas_pendientes as $facturasP)
+
                             <tr class="hover:bg-gray-50">
-                            <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">5</span>
+                                <th class="px-4 gap-3">
+                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturasP->id }}</span>
                             </th>
-                            <td class="px-4 py-3">
-                                <span class="text-gray-700">Mensualidad</span>
-                                <p>Agosto</p>
+                            <td class="px-4 py-3 max-w-[150px]">
+                                <span class="text-gray-700">{{ $facturasP->concepto }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">300,00 USD</span>
+                                <span class="text-gray-700">{{ $facturasP->monto_deudor }} USD</span>
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">
-                                    <div class="font-medium text-gray-700">10/08/2023</div>
+                                    <div class="font-medium text-gray-700">{{ $facturasP->created_at->format('d/m/Y') }}</div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
@@ -48,6 +49,9 @@
                                 </div>
                             </td>
                             </tr>
+
+                            @endforeach
+
                             </tbody>
                         </table>
                     </div>

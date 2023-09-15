@@ -28,33 +28,49 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
+
+                            @foreach ($facturas_reportadas as $facturas)
+
                             <tr class="hover:bg-gray-50">
                             <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">5</span>
+                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturas->id }}</span>
                             </th>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">Mensualidad</span>
-                                <p>Agosto</p>
+                                <span class="text-gray-700">{{ $facturas->concepto }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                <span
-                                class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
-                                <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
-                                Por conciliar
-                            </span>
+                                @switch( $facturas->status )
+                                    @case(2)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                                        Por conciliar
+                                        </span>
+                                        @break
+                                    @case(3)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                        Conciliadas
+                                        </span>
+
+                                        @break
+                                    @default
+                                        Not found
+                                @endswitch
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">
-                                    <div class="font-medium text-gray-700">10/08/2023</div>
+                                    <div class="font-medium text-gray-700">{{ $facturas->fecha_pago->format('d/m/Y') }}</div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">Transferencia</span>
-                                <p>Banesco</p>
+                                <span class="text-gray-700">{{ Str::ucfirst($facturas->metodo_pago) }}</span>
+                                <p>{{ $facturas->plataforma_pago }}</p>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">300,00 USD</span>
-                                <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: 01020552321</p>
+                                <span class="text-gray-700">{{ $facturas->monto_pago }} {{ $facturas->divisa }}</span>
+                                <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $facturas->referencia_pago }}</p>
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-4">
@@ -88,6 +104,8 @@
                                 </div>
                             </td>
                             </tr>
+
+                            @endforeach
 
                         </tbody>
                         </table>
