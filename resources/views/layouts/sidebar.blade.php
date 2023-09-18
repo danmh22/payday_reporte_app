@@ -88,6 +88,15 @@
             </li>
 
             <li class="flex w-full justify-between hover:bg-blue-700 hover:text-white border-b cursor-pointer items-center w-full">
+                <a href="{{ route('facturas-conciliadas') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
+                    <span class="w-7 h-7 flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-tabler">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" />
+                        </svg></span>
+                    <span class="text-sm ml-2">Facturas Conciliadas</span>
+                </a>
+            </li>
+
+            <li class="flex w-full justify-between hover:bg-blue-700 hover:text-white border-b cursor-pointer items-center w-full">
                 <a href="{{ route('usuarios') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="w-7 h-7 flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-tabler">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>

@@ -45,7 +45,7 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-4">
-                                    <a href="/reportar-pago" class="bg-blue-700 p-2 text-white text-xs rounded">Reportar pago</a>
+                                    <a href="{{ route('reportar-pago', $facturasP) }}" class="bg-blue-700 p-2 text-white text-xs rounded">Reportar pago</a>
                                 </div>
                             </td>
                             </tr>

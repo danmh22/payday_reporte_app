@@ -29,17 +29,17 @@
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
 
-                            @foreach ($facturas_reportadas as $facturas)
+                            @foreach ($facturas_reportadas as $factura)
 
                             <tr class="hover:bg-gray-50">
                             <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturas->id }}</span>
+                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
                             </th>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ $facturas->concepto }}</span>
+                                <span class="text-gray-700">{{ $factura->concepto }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                @switch( $facturas->status )
+                                @switch( $factura->status )
                                     @case(2)
                                         <span
                                         class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
@@ -61,20 +61,20 @@
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">
-                                    <div class="font-medium text-gray-700">{{ $facturas->fecha_pago->format('d/m/Y') }}</div>
+                                    <div class="font-medium text-gray-700">{{ $factura->fecha_pago->format('d/m/Y') }}</div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ Str::ucfirst($facturas->metodo_pago) }}</span>
-                                <p>{{ $facturas->plataforma_pago }}</p>
+                                <span class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</span>
+                                <p>{{ $factura->plataforma_pago }}</p>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ $facturas->monto_pago }} {{ $facturas->divisa }}</span>
-                                <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $facturas->referencia_pago }}</p>
+                                <span class="text-gray-700">{{ $factura->monto_pago }} {{ $factura->divisa }}</span>
+                                <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $factura->referencia_pago }}</p>
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-4">
-                                <a x-data="{ tooltip: 'Ver Factura' }" href="/factura">
+                                <a x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -84,23 +84,29 @@
                                     class="h-4 w-4"
                                     x-tooltip="tooltip"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </a>
-                                <a x-data="{ tooltip: 'Editar Factura' }" href="#">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="h-4 w-4"
-                                    x-tooltip="tooltip"
-                                    >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                    />
-                                    </svg>
-                                </a>
+
+                                @if ($factura->status < 3)
+                                    <a x-data="{ tooltip: 'Editar Factura' }" href="#">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="h-4 w-4"
+                                        x-tooltip="tooltip"
+                                        >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                                        />
+                                        </svg>
+                                    </a>
+                                @else
+
+                                @endif
+
                                 </div>
                             </td>
                             </tr>

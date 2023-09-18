@@ -45,8 +45,9 @@
             <div class="rounded border bg-white p-4">
             <h2 class="text-lg font-bold text-gray-800">Reporta tu pago</h2>
             <p class="text-xs mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
-                <form action="" method="post" class="flex flex-wrap">
-
+                <form action="{{ route('update-reporte', $factura) }}" method="post" class="flex flex-wrap">
+                    @csrf
+                    @method('PUT')
                     <div class="w-2/4 mb-4 pr-4">
                         <label for="nombre_titular" class="block text-xs font-medium leading-6 text-gray-900">Nombre Títular</label>
                         <div class="mt-2">
@@ -59,24 +60,24 @@
                     <div class="w-2/4 mb-4 flex flex-wrap pr-4">
                         <label for="dni_usuario" class="block w-full text-xs font-medium leading-6 text-gray-900">Tipo de Documento</label>
                         <div class="mt-2 w-2/6 pr-2">
-                            <select id="tipo_dni_usuario" name="tipo_dni_usuario" autocomplete="tipo_dni_usuario" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                <option>V-</option>
-                                <option>J-</option>
-                                <option>P-</option>
+                            <select id="tipo_documento" name="tipo_documento" autocomplete="tipo_documento" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                <option>V</option>
+                                <option>J</option>
+                                <option>P</option>
                             </select>
                         </div>
                         <div class="mt-2 w-4/6">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="number" name="dni_usuario" id="dni_usuario" autocomplete="dni_usuario" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
+                            <input type="number" name="num_documento" id="num_documento" autocomplete="num_documento" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
                             </div>
                         </div>
                     </div>
 
                     <div class="w-2/5 mb-4 pr-4">
-                        <label for="num_referencia" class="block text-xs font-medium leading-6 text-gray-900">Nro de Referencia</label>
+                        <label for="referencia_pago" class="block text-xs font-medium leading-6 text-gray-900">Nro de Referencia</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="number" name="num_referencia" id="num_referencia" autocomplete="num_referencia" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
+                            <input type="number" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
                         </div>
                         </div>
                     </div>
@@ -122,22 +123,24 @@
                     </div>
 
                     <div class="w-2/6 mb-4 flex flex-wrap pr-4">
-                    <label for="monto_pagado" class="block w-full text-xs font-medium leading-6 text-gray-900">Monto</label>
+                    <label for="monto_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Monto</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="number" name="monto_pagado" id="monto_pagado" autocomplete="monto_pagado" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
+                            <input type="number" name="monto_pago" id="monto_pago" autocomplete="monto_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
                         </div>
                         </div>
                     </div>
 
                     <div class="w-2/6 mb-4 flex flex-wrap pr-4">
-                    <label for="fecha_pagado" class="block w-full text-xs font-medium leading-6 text-gray-900">Fecha de pago</label>
+                    <label for="fecha_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Fecha de pago</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="date" name="fecha_pagado" id="fecha_pagado" autocomplete="fecha_pagado" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
+                            <input type="date" name="fecha_pago" id="fecha_pago" autocomplete="fecha_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
                         </div>
                         </div>
                     </div>
+
+                    <input type="hidden" name="status" id="status" autocomplete="status" value="2">
 
                     <button type="submit" class="px-3 py-2 text-sm !bg-blue-700 rounded block text-white w-1/4 mt-2">Enviar reporte</button>
 
@@ -148,8 +151,8 @@
             <div class="bg-gradient-to-r border-blue-500 border from-blue-500 to-blue-700 py-8 px-7 text-white rounded">
                 <h2 class="text-lg font-bold mb-2">Detalles de la factura</h2>
                 <hr class="w-1/4 h-1 bg-white rounded-full mb-3">
-                <p class="text-xs mb-2"><strong>Concepto</strong>: Mensualidad Julio</p>
-                <p class="text-xs"><strong>Monto</strong>: 300,00 USD</p>
+                <p class="text-xs mb-2"><strong>Concepto</strong>: {{ $factura->concepto }}</p>
+                <p class="text-xs"><strong>Monto</strong>: {{ $factura->monto_deudor }} USD</p>
             </div>
         </div>
     </div>

@@ -41,9 +41,37 @@ class FacturasController extends Controller
         ]);
     }
 
-    public function reportarPago() : View
+    public function showReportarPago(Factura $factura) : View
     {
-        return view('facturas.form_reportar');
+        return view('facturas.form_reportar', [
+            'factura' => $factura,
+        ]);
+    }
+    public function updateReportarPago(Request $request, Factura $factura){
+
+        $factura->nombre_titular  = $request->nombre_titular;
+        $factura->tipo_documento  = $request->tipo_documento;
+        $factura->num_documento   = $request->num_documento;
+        $factura->referencia_pago = $request->referencia_pago;
+        $factura->divisa          = $request->divisa;
+        $factura->metodo_pago     = $request->metodo_pago;
+        $factura->plataforma_pago = $request->plataforma_pago;
+        $factura->monto_pago      = $request->monto_pago;
+        $factura->fecha_pago      = $request->fecha_pago;
+        $factura->status          = '2';
+
+        $factura->save();
+
+        return redirect()->route('facturas-pendientes');
+
+    }
+    public function conciliarPago(Request $request){
+
+        $findFactura = Factura::findOrFail($request->id);
+        $findFactura->status = '3';
+        $findFactura->save();
+
+        return redirect()->route('facturas-conciliadas');
     }
 
     // VISTAS DE ADMINISTRADOR
@@ -71,10 +99,17 @@ class FacturasController extends Controller
         ]);
     }
 
+    public function facturasConciliadas() : View
+    {
+        return view('facturas.admin_facturas_conciliadas', [
+            'lista_facturas_conciliadas'      => Factura::where('status', '=', 3)->orderBy('updated_at', 'desc')->get()
+        ]);
+    }
+
     public function facturasPorConciliar() : View
     {
         return view('facturas.admin_facturas_conciliar', [
-            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->get()
+            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->get()
         ]);
     }
 
@@ -85,9 +120,11 @@ class FacturasController extends Controller
 
     // VISTAS COMUNES
 
-    public function factura() : View
+    public function factura(Factura $factura) : View
     {
-        return view('facturas.factura');
+        return view('facturas.factura', [
+            'factura' => $factura,
+        ]);
     }
 
 

@@ -26,6 +26,7 @@ class Factura extends Model
         'metodo_pago',
         'plataforma_pago',
         'monto_pago',
+        'status',
     ];
     protected $hidden = [
 
