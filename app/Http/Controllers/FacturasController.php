@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Factura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class FacturasController extends Controller
@@ -49,6 +50,18 @@ class FacturasController extends Controller
     }
     public function updateReportarPago(Request $request, Factura $factura){
 
+        $request->validate([
+            'nombre_titular'    => 'required',
+            'tipo_documento'    => 'required',
+            'num_documento'     => 'required',
+            'referencia_pago'   => 'required|unique:facturas,referencia_pago',
+            'divisa'            => 'required',
+            'metodo_pago'       => 'required',
+            'plataforma_pago'   => 'required',
+            'monto_pago'        => 'required',
+            'fecha_pago'        => 'required',
+        ]);
+
         $factura->nombre_titular  = $request->nombre_titular;
         $factura->tipo_documento  = $request->tipo_documento;
         $factura->num_documento   = $request->num_documento;
@@ -64,14 +77,6 @@ class FacturasController extends Controller
 
         return redirect()->route('facturas-pendientes');
 
-    }
-    public function conciliarPago(Request $request){
-
-        $findFactura = Factura::findOrFail($request->id);
-        $findFactura->status = '3';
-        $findFactura->save();
-
-        return redirect()->route('facturas-conciliadas');
     }
 
     // VISTAS DE ADMINISTRADOR
@@ -113,6 +118,15 @@ class FacturasController extends Controller
         ]);
     }
 
+    public function conciliarPago(Request $request){
+
+        $findFactura = Factura::findOrFail($request->id);
+        $findFactura->status = '3';
+        $findFactura->save();
+
+        return redirect()->route('facturas-conciliadas');
+    }
+
     public function cargarFacturas() : View
     {
         return view('facturas.admin_form_cargar_facturas');
@@ -124,6 +138,7 @@ class FacturasController extends Controller
     {
         return view('facturas.factura', [
             'factura' => $factura,
+            'user' => Auth::user(),
         ]);
     }
 

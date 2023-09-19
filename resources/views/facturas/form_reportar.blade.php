@@ -42,6 +42,15 @@
             </div>
         </div> --}}
         <div class="w-2/3 py-4 pr-8">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="rounded border bg-white p-4">
             <h2 class="text-lg font-bold text-gray-800">Reporta tu pago</h2>
             <p class="text-xs mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>

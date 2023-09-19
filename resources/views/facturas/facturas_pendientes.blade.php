@@ -30,7 +30,7 @@
 
                             <tr class="hover:bg-gray-50">
                                 <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturasP->id }}</span>
+                                <span class="flex justify-center items-center p-2 p-2 rounded bg-orange-100 text-orange-600 w-8 h-8">{{ $facturasP->id }}</span>
                             </th>
                             <td class="px-4 py-3 max-w-[150px]">
                                 <span class="text-gray-700">{{ $facturasP->concepto }}</span>

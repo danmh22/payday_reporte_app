@@ -104,14 +104,23 @@
 
                     <hr class="border-b border-gray-100 my-8 mb-4 w-full">
                     <div class="w-full mt-2 flex justify-end items-center">
-                        @if ($factura->status > 1)
-                            <form action="" method="post">
-                                @csrf
-                                <button class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Conciliar Pago</button>
-                            </form>
-                        @else
+                        @if (Auth::user()->role == 1)
+                            @if ($factura->status == 2)
+                                <form action="{{ route('conciliar-pago') }}" method="POST">
+                                    @csrf
+                                    @method('patch')
+                                    <input type="hidden" name="id" value="{{ $factura->id }}">
+                                    <button class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Conciliar Pago</button>
+                                </form>
+                            @else
 
-                            <a href="{{ route('reportar-pago', $factura) }}" class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Reportar Pago</a>
+                            @endif
+                        @else
+                            @if ($factura->status == 1)
+                                <a href="{{ route('reportar-pago', $factura) }}" class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Reportar Pago</a>
+                            @else
+
+                            @endif
                         @endif
 
                         <form action="" method="post">
