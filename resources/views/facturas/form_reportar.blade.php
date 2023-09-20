@@ -77,7 +77,7 @@
                         </div>
                         <div class="mt-2 w-4/6">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="number" name="num_documento" id="num_documento" autocomplete="num_documento" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
+                            <input type="text" name="num_documento" id="num_documento" autocomplete="num_documento" maxlength="9" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         <label for="referencia_pago" class="block text-xs font-medium leading-6 text-gray-900">Nro de Referencia</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                            <input type="number" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
+                            <input type="text" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
                         </div>
                         </div>
                     </div>
