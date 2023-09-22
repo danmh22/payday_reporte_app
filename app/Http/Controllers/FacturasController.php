@@ -54,11 +54,11 @@ class FacturasController extends Controller
 
         $request->validate([
             'nombre_titular'    => 'required',
-            'tipo_documento'    => 'required',
-            'num_documento'     => 'required',
+            'tipo_documento'    => 'required|in:V,J,P',
+            'num_documento'     => 'required|max:9',
             'referencia_pago'   => 'required|unique:facturas,referencia_pago',
-            'divisa'            => 'required',
-            'metodo_pago'       => 'required',
+            'divisa'            => 'required|in:USD,VES',
+            'metodo_pago'       => 'required|in:Pago Móvil,Efectivo,Transferencia,Depósito',
             'plataforma_pago'   => 'required',
             'monto_pago'        => 'required',
             'fecha_pago'        => 'required',
