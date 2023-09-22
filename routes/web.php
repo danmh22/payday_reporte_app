@@ -36,6 +36,7 @@ Route::controller(FacturasController::class)->group(function () {
     Route::get('/reportar-pago/{factura}', 'showReportarPago')->name('reportar-pago');
     Route::put('/reportar-pago/{factura}', 'updateReportarPago')->name('update-reporte');
     Route::get('/cargar-facturas',         'cargarFacturas')->name('cargar-facturas');
+    Route::post('/cargar-facturas',        'importarFacturas')->name('importar-facturas');
     Route::get('/facturas-pendientes',     'facturasPendientes')->name('facturas-pendientes');
     Route::get('/facturas-emitidas',       'facturasEmitidas')->name('facturas-emitidas');
     Route::get('/facturas-conciliadas',    'facturasConciliadas')->name('facturas-conciliadas');

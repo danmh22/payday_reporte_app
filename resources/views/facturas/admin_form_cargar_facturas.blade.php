@@ -17,10 +17,20 @@
             <h2 class="text-lg font-bold text-gray-800">Carga un nuevo listado de facturas</h2>
             <p class="text-xs mb-4 mt-2 text-gray-500">Descarga el formato para la carga de facturas, rellena sus campos con los datos solicitados y carga un nuevo listado de facturas para tus aliados comerciales:</p>
                 <div class="flex items-center mt-2">
-                    <form action="" method="post" class="flex flex-wrap">
+                    @if (isset($errors) && $errors->any())
+
+                    <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                          {{ $error }}
+                        @endforeach
+                    </div>
+
+                    @endif
+                    <form action="{{ route('importar-facturas') }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap w-full">
+                        @csrf
                         <label class="block">
                             <span class="sr-only">Sube un listado de facturas</span>
-                            <input type="file" class="block w-full text-sm text-slate-500
+                            <input type="file" name="lote_facturas" class="block w-full text-sm text-slate-500
                                 file:py-2 file:px-4
                               file:rounded file:border-0
                               file:text-sm file:font-semibold
@@ -28,8 +38,8 @@
                               hover:file:bg-cyan-100
                             "/>
                           </label>
+                          <button type="submit" class="px-3 py-2 text-sm !bg-blue-700 rounded block text-white ml-4 w-1/4">Cargar Facturas</button>
                     </form>
-                    <button type="submit" class="px-3 py-2 text-sm !bg-blue-700 rounded block text-white ml-4 w-1/4">Cargar Facturas</button>
                 </div>
 
             </div>

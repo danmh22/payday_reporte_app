@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\FacturasImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Factura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,14 +95,14 @@ class FacturasController extends Controller
             'total_facturas_emitidas'      => Factura::where('status', '=', 1)->count(),
             'total_facturas_por_conciliar' => Factura::where('status', '=', 2)->count(),
             'total_facturas_conciliadas'   => Factura::where('status', '=', 3)->count(),
-            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->get(),
+            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->get(),
         ]);
     }
 
     public function facturasEmitidas() : View
     {
         return view('facturas.admin_facturas_emitidas', [
-            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->get()
+            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->orderBy('updated_at', 'desc')->get()
         ]);
     }
 
@@ -130,6 +132,14 @@ class FacturasController extends Controller
     public function cargarFacturas() : View
     {
         return view('facturas.admin_form_cargar_facturas');
+    }
+
+    public function importarFacturas(Request $request)
+    {
+        $file = $request->file('lote_facturas');
+        Excel::import(new FacturasImport, $file);
+
+        return redirect()->route('dashboard-admin')->with('¡Todo Listo!', 'Las facturas se cargaron exitosamente');
     }
 
     // VISTAS COMUNES

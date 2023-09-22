@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'codigo_aliado' => fake()->unique()->numberBetween('0', '120'),
+            'codigo_aliado' => fake()->lexify('cod-') . fake()->unique()->numberBetween('0', '10'),
             'nombre_aliado' => fake()->company(),
             'role' => '0',
             'status' => '1',
