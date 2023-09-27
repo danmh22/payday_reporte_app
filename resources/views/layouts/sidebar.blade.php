@@ -2,10 +2,17 @@
     <!-- Logo -->
     <div class="flex justify-start h-16 p-3">
         <div class="shrink-0 flex items-center">
-            <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                <span class="text-lg font-extrabold ml-2 text-slate-700">PAYDAY</span>
-            </a>
+            @if (Auth::user()->role == 1)
+                <a href="{{ route('dashboard-admin') }}" class="flex items-center">
+                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <span class="text-lg font-extrabold ml-2 text-slate-700">PAYDAY</span>
+                </a>
+            @else
+                <a href="{{ route('dashboard-user') }}" class="flex items-center">
+                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <span class="text-lg font-extrabold ml-2 text-slate-700">PAYDAY</span>
+                </a>
+            @endif
         </div>
     </div>
     <ul class="mt-12">

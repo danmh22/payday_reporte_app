@@ -20,7 +20,7 @@
                                 <tr>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
+                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th> --}}
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
@@ -39,18 +39,18 @@
                                 <th class="px-4 gap-3">
                                     <span class="flex justify-center items-center p-2 p-2 rounded bg-amber-100 text-amber-600 w-8 h-8">{{ $factura->id }}</span>
                                 </th>
-                                <td class="px-4 py-3 max-w-[120px]">
+                                <td class="px-4 py-3 max-w-[200px]">
 
                                     @php
                                         $currentUser = App\Models\User::findOrFail($factura->users_id);
                                     @endphp
 
                                     <span class="text-gray-700">{{ $currentUser->nombre_aliado }}</span>
-                                    <p>{{ $currentUser->name }}</p>
+                                    <p>{{ $factura->concepto }}</p>
                                 </td>
-                                <td class="px-4 py-3 max-w-[140px]">
+                                {{-- <td class="px-4 py-3 max-w-[140px]">
                                     <span class="text-gray-700">{{ $factura->concepto }}</span>
-                                </td>
+                                </td> --}}
                                 <td class="px-4 py-3">
                                     <span class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</span>
                                     <p>{{ $factura->plataforma_pago }}</p>
@@ -81,6 +81,7 @@
                             </table>
                     </div>
                 </div>
+                {{ $lista_facturas_por_conciliar->links() }}
             </div>
         </div>
     </main>

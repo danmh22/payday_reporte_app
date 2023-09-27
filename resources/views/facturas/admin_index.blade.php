@@ -32,7 +32,7 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos por conciliar</h2>
-                        <a href="#" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
+                        <a href="{{ route('facturas-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded border border-gray-200">
                         <div class="w-max max-w-5xl">
@@ -41,8 +41,7 @@
                                 <tr>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                    <th scope="col" class="px-4 py-3 max-w-[180px] font-medium text-gray-900">Concepto</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
+                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th> --}}
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
@@ -55,21 +54,18 @@
 
                                 <tr class="hover:bg-gray-50">
                                 <th class="px-4 gap-3">
-                                    <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturasC->id }}</span>
+                                    <span class="flex justify-center items-center p-2 p-2 rounded bg-orange-100 text-orange-600 w-8 h-8">{{ $facturasC->id }}</span>
                                 </th>
-                                <td class="px-4 py-3 max-w-[120px]">
+                                <td class="px-4 py-3 max-w-[200px]">
 
                                     @php
                                         $currentUser = App\Models\User::findOrFail($facturasC->users_id);
                                     @endphp
 
                                     <span class="text-gray-700">{{ $currentUser->nombre_aliado }}</span>
-                                    <p>{{ $currentUser->name }}</p>
+                                    <p>{{ $facturasC->concepto }}</p>
                                 </td>
-                                <td class="px-4 py-3 max-w-[180px]">
-                                    <span class="text-gray-700">{{ $facturasC->concepto }}</span>
-                                </td>
-                                <td class="px-4 py-3">
+                                {{-- <td class="px-4 py-3">
                                     @switch($facturasC->status)
                                         @case(1)
                                         <span
@@ -96,13 +92,13 @@
                                         Not found
                                     @endswitch
 
-                                </td>
+                                </td> --}}
                                 <td class="px-4 py-3">
                                     <div class="text-xs font-medium text-gray-700">{{ $facturasC->fecha_pago->format('d-m-Y') }}</div>
                                 </td>
                                 <td class="px-4 py-3">
                                     <span class="text-gray-700">{{ Str::ucfirst($facturasC->metodo_pago) }}</span>
-                                    <p>{{ $facturasC->plataforma_pago }}</p>
+                                    <p class="mt-1 truncate text-xxs leading-5 text-gray-500">{{ $facturasC->plataforma_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
                                     <span class="text-gray-700">{{ $facturasC->monto_pago }} {{ $facturasC->divisa }}</span>
@@ -110,40 +106,13 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex justify-end gap-4">
-                                    <a x-data="{ tooltip: 'Delete' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                        />
-                                        </svg>
-                                    </a>
-                                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                        />
-                                        </svg>
-                                    </a>
+                                        <a class="px-2 py-2 text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $facturasC) }}">Ver Detalle</a>
+                                        <form action="{{ route('conciliar-pago') }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <input type="hidden" name="id" value="{{ $facturasC->id }}">
+                                            <button class="px-2 py-2 text-white bg-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-500 hover:border-blue-500">Conciliar Pago</button>
+                                        </form>
                                     </div>
                                 </td>
                                 </tr>
@@ -156,108 +125,24 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="sm:w-2/5 py-4 sm:px-4 lg:px-4 w-full">
-                <div class="">
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-l font-bold mb-0 text-gray-800">Últimas facturas enviadas</h2>
-                        <a href="#" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
-                    </div>
-                    <div class="overflow-x-auto rounded border border-gray-200">
-                        <div class="w-max max-w-5xl">
-                            <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
-                                <tr class="hover:bg-gray-50">
-                                <th class="px-4 gap-3">
-                                    <span>5</span>
-                                </th>
-                                <td class="px-4 py-3">
-                                    <span class="text-gray-700">Win Star Casino</span>
-                                    <p>Pedro Pérez</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="text-gray-700">Mensualidad</span>
-                                    <p>Agosto</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span
-                                    class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
-                                    Por conciliar
-                                </span>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <div class="text-xs font-medium text-gray-700">10/08/2023</div>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="text-gray-700">Transferencia</span>
-                                    <p>Banesco</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="text-gray-700">300,00 USD</span>
-                                    <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: 01020552321</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <div class="flex justify-end gap-4">
-                                    <a x-data="{ tooltip: 'Delete' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                        />
-                                        </svg>
-                                    </a>
-                                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                        />
-                                        </svg>
-                                    </a>
-                                    </div>
-                                </td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
+
+            <div class="sm:w-2/6 py-4 sm:px-4 lg:px-4 w-full">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 py-6 px-7 text-white rounded mb-3">
+                    <span class="text-xs mb-3 rounded text-white font-bold inline-block">Total recaudado este mes</span>
+                    <h2 class="text-2xl font-bold mb-4 flex items-center justify-start"><div class="bg-green-50 p-1 rounded flex items-center justify-center w-9 h-9 mr-2"><span class="material-symbols-outlined text-green-500">monitoring</span></div> ${{ number_format($monto_conciliados_final) }}</h2>
+                    <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-gray-200">
+                        <div style="width: 60%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
                     </div>
                 </div>
-                <div class="bg-gradient-to-r from-blue-500 to-blue-700 py-8 px-7 text-white rounded">
-                    <span class="text-xs bg-blue-50 mb-3 rounded text-blue-700 p-1 px-2 font-bold inline-block">Anuncio</span>
-                    <h2 class="text-lg font-bold mb-3">Recuerda reportar el pago de tus facturas a tiempo</h2>
-                    <p class="text-sm">Cuando cancelas tus facturas dentro del plazo corresponiente y realizas tus reportes a través de la aplicación estás contribuyendo a la prestación de un servicio más eficiente</p>
+
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 py-6 px-7 text-white rounded">
+                    <span class="text-xs mb-3 rounded text-white font-bold inline-block">Total por recaudar este mes</span>
+                    <h2 class="text-2xl font-bold mb-4 flex items-center justify-start"><div class="bg-blue-50 p-1 rounded flex items-center justify-center w-9 h-9 mr-2"><span class="material-symbols-outlined text-blue-500">monitoring</span></div> ${{ number_format($monto_pendiente_final) }}</h2>
+                    <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-gray-200">
+                        <div style="width: 40%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"></div>
+                    </div>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
     </main>

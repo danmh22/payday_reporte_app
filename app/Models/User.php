@@ -13,9 +13,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function factura(){
-        return $this->hasMany(Factura::class);
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -51,4 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relación con facturas
+
+    public function facturas(){
+        return $this->hasMany(Factura::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\FacturasImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Factura;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -33,14 +34,15 @@ class FacturasController extends Controller
     public function facturasPendientes(Request $request) : View
     {
         return view('facturas.facturas_pendientes', [
-            'facturas_pendientes'        => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->get()
+            'total_facturas_pendientes'  => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->count(),
+            'facturas_pendientes'        => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->paginate(6),
         ]);
     }
 
     public function historial(Request $request) : View
     {
         return view('facturas.historial', [
-            'facturas_reportadas'        => Factura::where('users_id', $request->user()->id)->where('status', '>', 1)->get(),
+            'facturas_reportadas'        => Factura::where('users_id', $request->user()->id)->where('status', '>', 1)->paginate(10),
         ]);
     }
 
@@ -90,33 +92,48 @@ class FacturasController extends Controller
             // El usuario no está autenticado, redirige a la página de login.
             return view('auth.login');
         }
+
+        $monto_conciliados_final = 0;
+        $monto_conciliados = Factura::where('status', '=', 3)->pluck('monto_pago');
+        foreach ($monto_conciliados as $monto_pago){
+            $monto_conciliados_final = floatval($monto_conciliados_final) + floatval($monto_pago);
+        }
+
+        $monto_pendiente_final = 0;
+        $monto_pendiente = Factura::whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_deudor');
+        foreach ($monto_pendiente as $monto_pago){
+            $monto_pendiente_final = floatval($monto_pendiente_final) + floatval($monto_pago);
+        }
+
         return view('facturas.admin_index', [
             'user'=> $request->user(),
             'total_facturas_emitidas'      => Factura::where('status', '=', 1)->count(),
             'total_facturas_por_conciliar' => Factura::where('status', '=', 2)->count(),
             'total_facturas_conciliadas'   => Factura::where('status', '=', 3)->count(),
             'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->get(),
+            'monto_conciliados_final'      => $monto_conciliados_final,
+            'monto_pendiente_final'        => $monto_pendiente_final,
         ]);
     }
 
     public function facturasEmitidas() : View
     {
         return view('facturas.admin_facturas_emitidas', [
-            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->orderBy('updated_at', 'desc')->get()
+            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->orderBy('updated_at', 'desc')->paginate(10),
         ]);
     }
 
     public function facturasConciliadas() : View
     {
         return view('facturas.admin_facturas_conciliadas', [
-            'lista_facturas_conciliadas'      => Factura::where('status', '=', 3)->orderBy('updated_at', 'desc')->get()
+            'lista_facturas_conciliadas'      => Factura::where('status', '=', 3)->orderBy('updated_at', 'desc')->paginate(10)
         ]);
     }
 
     public function facturasPorConciliar() : View
     {
         return view('facturas.admin_facturas_conciliar', [
-            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->get()
+            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->paginate(10)
         ]);
     }
 
@@ -139,7 +156,7 @@ class FacturasController extends Controller
         $file = $request->file('lote_facturas');
         Excel::import(new FacturasImport, $file);
 
-        return redirect()->route('dashboard-admin')->with('¡Todo Listo!', 'Las facturas se cargaron exitosamente');
+        return redirect()->route('facturas-emitidas')->with('success', 'Las facturas se cargaron exitosamente');
     }
 
     // VISTAS COMUNES

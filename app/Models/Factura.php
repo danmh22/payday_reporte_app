@@ -10,9 +10,6 @@ class Factura extends Model
 {
     use HasFactory;
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
 
     protected $fillable = [
         'users_id',
@@ -34,4 +31,10 @@ class Factura extends Model
     protected $casts = [
         'fecha_pago' => 'datetime'
     ];
+
+    // Relación con usuarios
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

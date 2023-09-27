@@ -13,6 +13,11 @@
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="w-full py-4">
+                @if (session('success'))
+                <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2" role="alert">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <div class="overflow-x-auto rounded border border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
@@ -65,6 +70,7 @@
                         </table>
                     </div>
                 </div>
+                {{ $lista_facturas_emitidas->links() }}
             </div>
         </div>
     </main>

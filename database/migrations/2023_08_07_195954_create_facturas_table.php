@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->references('id')->on('users');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->text('concepto');
             $table->float('monto_deudor', 8, 2);
             $table->timestamps();
-            $table->integer('status');
+            $table->enum('status', [1,2,3])->default(1);
             $table->string('nombre_titular')->nullable();
             $table->set('tipo_documento', ['V', 'J', 'P'])->nullable();
             $table->string('num_documento')->nullable();

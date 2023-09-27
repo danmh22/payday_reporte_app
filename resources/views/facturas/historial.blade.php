@@ -117,6 +117,9 @@
                         </table>
                     </div>
                 </div>
+                <div class="mt-3">
+                    {{ $facturas_reportadas->links() }}
+                </div>
             </div>
         </div>
     </main>
