@@ -12,7 +12,7 @@ class UsuariosController extends Controller
     public function vistaUsuarios() : View
     {
         return view('usuarios.index', [
-            'users' => User::where('role', '=', 0)->latest()->paginate()
+            'users' => User::where('role', '=', 0)->latest()->paginate(7)
         ]);
     }
 

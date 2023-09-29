@@ -42,13 +42,13 @@
                                         @endphp
                                     </div>
                                     <div>
-                                        <span class="text-gray-700">{{ $user->name }}</span>
-                                        <p>{{ $user->nombre_aliado }}</p>
+                                        <p class="text-gray-500 font-bold">{{ $user->nombre_aliado }}</p>
+                                        <span class="truncate text-xs leading-5 text-gray-500">{{ $user->name }}</span>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">U-{{ $user->codigo_aliado }}</span>
+                                <span class="text-gray-500 font-bold">{{ $user->codigo_aliado }}</span>
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs font-medium text-gray-700">
@@ -63,13 +63,13 @@
 
                                 @if ($user_state == '1')
                                     <span
-                                    class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
+                                    class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
                                     <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                                         Activo
                                     </span>
                                 @else
                                     <span
-                                    class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xxs font-semibold text-red-600">
+                                    class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
                                     <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
                                         Inactivo
                                     </span>
@@ -99,6 +99,9 @@
                         </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="mt-3">
+                    {{ $users->links() }}
                 </div>
             </div>
         </div>

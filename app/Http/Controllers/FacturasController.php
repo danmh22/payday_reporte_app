@@ -33,6 +33,10 @@ class FacturasController extends Controller
 
     public function facturasPendientes(Request $request) : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+
         return view('facturas.facturas_pendientes', [
             'total_facturas_pendientes'  => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->count(),
             'facturas_pendientes'        => Factura::where('users_id', $request->user()->id)->where('status', '=', 1)->paginate(6),
@@ -41,13 +45,22 @@ class FacturasController extends Controller
 
     public function historial(Request $request) : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+
         return view('facturas.historial', [
+            'total_facturas_reportadas'  => Factura::where('users_id', $request->user()->id)->where('status', '>', 1)->count(),
             'facturas_reportadas'        => Factura::where('users_id', $request->user()->id)->where('status', '>', 1)->paginate(10),
         ]);
     }
 
     public function showReportarPago(Factura $factura) : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+
         return view('facturas.form_reportar', [
             'factura' => $factura,
         ]);
@@ -87,6 +100,10 @@ class FacturasController extends Controller
 
     public function indexAdmin(Request $request) : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+
         // Verifica si el usuario está autenticado.
         if (!auth()->check()) {
             // El usuario no está autenticado, redirige a la página de login.
@@ -110,7 +127,7 @@ class FacturasController extends Controller
             'total_facturas_emitidas'      => Factura::where('status', '=', 1)->count(),
             'total_facturas_por_conciliar' => Factura::where('status', '=', 2)->count(),
             'total_facturas_conciliadas'   => Factura::where('status', '=', 3)->count(),
-            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->get(),
+            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('fecha_pago', 'desc')->paginate(7),
             'monto_conciliados_final'      => $monto_conciliados_final,
             'monto_pendiente_final'        => $monto_pendiente_final,
         ]);
@@ -118,22 +135,31 @@ class FacturasController extends Controller
 
     public function facturasEmitidas() : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
         return view('facturas.admin_facturas_emitidas', [
-            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->orderBy('updated_at', 'desc')->paginate(10),
+            'lista_facturas_emitidas'      => Factura::where('status', '=', 1)->orderBy('updated_at', 'desc')->paginate(7),
         ]);
     }
 
     public function facturasConciliadas() : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
         return view('facturas.admin_facturas_conciliadas', [
-            'lista_facturas_conciliadas'      => Factura::where('status', '=', 3)->orderBy('updated_at', 'desc')->paginate(10)
+            'lista_facturas_conciliadas'      => Factura::where('status', '=', 3)->orderBy('fecha_pago', 'desc')->paginate(7)
         ]);
     }
 
     public function facturasPorConciliar() : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
         return view('facturas.admin_facturas_conciliar', [
-            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('updated_at', 'desc')->paginate(10)
+            'lista_facturas_por_conciliar' => Factura::where('status', '=', 2)->orderBy('fecha_pago', 'desc')->paginate(7)
         ]);
     }
 
@@ -143,11 +169,14 @@ class FacturasController extends Controller
         $findFactura->status = '3';
         $findFactura->save();
 
-        return redirect()->route('facturas-conciliadas');
+        return redirect()->route('facturas-conciliadas')->with('success', 'El pago fue conciliado exitosamente');
     }
 
     public function cargarFacturas() : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
         return view('facturas.admin_form_cargar_facturas');
     }
 
@@ -163,6 +192,9 @@ class FacturasController extends Controller
 
     public function factura(Factura $factura) : View
     {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
         return view('facturas.factura', [
             'factura' => $factura,
             'user' => Auth::user(),

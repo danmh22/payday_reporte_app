@@ -55,7 +55,7 @@
                     <h2 class="text-sm w-5/6 font-bold mb-3">Descarga el formato para cargar facturas</h2>
                 </div>
                 <p class="text-white text-xs mb-3">Asegurate de usar el formato correcto para la carga de facturas.</p>
-                <button type="submit" class="px-3 py-2 text-sm bg-white rounded block text-blue-500 w-full font-bold">Descargar formato</button>
+                <a href="{{ asset('downloadable/formato_carga_facturas.xlsx') }}" download="Formato para carga de Facturas" class="px-3 py-2 text-center text-sm bg-white rounded block text-blue-500 w-full font-bold">Descargar formato</a>
             </div>
         </div>
     </div>

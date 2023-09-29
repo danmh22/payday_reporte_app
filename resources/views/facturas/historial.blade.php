@@ -13,6 +13,9 @@
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="w-full py-4">
+
+                @if ($total_facturas_reportadas > 0)
+
                 <div class="overflow-x-auto rounded border border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
@@ -73,39 +76,27 @@
                                 <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $factura->referencia_pago }}</p>
                             </td>
                             <td class="px-4 py-3">
-                                <div class="flex justify-end gap-4">
-                                <a x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="h-4 w-4"
-                                    x-tooltip="tooltip"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </a>
+                                <div class="flex justify-end relative gap-4" x-data="{ open: false }">
 
-                                @if ($factura->status < 3)
-                                    <a x-data="{ tooltip: 'Editar Factura' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                        />
-                                        </svg>
-                                    </a>
-                                @else
+                                    <button @click="open = true"><span class="material-symbols-outlined">
+                                        more_vert
+                                        </span></button>
 
-                                @endif
+                                    <ul x-show="open" @click.outside="open = false"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 scale-95"
+                                    x-transition:enter-end="opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="opacity-100 scale-100"
+                                    x-transition:leave-end="opacity-0 scale-95"
+                                    class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
+                                            <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $factura) }}">Ver Factura</a></li>
+                                        @if ($factura->status < 3)
+                                            <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="">Editar Factura</a></li>
+                                        @else
+
+                                        @endif
+                                    </ul>
 
                                 </div>
                             </td>
@@ -120,6 +111,20 @@
                 <div class="mt-3">
                     {{ $facturas_reportadas->links() }}
                 </div>
+
+            @else
+
+                <div class="p-5">
+                    <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
+                        <div class="w-56 h-56 p-6 bg-white rounded-full overflow-hidden border border-gray-100 mb-2">
+                            <img src="{{ asset('img/facturas-pendientes.jpg') }}" alt="">
+                        </div>
+                        <h2 class="text-lg font-bold text-neutral-700">Nada nuevo por acá...</h2>
+                        <p class="text-sm text-neutral-600">Estas al día con el pago de tus facturas</p>
+                    </div>
+                </div>
+
+            @endif
             </div>
         </div>
     </main>

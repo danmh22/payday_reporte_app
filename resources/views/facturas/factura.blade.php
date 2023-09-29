@@ -28,8 +28,8 @@
                         @break
                         @case(2)
 
-                        <div class="px-3 py-2 rounded bg-orange-50 border border-orange-200">
-                            <span class="text-orange-700 font-bold text-sm">Por Conciliar</span>
+                        <div class="px-3 py-2 rounded bg-amber-50 border border-amber-200">
+                            <span class="text-amber-500 font-bold text-sm">Por Conciliar</span>
                         </div>
 
                         @break
@@ -46,7 +46,7 @@
 
                     </div>
                 <div class="w-full flex text-sm">
-                    <div class="w-1/3 mr-1">
+                    <div class="w-1/3 mr-1 pr-1">
                         <p class="font-bold text-xs mb-1 text-slate-800">Concepto:</p>
                         <p class="text-gray-700">{{ $factura->concepto }}</p>
                     </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="w-1/3 mb-6">
                             <p class="font-bold text-xs mb-1 text-slate-800">Método de pago:</p>
-                            <p class="text-gray-700">{{ $factura->metodo_pago }}</p>
+                            <p class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</p>
                         </div>
                         <div class="w-1/3 mb-6">
                             <p class="font-bold text-xs mb-1 text-slate-800">Plataforma de pago:</p>

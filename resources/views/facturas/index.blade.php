@@ -32,18 +32,18 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos realizados</h2>
-                        <a href="#" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
+                        <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded border border-gray-200">
-                        <div class="w-max max-w-5xl">
+                        <div class="w-full">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
+                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th> --}}
+                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th> --}}
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                                 </tr>
@@ -56,8 +56,9 @@
                                 <th class="px-4 gap-3">
                                     <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturaR->id }}</span>
                                 </th>
-                                <td class="px-4 py-3 max-w-[150px]">
+                                <td class="px-4 py-3 max-w-[200px]">
                                     <span class="text-gray-700">{{ $facturaR->concepto }}</span>
+                                    <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Reporado el: {{ $facturaR->fecha_pago->format('d/m/Y') }}</p>
                                 </td>
                                 <td class="px-4 py-3">
                                     @switch($facturaR->status)
@@ -78,52 +79,39 @@
                                             Not found
                                     @endswitch
                                 </td>
-                                <td class="px-4 py-3">
+                                {{-- <td class="px-4 py-3">
                                     <div class="font-medium text-gray-700 text-xs">{{ $facturaR->fecha_pago->format('d/m/Y') }}</div>
-                                </td>
-                                <td class="px-4 py-3">
+                                </td> --}}
+                                {{-- <td class="px-4 py-3">
                                     <span class="text-gray-700">{{ Str::ucfirst($facturaR->metodo_pago) }}</span>
                                     <p>{{ $facturaR->plataforma_pago }}</p>
-                                </td>
+                                </td> --}}
                                 <td class="px-4 py-3">
                                     <span class="text-gray-700">{{ $facturaR->monto_pago }} {{ $facturaR->divisa }}</span>
                                     <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $facturaR->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="flex justify-end gap-4">
-                                    <a x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $facturaR ) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    </a>
+                                    <div class="flex justify-end relative gap-4" x-data="{ open: false }">
 
-                                    @if ($facturaR->status < 3)
+                                        <button @click="open = true"><span class="material-symbols-outlined">
+                                            more_vert
+                                            </span></button>
 
-                                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                                        <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="h-4 w-4"
-                                        x-tooltip="tooltip"
-                                        >
-                                        <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                        />
-                                        </svg>
-                                    </a>
-                                    @else
+                                        <ul x-show="open" @click.outside="open = false"
+                                        x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0 scale-95"
+                                        x-transition:enter-end="opacity-100 scale-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100 scale-100"
+                                        x-transition:leave-end="opacity-0 scale-95"
+                                        class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
+                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $facturaR) }}">Ver Factura</a></li>
+                                            @if ($facturaR->status < 3)
+                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="">Editar Factura</a></li>
+                                            @else
 
-                                    @endif
+                                            @endif
+                                        </ul>
 
                                     </div>
                                 </td>

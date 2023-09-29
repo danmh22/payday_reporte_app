@@ -14,7 +14,7 @@
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="w-full py-4">
                 @if (session('success'))
-                <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2" role="alert">
+                <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
                     {{ session('success') }}
                 </div>
                 @endif
@@ -39,20 +39,20 @@
                             <th class="px-4 gap-3">
                                 <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
                             </th>
-                            <td class="px-4 py-3 max-w-[120px]">
+                            <td class="px-4 py-3 max-w-[130px]">
 
                                 @php
                                     $currentUser = App\Models\User::findOrFail($factura->users_id);
                                 @endphp
 
-                                <span class="text-gray-700">{{ $currentUser->nombre_aliado }}</span>
-                                <p>{{ $currentUser->name }}</p>
+                                <span class="text-gray-500 font-bold">{{ $currentUser->nombre_aliado }}</span>
+                                <p class="mt-1">{{ $currentUser->name }}</p>
                             </td>
-                            <td class="px-4 py-3 max-w-[180px]">
+                            <td class="px-4 py-3 max-w-[200px]">
                                 <span class="text-gray-700">{{ $factura->concepto }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ $factura->monto_deudor }} USD</span>
+                                <span class="text-gray-500 font-bold">{{ $factura->monto_deudor }} <span class="ml-1">USD</span></span>
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">
@@ -70,7 +70,7 @@
                         </table>
                     </div>
                 </div>
-                {{ $lista_facturas_emitidas->links() }}
+                <div class="mt-2">{{ $lista_facturas_emitidas->links() }}</div>
             </div>
         </div>
     </main>

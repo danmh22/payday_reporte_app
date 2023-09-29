@@ -64,10 +64,10 @@
 
                 @else
 
-                    <div class="flex flex-wrap text-center justify-center items-center p-5">
-                        <div class="w-full">
-                            <div>
-                                <img src="public/images/facturas-pendientes.jpg" alt="">
+                    <div class="p-5">
+                        <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
+                            <div class="w-56 h-56 p-6 bg-white rounded-full overflow-hidden border border-gray-100 mb-2">
+                                <img src="{{ asset('img/facturas-pendientes.jpg') }}" alt="">
                             </div>
                             <h2 class="text-lg font-bold text-neutral-700">Nada nuevo por acá...</h2>
                             <p class="text-sm text-neutral-600">Estas al día con el pago de tus facturas</p>

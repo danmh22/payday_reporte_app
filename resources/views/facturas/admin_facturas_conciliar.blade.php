@@ -20,7 +20,6 @@
                                 <tr>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th> --}}
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
@@ -45,18 +44,18 @@
                                         $currentUser = App\Models\User::findOrFail($factura->users_id);
                                     @endphp
 
-                                    <span class="text-gray-700">{{ $currentUser->nombre_aliado }}</span>
+                                    <span class="text-gray-500 font-bold">{{ $currentUser->nombre_aliado }}</span>
                                     <p>{{ $factura->concepto }}</p>
                                 </td>
                                 {{-- <td class="px-4 py-3 max-w-[140px]">
                                     <span class="text-gray-700">{{ $factura->concepto }}</span>
                                 </td> --}}
                                 <td class="px-4 py-3">
-                                    <span class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</span>
+                                    <span class="text-gray-500 font-bold">{{ Str::ucfirst($factura->metodo_pago) }}</span>
                                     <p>{{ $factura->plataforma_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <span class="text-gray-700">{{ $factura->monto_pago }} {{ $factura->divisa }}</span>
+                                    <span class="text-gray-500 font-bold">{{ $factura->monto_pago }} {{ $factura->divisa }}</span>
                                     <p class="truncate text-xxs leading-5 text-gray-500">Ref: {{ $factura->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
@@ -81,7 +80,7 @@
                             </table>
                     </div>
                 </div>
-                {{ $lista_facturas_por_conciliar->links() }}
+                <div class="mt-2">{{ $lista_facturas_por_conciliar->links() }}</div>
             </div>
         </div>
     </main>
