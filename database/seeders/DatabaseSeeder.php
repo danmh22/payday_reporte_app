@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
         User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'testing@mail.com',
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'nombre_aliado' => 'System Admin',
             'role' => '1',
             'status' => '1',
-        ]);
+        ])->assignRole('Admin');
         User::factory(10)->create();
         Factura::factory(15)->create();
         Factura::factory(10)->create([

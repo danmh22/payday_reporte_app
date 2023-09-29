@@ -32,18 +32,18 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(FacturasController::class)->group(function () {
     Route::get('/',                        'index')->name('dashboard-user');
-    Route::get('/dashboard-admin',         'indexAdmin')->name('dashboard-admin');
+    Route::get('/facturas-pendientes',     'facturasPendientes')->name('facturas-pendientes');
     Route::get('/reportar-pago/{factura}', 'showReportarPago')->name('reportar-pago');
     Route::put('/reportar-pago/{factura}', 'updateReportarPago')->name('update-reporte');
+    Route::get('/historial',               'historial')->name('historial');
+    Route::get('/dashboard-admin',         'indexAdmin')->name('dashboard-admin');
     Route::get('/cargar-facturas',         'cargarFacturas')->name('cargar-facturas');
     Route::post('/cargar-facturas',        'importarFacturas')->name('importar-facturas');
-    Route::get('/facturas-pendientes',     'facturasPendientes')->name('facturas-pendientes');
     Route::get('/facturas-emitidas',       'facturasEmitidas')->name('facturas-emitidas');
-    Route::get('/facturas-conciliadas',    'facturasConciliadas')->name('facturas-conciliadas');
     Route::get('/facturas-conciliar',      'facturasPorConciliar')->name('facturas-conciliar');
     Route::patch('/facturas-conciliar',    'conciliarPago')->name('conciliar-pago');
+    Route::get('/facturas-conciliadas',    'facturasConciliadas')->name('facturas-conciliadas');
     Route::get('/factura/{factura}',       'factura')->name('factura');
-    Route::get('/historial',               'historial')->name('historial');
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){
