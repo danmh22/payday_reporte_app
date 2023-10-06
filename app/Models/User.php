@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Factura;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -53,7 +53,8 @@ class User extends Authenticatable
 
     // Relación con facturas
 
-    public function facturas(){
-        return $this->hasMany(Factura::class);
+    public function aliados() : HasOne
+    {
+        return $this->hasOne(Aliado::class);
     }
 }

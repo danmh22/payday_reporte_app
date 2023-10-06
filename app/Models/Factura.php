@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Factura extends Model
 {
@@ -12,18 +14,11 @@ class Factura extends Model
 
 
     protected $fillable = [
-        'users_id',
+        'aliados_id',
         'concepto',
         'monto_deudor',
-        'nombre_titular',
-        'tipo_documento',
-        'num_documento',
-        'referencia_pago',
-        'divisa',
-        'metodo_pago',
-        'plataforma_pago',
-        'monto_pago',
         'status',
+        'categoria',
     ];
     protected $hidden = [
 
@@ -32,9 +27,17 @@ class Factura extends Model
         'fecha_pago' => 'datetime'
     ];
 
-    // Relación con usuarios
+    // Relación con aliados
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function aliados(): BelongsTo
+    {
+        return $this->belongsTo(Aliado::class);
+    }
+
+    // Relación con pagos
+
+    public function pagos() : HasMany
+    {
+        return $this->hasMany(Pago::class);
     }
 }

@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Aliado;
 use App\Models\User;
 use App\Models\Factura;
+use App\Models\Pago;
 use Database\Factories\NuevaFacturaFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -27,22 +29,24 @@ class DatabaseSeeder extends Seeder
             'codigo_aliado' => 'cod-999',
             'nombre_aliado' => 'System Admin',
             'role' => '1',
-            'status' => '1',
         ])->assignRole('Admin');
-        User::factory(10)->create();
-        Factura::factory(15)->create();
-        Factura::factory(10)->create([
+        Aliado::factory()->create([
+            'codigo_aliado' => 'cod-999',
+            'nombre_aliado' => 'System Admin',
+            'role' => '1',
             'status' => '1',
-            'nombre_titular' => null,
-            'tipo_documento' => null,
-            'num_documento' => null,
-            'referencia_pago' => null,
-            'divisa' => null,
-            'metodo_pago' => null,
-            'plataforma_pago' => null,
-            'monto_pago' => null,
-            'fecha_pago' => null,
+            'users_id' => 1,
         ]);
+        User::factory(10)
+            ->has(Aliado::factory()
+                    ->has(Factura::factory()->count(4))
+                    ->count(1))
+            ->create();
+        Factura::factory(15)
+            ->has(Pago::factory()->count(2))
+            ->create([
+                'status' => '2',
+            ]);
         Factura::factory(10)->create([
             'status' => '3',
         ]);

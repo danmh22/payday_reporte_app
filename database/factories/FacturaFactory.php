@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Aliado;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,21 +18,13 @@ class FacturaFactory extends Factory
     public function definition(): array
     {
         $monto = fake()->numberBetween('200', '400');
-        $users = User::pluck('id')->toArray();
+        $aliados = Aliado::pluck('id')->toArray();
         return [
-            'users_id' => fake()->randomElement($users),
+            'aliados_id' => fake()->randomElement($aliados),
             'concepto' => fake()->sentence(4),
             'monto_deudor' => $monto,
-            'status' => '2',
-            'nombre_titular' => fake()->firstName() . ' ' . fake()->lastName(),
-            'tipo_documento' => fake()->randomElement(['V', 'J', 'P']),
-            'num_documento' => fake()->unique()->numberBetween('3000000', '50000000'),
-            'referencia_pago' => fake()->unique()->numerify('1020######'),
-            'divisa' => fake()->randomElement(['VES', 'USD']),
-            'metodo_pago' => fake()->randomElement(['Transferencia', 'Pago Móvil', 'Efectivo', 'Depósito']),
-            'plataforma_pago' => fake()->words(2, true),
-            'monto_pago' => $monto,
-            'fecha_pago' => fake()->dateTime(),
+            'status' => '1',
+            'categoria' => fake()->randomElement(['Mensualidad', 'Gastos Generales', 'Otros']),
         ];
     }
 }
