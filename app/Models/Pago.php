@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Factura;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,17 +21,16 @@ class Pago extends Model
         'plataforma_pago',
         'monto_pago',
         'monto_equivalente',
+        'status',
     ];
 
+    protected $casts = [
+        'fecha_pago' => 'datetime'
+    ];
 
-    // Relación con aliados y facturas
+    // Relación con facturas
 
-    public function aliado() : BelongsTo
-    {
-        return $this->belongsTo(Aliado::class);
-    }
-
-    public function facturas() : BelongsTo
+    public function factura() : BelongsTo
     {
         return $this->belongsTo(Factura::class);
     }

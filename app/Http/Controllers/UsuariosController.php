@@ -22,13 +22,6 @@ class UsuariosController extends Controller
         $findUsuario = User::findOrFail($request->id);
         $findUsuario->status = $request->status;
 
-        // if ($findUsuario->status = 0) {
-        //     $findUsuario->status = $request->status;
-        // } else {
-        //     $findUsuario->status = $request->status;
-        // }
-
-
         $findUsuario->save();
 
         return redirect()->route('usuarios');

@@ -15,23 +15,23 @@
             <div class="sm:w-3/5 py-4 pr-4 w-full">
                 <div class="flex mb-4">
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
-                        <span class="bg-green-500 text-white rounded p-1 font-extrabold text-xl mr-2 w-9 h-9 text-center">{{ $total_facturas_conciliadas }}</span>
-                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas conciliadas</p>
+                        <span class="bg-blue-700 text-white rounded p-1 font-extrabold text-xl mr-2 w-9 h-9 text-center">{{ $total_facturas_pendientes }}</span>
+                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas pendientes</p>
                     </div>
 
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
                         <span class="bg-amber-400 text-white rounded p-1 font-extrabold text-xl mr-2 w-9 h-9 text-center">{{ $total_facturas_reportadas }}</span>
-                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas por conciliar</p>
+                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas abonadas</p>
                     </div>
 
                     <div class="w-2/6 flex items-center justify-start p-3 bg-white border rounded">
-                        <span class="bg-blue-700 text-white rounded p-1 font-extrabold text-xl mr-2 w-9 h-9 text-center">{{ $total_facturas_pendientes }}</span>
-                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas pendientes</p>
+                        <span class="bg-green-500 text-white rounded p-1 font-extrabold text-xl mr-2 w-9 h-9 text-center">{{ $total_facturas_conciliadas }}</span>
+                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas conciliadas</p>
                     </div>
                 </div>
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos realizados</h2>
+                        <h2 class="text-l font-bold mb-0 text-gray-800">Últimas facturas recibidas</h2>
                         <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded border border-gray-200">
@@ -41,10 +41,8 @@
                                 <tr>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
-                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th> --}}
-                                    {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th> --}}
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
+                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                                 </tr>
                             </thead>
@@ -54,19 +52,28 @@
 
                                 <tr class="hover:bg-gray-50">
                                 <th class="px-4 gap-3">
-                                    <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturaR->id }}</span>
+                                    <span class="flex justify-center items-center p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $facturaR->id }}</span>
                                 </th>
                                 <td class="px-4 py-3 max-w-[200px]">
                                     <span class="text-gray-700">{{ $facturaR->concepto }}</span>
-                                    <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Reporado el: {{ $facturaR->fecha_pago->format('d/m/Y') }}</p>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="text-gray-700">${{ $facturaR->monto_deudor }}</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     @switch($facturaR->status)
-                                        @case(2)
+                                        @case(1)
                                             <span
                                             class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
                                             <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
-                                            Por conciliar
+                                            Pendiente
+                                            </span>
+                                        @break
+                                        @case(2)
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xxs font-semibold text-blue-600">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                                            Abonadas
                                             </span>
                                             @break
                                         @case(3)
@@ -78,17 +85,6 @@
                                         @default
                                             Not found
                                     @endswitch
-                                </td>
-                                {{-- <td class="px-4 py-3">
-                                    <div class="font-medium text-gray-700 text-xs">{{ $facturaR->fecha_pago->format('d/m/Y') }}</div>
-                                </td> --}}
-                                {{-- <td class="px-4 py-3">
-                                    <span class="text-gray-700">{{ Str::ucfirst($facturaR->metodo_pago) }}</span>
-                                    <p>{{ $facturaR->plataforma_pago }}</p>
-                                </td> --}}
-                                <td class="px-4 py-3">
-                                    <span class="text-gray-700">{{ $facturaR->monto_pago }} {{ $facturaR->divisa }}</span>
-                                    <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $facturaR->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex justify-end relative gap-4" x-data="{ open: false }">

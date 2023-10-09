@@ -16,7 +16,7 @@
                 <div class="w-full flex justify-between items-start mb-8">
                     <div>
                         <h2 class="text-xl font-bold text-slate-700">Factura - {{ $factura->id }}</h2>
-                        <span class="text-xs font-bold text-gray-500">Nombre aliado comercial</span>
+                        <span class="text-xs font-bold text-gray-500">{{ $factura->aliado->nombre_aliado }}</span>
                     </div>
                     @switch($factura->status)
                         @case(1)
@@ -29,14 +29,14 @@
                         @case(2)
 
                         <div class="px-3 py-2 rounded bg-amber-50 border border-amber-200">
-                            <span class="text-amber-500 font-bold text-sm">Por Conciliar</span>
+                            <span class="text-amber-500 font-bold text-sm">Abonada</span>
                         </div>
 
                         @break
                         @case(3)
 
                         <div class="px-3 py-2 rounded bg-green-50 border border-green-200">
-                            <span class="text-green-700 font-bold text-sm">Conciliado</span>
+                            <span class="text-green-700 font-bold text-sm">Conciliada</span>
                         </div>
 
                         @break
@@ -45,88 +45,129 @@
                     @endswitch
 
                     </div>
-                <div class="w-full flex text-sm">
-                    <div class="w-1/3 mr-1 pr-1">
-                        <p class="font-bold text-xs mb-1 text-slate-800">Concepto:</p>
+                <div class="w-full flex flex-wrap text-sm font-bold">
+                    <div class="w-2/5 mb-5 pr-1">
+                        <p class="text-xs mb-1 text-slate-400">Concepto:</p>
                         <p class="text-gray-700">{{ $factura->concepto }}</p>
                     </div>
-                    <div class="w-1/3 mr-1">
-                        <p class="font-bold text-xs mb-1 text-slate-800">Monto a pagar:</p>
+                    <div class="w-1/5 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Monto a pagar:</p>
                         <p class="text-gray-700">{{ $factura->monto_deudor }} USD</p>
                     </div>
-                    <div class="w-1/3 mr-1">
-                        <p class="font-bold text-xs mb-1 text-slate-800">Fecha de emisión:</p>
+                    <div class="w-1/5 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Categoria:</p>
+                        <p class="text-gray-700">{{ $factura->categoria }}</p>
+                    </div>
+                    <div class="w-1/5 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Fecha de emisión:</p>
                         <p class="text-gray-700">{{ $factura->created_at->format('d/m/Y') }}</p>
+                    </div>
+                    <div class="w-1/3">
+                        <p class="text-xs mb-1 text-slate-400">Monto conciliado:</p>
+                        <p class="text-gray-700">{{ $monto_pagos_abonados }} USD</p>
+                    </div>
+                    <div class="w-1/3">
+                        <p class="text-xs mb-1 text-slate-400">Monto restante:</p>
+                        <p class="text-gray-700">{{ $monto_restante }} USD</p>
+                    </div>
+                    <div class="w-1/3 pr-4">
+                        <p class="text-xs mb-3 text-slate-400">Progreso:</p>
+                        <div class="overflow-hidden h-1 text-xs flex rounded bg-green-50">
+                            <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
+                        </div>
                     </div>
                 </div>
 
-                @if ($factura->status > 1)
-                    <hr class="border-b border-gray-100 my-8 w-full">
-                    <h3 class="text-sm font-bold text-slate-800 mb-6">Datos del reporte de pago</h3>
-                    <div class="w-full flex flex-wrap text-sm">
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Fecha de reporte:</p>
-                            <p class="text-gray-700">{{ $factura->updated_at->format('d/m/Y') }}</p>
+                <h3 class="text-sm mt-8 font-bold text-slate-800 mb-4">Resumen de pagos realizados:</h3>
+                <div class="w-full mb-4 border-gray-100 bg-gray-50 p-4">
+                    @foreach ($factura->pagos as $pago)
+                        <div class="w-full flex flex-wrap items-center text-sm border border-gray-100 bg-white rounded mb-1">
+                            <div class="w-3/6 px-4 py-4">
+                                @switch( $pago->status )
+                                    @case(1)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                                        Por conciliar
+                                        </span>
+                                        @break
+                                    @case(2)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                        Conciliado
+                                        </span>
+
+                                        @break
+                                    @default
+                                        Not found
+                                @endswitch
+                                <p class="text-gray-700 font-bold my-2 flex justify-start items-center">{{ Str::ucfirst($pago->metodo_pago) }} <span class="material-symbols-outlined mx-2">trending_flat</span> {{ Str::ucfirst($pago->plataforma_pago) }}</p>
+                                <p class="text-gray-400 font-bold text-xs">Ref: {{ $pago->referencia_pago }}</p>
+                            </div>
+                            <div class="w-1/6 px-4 py-4 gap-3">
+                                <p class="font-bold flex justify-center items-center text-green-500 pr-4 text-lg">{{ $pago->monto_equivalente }} <span class="text-green-600 text-xxs ml-2">USD</span></p>
+                            </div>
+                            <div class="w-1/6 px-4 py-4 gap-3">
+                                <p class="text-gray-400 font-bold text-xs mb-2">Reportado el:</p>
+                                <p class="text-gray-700 font-bold">{{ $pago->fecha_pago->format('d/m/Y') }}</p>
+                            </div>
+
+                            <div class="w-1/6 px-4 py-4 gap-3">
+                                @if (Auth::user()->role == 1)
+                                    @if ($pago->status == 1)
+                                        <form action="{{ route('conciliar-pago') }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <input type="hidden" name="id" value="{{ $pago->id }}">
+                                            <button class="bg-blue-600 px-4 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Conciliar</button>
+                                        </form>
+                                    @else
+
+                                    @endif
+                                @endif
+                            </div>
+                            {{-- <div class="w-1/3 mb-6"><p class="font-bold text-xs mb-1 text-slate-800">Fecha de reporte:</p>
+                                <p class="text-gray-700">{{ $pago->updated_at->format('d/m/Y') }}</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Plataforma de pago:</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Nombre del títular:</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Documento de identidad:</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Método de pago:</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Fecha del pago:</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Monto:</p>
+                                <p class="text-gray-700">{{ $pago->monto_pago }} {{ $pago->divisa }}</p>
+                                <p class="font-bold text-xs mb-1 text-slate-800">Referencia:</p>
+                            </div>
+                            <div class="w-1/3 mb-6">
+                            </div>
+                            <div class="w-1/3 mb-6">
+                            </div>
+                            <div class="w-1/3 mb-6">
+                            <hr class="border-b border-gray-100 my-8 mb-4 w-full">
+                            </div> --}}
                         </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Nombre del títular:</p>
-                            <p class="text-gray-700">{{ $factura->nombre_titular }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Documento de identidad:</p>
-                            <p class="text-gray-700">{{ $factura->tipo_documento }}-{{ $factura->num_documento }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Método de pago:</p>
-                            <p class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Plataforma de pago:</p>
-                            <p class="text-gray-700">{{ $factura->plataforma_pago }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Monto:</p>
-                            <p class="text-gray-700">{{ $factura->monto_pago }} {{ $factura->divisa }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Fecha del pago:</p>
-                            <p class="text-gray-700">{{ $factura->fecha_pago->format('d/m/Y') }}</p>
-                        </div>
-                        <div class="w-1/3 mb-6">
-                            <p class="font-bold text-xs mb-1 text-slate-800">Referencia:</p>
-                            <p class="text-gray-700">{{ $factura->referencia_pago }}</p>
-                        </div>
+                        
+                    @endforeach
                     </div>
 
-                    @else
-
-                    @endif
-
-                    <hr class="border-b border-gray-100 my-8 mb-4 w-full">
                     <div class="w-full mt-2 flex justify-end items-center">
-                        @if (Auth::user()->role == 1)
-                            @if ($factura->status == 2)
-                                <form action="{{ route('conciliar-pago') }}" method="POST">
-                                    @csrf
-                                    @method('patch')
-                                    <input type="hidden" name="id" value="{{ $factura->id }}">
-                                    <button class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Conciliar Pago</button>
-                                </form>
-                            @else
-
-                            @endif
-                        @else
-                            @if ($factura->status == 1)
+                        
+                        @if (Auth::user()->role == 0)
+                            @if ($factura->status <= 3)
+                                @if ($monto_pagos_totales >= $factura->monto_deudor)
+                                
+                                @else    
                                 <a href="{{ route('reportar-pago', $factura) }}" class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Reportar Pago</a>
+                                @endif
                             @else
 
                             @endif
                         @endif
 
-                        <form action="" method="post">
+                        {{-- <form action="" method="post">
                             @csrf
                             <button class="bg-red-600 px-6 py-2 text-sm rounded text-white ml-4 hover:bg-red-700" type="submit">Reportar Error</button>
-                        </form>
+                        </form> --}}
                     </div>
             </div>
         </div>

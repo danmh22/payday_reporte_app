@@ -23,6 +23,9 @@ return new class extends Migration
             $table->float('monto_pago', 8, 2);
             $table->float('monto_equivalente', 8, 2);
             $table->date('fecha_pago');
+            $table->enum('status', [1,2,3])->default(1);
+            $table->unsignedBigInteger('factura_id');
+            $table->foreign('factura_id')->references('id')->on('factura');
             $table->timestamps();
         });
     }

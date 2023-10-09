@@ -25,8 +25,9 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
+                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Categoría</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto a pagar</th>
+                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Status</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de creado</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                             </tr>
@@ -37,22 +38,66 @@
 
                             <tr class="hover:bg-gray-50">
                             <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
+                                <span class="flex justify-center items-center p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
                             </th>
                             <td class="px-4 py-3 max-w-[130px]">
 
-                                @php
-                                    $currentUser = App\Models\User::findOrFail($factura->users_id);
-                                @endphp
-
-                                <span class="text-gray-500 font-bold">{{ $currentUser->nombre_aliado }}</span>
-                                <p class="mt-1">{{ $currentUser->name }}</p>
-                            </td>
-                            <td class="px-4 py-3 max-w-[200px]">
-                                <span class="text-gray-700">{{ $factura->concepto }}</span>
+                                <p class="text-gray-700 font-bold">{{ $factura->aliado->nombre_aliado }}</p>
+                                <p class="text-gray-400 truncate font-bold leading-5">{{ $factura->concepto }}</p>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-500 font-bold">{{ $factura->monto_deudor }} <span class="ml-1">USD</span></span>
+                                @switch($factura->categoria)
+                                    @case('Gastos Generales')
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded text-xs bg-violet-50 px-2 py-1 font-semibold text-violet-600">
+                                        Gastos Generales
+                                        </span>
+                                        @break
+                                    @case('Mensualidad')
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded text-xs bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
+                                        Mensualidad
+                                        </span>
+                                        @break
+                                    @case('Otros')
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded text-xs bg-amber-50 px-2 py-1 font-semibold text-amber-600">
+                                        Otros
+                                        </span>
+                                        @break
+                                    @default
+                                        Not found
+                                @endswitch
+
+                            </td>
+                            <td class="px-4 py-3">
+                                <p class="font-bold flex justify-start items-center text-blue-500 pr-4 text-base">{{ $factura->monto_deudor }} <span class="text-blue-600 text-xxs ml-2">USD</span></p>
+                            </td>
+                            <td class="px-4 py-3">
+                                @switch($factura->status)
+                                    @case(1)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                                        Pendiente
+                                        </span>
+                                    @break
+                                    @case(2)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xxs font-semibold text-blue-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                                        Abonadas
+                                        </span>
+                                        @break
+                                    @case(3)
+                                        <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                        Conciliado
+                                        </span>
+                                        @break
+                                    @default
+                                        Not found
+                                @endswitch
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">

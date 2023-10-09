@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
+use App\Models\Aliado;
+use App\Models\Pago;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -23,13 +24,10 @@ class Factura extends Model
     protected $hidden = [
 
     ];
-    protected $casts = [
-        'fecha_pago' => 'datetime'
-    ];
 
     // Relación con aliados
 
-    public function aliados(): BelongsTo
+    public function aliado(): BelongsTo
     {
         return $this->belongsTo(Aliado::class);
     }

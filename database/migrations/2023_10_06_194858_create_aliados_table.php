@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('codigo_aliado')->unique();
             $table->string('nombre_aliado');
             $table->integer('status')->default('1');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user');
             $table->timestamps();
         });
     }

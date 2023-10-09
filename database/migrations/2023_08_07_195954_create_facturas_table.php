@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('aliados_id');
-            $table->foreign('aliados_id')->references('id')->on('aliados');
+            $table->unsignedBigInteger('aliado_id');
+            $table->foreign('aliado_id')->references('id')->on('aliado');
             $table->text('concepto');
             $table->float('monto_deudor', 8, 2);
             $table->enum('status', [1,2,3])->default(1);

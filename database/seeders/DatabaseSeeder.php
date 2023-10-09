@@ -8,7 +8,6 @@ use App\Models\Aliado;
 use App\Models\User;
 use App\Models\Factura;
 use App\Models\Pago;
-use Database\Factories\NuevaFacturaFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -20,36 +19,40 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(RoleSeeder::class);
-        User::factory()->create([
-            'name' => 'Test Admin',
-            'email' => 'testing@mail.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-            'codigo_aliado' => 'cod-999',
-            'nombre_aliado' => 'System Admin',
-            'role' => '1',
-        ])->assignRole('Admin');
-        Aliado::factory()->create([
-            'codigo_aliado' => 'cod-999',
-            'nombre_aliado' => 'System Admin',
-            'role' => '1',
-            'status' => '1',
-            'users_id' => 1,
-        ]);
-        User::factory(10)
-            ->has(Aliado::factory()
-                    ->has(Factura::factory()->count(4))
-                    ->count(1))
-            ->create();
-        Factura::factory(15)
-            ->has(Pago::factory()->count(2))
-            ->create([
-                'status' => '2',
-            ]);
-        Factura::factory(10)->create([
-            'status' => '3',
-        ]);
+        $admin = User::factory()->create([
+                    'name' => 'Test Admin',
+                    'email' => 'testing@mail.com',
+                    'email_verified_at' => now(),
+                    'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                    'remember_token' => Str::random(10),
+                    'role' => '1',
+                ])->assignRole('Admin');
+                Aliado::factory()
+                    ->count(1)
+                    ->for($admin)
+                    ->create([
+                    'codigo_aliado' => 'cod-999',
+                    'nombre_aliado' => 'System Admin',
+                    'status' => '1',
+                ]);
+
+        
+        for ($i=0; $i < 5; $i++) { 
+            $currentUser = User::factory()->create()->assignRole('Aliado');
+            // Se asigna un aliado al usuario
+            $aliado = Aliado::factory()->count(1)->for($currentUser)->create();
+            // Se crean facturas con diferentes estatus
+            $facturas_creadas = Factura::factory()->count(4)->for($aliado[0])->create();
+            $facturas_abonadas = Factura::factory()->count(6)->for($aliado[0])
+                ->create(['status' => '2']);
+            foreach ($facturas_abonadas as $factura) {
+                Pago::factory()->count(2)->for($factura)->create();
+                Pago::factory()->count(2)->for($factura)
+                ->create(['status' => '1']);
+            }
+            
+        }
+ 
 
     }
 }

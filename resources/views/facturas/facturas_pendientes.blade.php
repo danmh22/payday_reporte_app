@@ -12,7 +12,7 @@
 
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
-            <div class="w-3/4 py-4">
+            <div class="w-full py-4">
                 @if ($total_facturas_pendientes > 0)
 
                     <div class="overflow-x-auto rounded border border-gray-200">
@@ -20,8 +20,9 @@
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
+                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
+                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Categoria</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto a pagar</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de creado</th>
                                     <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
@@ -31,14 +32,43 @@
                                 @foreach ($facturas_pendientes as $facturasP)
 
                                 <tr class="hover:bg-gray-50">
-                                    <th class="px-4 gap-3">
-                                    <span class="flex justify-center items-center p-2 p-2 rounded bg-orange-100 text-orange-600 w-8 h-8">{{ $facturasP->id }}</span>
-                                </th>
+                                <td class="px-4 py-3">
+                                    <div class="w-8 h-8 text-blue-500"><span class="material-symbols-outlined">receipt_long</span></div>
+                                </td>
                                 <td class="px-4 py-3 max-w-[150px]">
-                                    <span class="text-gray-700">{{ $facturasP->concepto }}</span>
+                                    <span class="text-gray-600 font-bold">{{ $facturasP->concepto }}</span>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <span class="text-gray-700">{{ $facturasP->monto_deudor }} USD</span>
+                                    @switch( $facturasP->categoria )
+                                        @case('Gastos Generales')
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded bg-violet-50 px-2 py-1 font-semibold text-violet-600">
+                                            
+                                            Gastos Generales
+                                            </span>
+                                            @break
+                                        @case('Mensualidad')
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
+                                            
+                                            Mensualidad
+                                            </span>
+
+                                            @break
+                                        @case('Otros')
+                                                <span
+                                                class="inline-flex items-center gap-1 rounded bg-amber-50 px-2 py-1 font-semibold text-amber-600">
+                                                
+                                                Otros
+                                                </span>
+    
+                                                @break
+                                        @default
+                                            Not found
+                                    @endswitch
+                                </td>
+                                <td class="px-4 py-3">
+                                    <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturasP->monto_deudor }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
                                 </td>
                                 <td class="px-4 py-3 font-normal text-gray-900">
                                     <div class="text-xs">

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use App\Models\User;
+use App\Models\Factura;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +16,19 @@ class Aliado extends Model
         'codigo_aliado',
         'nombre_aliado',
         'status',
-        'users_id',
+        'user_id',
     ];
 
 
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Relación con facturas
+
+    public function facturas() : HasMany
+    {
+        return $this->hasMany(Factura::class);
     }
 }

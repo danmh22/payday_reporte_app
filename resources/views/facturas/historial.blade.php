@@ -21,86 +21,84 @@
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
+                                <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
+                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Detalle</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
+                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha</th>
                                 <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
 
-                            @foreach ($facturas_reportadas as $factura)
+                            @foreach ($pagos_realizados as $pago)
+                                
+                                <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3">
+                                    <div class="w-8 h-8 text-blue-500"><span class="material-symbols-outlined">payments</span></div>
+                                </td>
+                                <td class="px-4 py-3 max-w-[200px]">
+                                    <p class="text-gray-700 font-bold mb-1">{{ $pago->factura->concepto }}</p>
+                                    <span class="text-gray-600">Pago realizado por: {{ $pago->nombre_titular }}</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    @switch( $pago->status )
+                                        @case(1)
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 font-semibold text-amber-600">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                                            Por conciliar
+                                            </span>
+                                            @break
+                                        @case(2)
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 font-semibold text-green-600">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                            Conciliadas
+                                            </span>
 
-                            <tr class="hover:bg-gray-50">
-                            <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
-                            </th>
-                            <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ $factura->concepto }}</span>
-                            </td>
-                            <td class="px-4 py-3">
-                                @switch( $factura->status )
-                                    @case(2)
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
-                                        Por conciliar
-                                        </span>
-                                        @break
-                                    @case(3)
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                                        Conciliadas
-                                        </span>
+                                            @break
+                                        @default
+                                            Not found
+                                    @endswitch
+                                </td>
+                                <td class="px-4 py-3">
+                                    <p class="text-gray-700 font-bold mb-1">{{ Str::ucfirst($pago->metodo_pago) }}</p>
+                                    <span class="text-gray-600">{{ Str::ucfirst($pago->plataforma_pago) }}</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $pago->monto_equivalente }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <p class="text-gray-700">{{ $pago->fecha_pago->format('d-m-Y') }}</p>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex justify-end relative gap-4" x-data="{ open: false }">
 
-                                        @break
-                                    @default
-                                        Not found
-                                @endswitch
-                            </td>
-                            <td class="px-4 py-3 font-normal text-gray-900">
-                                <div class="text-xs">
-                                    <div class="font-medium text-gray-700">{{ $factura->fecha_pago->format('d/m/Y') }}</div>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ Str::ucfirst($factura->metodo_pago) }}</span>
-                                <p>{{ $factura->plataforma_pago }}</p>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span class="text-gray-700">{{ $factura->monto_pago }} {{ $factura->divisa }}</span>
-                                <p class="mt-1 truncate text-xxs leading-5 text-gray-500">Ref: {{ $factura->referencia_pago }}</p>
-                            </td>
-                            <td class="px-4 py-3">
-                                <div class="flex justify-end relative gap-4" x-data="{ open: false }">
+                                        <button @click="open = true"><span class="material-symbols-outlined">
+                                            more_vert
+                                            </span></button>
 
-                                    <button @click="open = true"><span class="material-symbols-outlined">
-                                        more_vert
-                                        </span></button>
+                                        <ul x-show="open" @click.outside="open = false"
+                                        x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0 scale-95"
+                                        x-transition:enter-end="opacity-100 scale-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100 scale-100"
+                                        x-transition:leave-end="opacity-0 scale-95"
+                                        class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
+                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $pago->factura) }}">Ver Factura</a></li>
+                                            @if ($pago->factura->status < 3)
+                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="">Editar Factura</a></li>
+                                            @else
 
-                                    <ul x-show="open" @click.outside="open = false"
-                                    x-transition:enter="transition ease-out duration-200"
-                                    x-transition:enter-start="opacity-0 scale-95"
-                                    x-transition:enter-end="opacity-100 scale-100"
-                                    x-transition:leave="transition ease-in duration-75"
-                                    x-transition:leave-start="opacity-100 scale-100"
-                                    x-transition:leave-end="opacity-0 scale-95"
-                                    class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
-                                            <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $factura) }}">Ver Factura</a></li>
-                                        @if ($factura->status < 3)
-                                            <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="">Editar Factura</a></li>
-                                        @else
+                                            @endif
+                                        </ul>
 
-                                        @endif
-                                    </ul>
-
-                                </div>
-                            </td>
-                            </tr>
+                                    </div>
+                                </td>
+                                </tr>
 
                             @endforeach
 
@@ -109,7 +107,7 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    {{ $facturas_reportadas->links() }}
+                    {{ $pagos_realizados->links() }}
                 </div>
 
             @else

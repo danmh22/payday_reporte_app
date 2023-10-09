@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Aliado;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +17,7 @@ class FacturaFactory extends Factory
     public function definition(): array
     {
         $monto = fake()->numberBetween('200', '400');
-        $aliados = Aliado::pluck('id')->toArray();
         return [
-            'aliados_id' => fake()->randomElement($aliados),
             'concepto' => fake()->sentence(4),
             'monto_deudor' => $monto,
             'status' => '1',

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AliadosController;
 use App\Http\Controllers\FacturasController;
+use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
@@ -33,17 +35,20 @@ Route::middleware('auth')->group(function () {
 Route::controller(FacturasController::class)->group(function () {
     Route::get('/',                        'index')->name('dashboard-user');
     Route::get('/facturas-pendientes',     'facturasPendientes')->name('facturas-pendientes');
-    Route::get('/reportar-pago/{factura}', 'showReportarPago')->name('reportar-pago');
-    Route::put('/reportar-pago/{factura}', 'updateReportarPago')->name('update-reporte');
     Route::get('/historial',               'historial')->name('historial');
     Route::get('/dashboard-admin',         'indexAdmin')->name('dashboard-admin');
     Route::get('/cargar-facturas',         'cargarFacturas')->name('cargar-facturas');
     Route::post('/cargar-facturas',        'importarFacturas')->name('importar-facturas');
     Route::get('/facturas-emitidas',       'facturasEmitidas')->name('facturas-emitidas');
     Route::get('/facturas-conciliar',      'facturasPorConciliar')->name('facturas-conciliar');
-    Route::patch('/facturas-conciliar',    'conciliarPago')->name('conciliar-pago');
     Route::get('/facturas-conciliadas',    'facturasConciliadas')->name('facturas-conciliadas');
-    Route::get('/factura/{factura}',       'factura')->name('factura');
+    Route::get('/factura/{factura}',       'show')->name('factura');
+})->middleware(['auth', 'verified']);
+
+Route::controller(PagosController::class)->group(function (){
+    Route::get('/facturas/{factura}/pagos/reportar', 'create')->name('reportar-pago');
+    Route::post('/facturas/{factura}/pagos',          'store')->name('guardar-pago');
+    Route::patch('/pagos',                    'conciliarPago')->name('conciliar-pago');
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){
@@ -51,5 +56,9 @@ Route::controller(UsuariosController::class)->group(function(){
     Route::patch('/usuarios', 'cambiarStatus')->name('usuario-status');
 })->middleware(['auth', 'verified']);
 
+Route::controller(AliadosController::class)->group(function(){
+    Route::get('/aliados',    'index')->name('aliados');
+    Route::patch('/aliados',  'cambiarStatus')->name('aliado-status');
+})->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -15,12 +15,12 @@
             <div class="sm:w-4/6 py-4 pr-4 w-full">
                 <div class="flex mb-4">
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
-                        <span class="bg-green-500 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_facturas_conciliadas }}</span>
+                        <span class="bg-green-500 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_pagos_conciliados }}</span>
                         <p class="mb-0 text-xs font-bold text-gray-700">Facturas conciliadas</p>
                     </div>
 
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
-                        <span class="bg-amber-400 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_facturas_por_conciliar }}</span>
+                        <span class="bg-amber-400 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_pagos_por_conciliar }}</span>
                         <p class="mb-0 text-xs font-bold text-gray-700">Facturas por conciliar</p>
                     </div>
 
@@ -39,64 +39,58 @@
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Aliado Comercial</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Método de pago</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha de reporte</th>
-                                    <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
+                                    <th scope="col" class="pr-4 py-3 font-bold text-gray-500">Resumen</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Categoria</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Monto</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Fecha de reporte</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
 
-                                @foreach ($lista_facturas_por_conciliar as $facturasC)
+                                @foreach ($lista_pagos_por_conciliar as $pagoC)
 
                                 <tr class="hover:bg-gray-50">
-                                <th class="px-4 gap-3">
-                                    <span class="flex justify-center items-center font-bold p-2 p-2 rounded bg-blue-50 text-blue-600 w-8 h-8">{{ $facturasC->id }}</span>
+                                <th class="px-4">
+                                    <div class="w-8 h-8 text-blue-500"><span class="material-symbols-outlined">payments</span></div>
                                 </th>
-                                <td class="px-4 py-3 max-w-[180px]">
+                                <td class="pr-4 py-3 max-w-[180px]">
 
-                                    @php
-                                        $currentUser = App\Models\User::findOrFail($facturasC->users_id);
-                                    @endphp
-
-                                    <span class="text-gray-500 font-bold">{{ $currentUser->nombre_aliado }}</span>
-                                    <p class="truncate text-xxs leading-5 text-gray-500">{{ $facturasC->concepto }}</p>
-                                </td>
-                                {{-- <td class="px-4 py-3">
-                                    @switch($facturasC->status)
-                                        @case(1)
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xxs font-semibold text-red-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
-                                        Por pagar
-                                        </span>
-                                            @break
-                                        @case(2)
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xxs font-semibold text-amber-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
-                                        Por conciliar
-                                        </span>
-                                            @break
-                                        @case(3)
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                                        Pagado
-                                        </span>
-                                            @break
-                                        @default
-                                        Not found
-                                    @endswitch
-
-                                </td> --}}
-                                <td class="px-4 py-3 max-w-[150px]">
-                                    <span class="text-gray-500 font-bold">{{ $facturasC->monto_pago }} {{ $facturasC->divisa }}</span>
-                                    <p class="truncate text-xxs leading-5 text-gray-500">{{ Str::ucfirst($facturasC->metodo_pago) }}: {{ $facturasC->plataforma_pago }}</p>
+                                    <p class="truncate font-bold leading-5 text-gray-700 flex justify-start items-center">{{ Str::ucfirst($pagoC->metodo_pago) }} <span class="material-symbols-outlined mx-2 text-xs">trending_flat</span> {{ Str::ucfirst($pagoC->plataforma_pago) }}</p>
+                                    <span class="text-slate-500 my-2 font-bold">{{ $pagoC->factura->aliado->nombre_aliado }}</span>
+                                    <p class="truncate text-xxs leading-5 font-bold text-slate-500">Ref: {{ $pagoC->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="text-xs font-medium text-gray-600">{{ $facturasC->fecha_pago->format('d/m/Y') }}</div>
+                                    @switch($pagoC->factura->categoria)
+                                        @case('Gastos Generales')
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded text-xs bg-violet-50 px-2 py-1 font-semibold text-violet-600">
+                                            Gastos Generales
+                                            </span>
+                                            @break
+                                        @case('Mensualidad')
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded text-xs bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
+                                            Mensualidad
+                                            </span>
+                                            @break
+                                        @case('Otros')
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded text-xs bg-amber-50 px-2 py-1 font-semibold text-amber-600">
+                                            Otros
+                                            </span>
+                                            @break
+                                        @default
+                                            Not found
+                                    @endswitch
+
+                                </td>
+                                <td class="px-4 py-3 max-w-[150px]">
+                                    <p class="font-bold flex justify-center items-center text-green-500 pr-4 text-base">{{ $pagoC->monto_equivalente }} <span class="text-green-600 text-xxs ml-2">USD</span></p>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="text-xs font-medium text-gray-600">{{ $pagoC->fecha_pago->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex justify-end relative gap-4" x-data="{ open: false }">
@@ -113,13 +107,13 @@
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
                                         class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
-                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $facturasC) }}">Ver Factura</a></li>
-                                            @if ($facturasC->status < 3)
+                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $pagoC->factura->id) }}">Ver Factura</a></li>
+                                            @if ($pagoC->status = 1 )
                                                 <li>
                                                     <form action="{{ route('conciliar-pago') }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <input type="hidden" name="id" value="{{ $facturasC->id }}">
+                                                        <input type="hidden" name="id" value="{{ $pagoC->id }}">
                                                         <button class="p-2 text-left block w-full hover:text-blue-500 hover:bg-blue-50">Conciliar Pago</button>
                                                     </form>
                                                 </li>

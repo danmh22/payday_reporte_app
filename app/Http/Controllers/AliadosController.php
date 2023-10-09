@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aliado;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AliadosController extends Controller
@@ -12,7 +13,23 @@ class AliadosController extends Controller
      */
     public function index()
     {
-        //
+        return view('aliados.index', [
+            'aliados' => Aliado::latest()->paginate(7)
+        ]);
+    }
+
+    /**
+     * Función para cambiar status del aliado
+     */
+    public function cambiarStatus(Request $request)
+    {
+
+        $findAliado = Aliado::findOrFail($request->id);
+        $findAliado->status = $request->status;
+        $findAliado->save();
+
+        return redirect()->route('aliados');
+
     }
 
     /**

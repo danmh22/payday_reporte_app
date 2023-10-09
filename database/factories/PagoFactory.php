@@ -17,10 +17,8 @@ class PagoFactory extends Factory
      */
     public function definition(): array
     {
-        $monto = fake()->numberBetween('200', '400');
-        $facturas = Factura::pluck('id')->toArray();
+        $monto = fake()->numberBetween('150', '300');
         return [
-            'facturas_id' => fake()->randomElement($facturas),
             'nombre_titular' => fake()->firstName() . ' ' . fake()->lastName(),
             'tipo_documento' => fake()->randomElement(['V', 'J', 'P']),
             'num_documento' => fake()->unique()->numberBetween('3000000', '50000000'),
@@ -28,8 +26,8 @@ class PagoFactory extends Factory
             'divisa' => fake()->randomElement(['VES', 'USD']),
             'metodo_pago' => fake()->randomElement(['Transferencia', 'Pago Móvil', 'Efectivo', 'Depósito']),
             'plataforma_pago' => fake()->words(2, true),
-            'monto_pago' => $monto,
-            'monto_equivalente' => $monto,
+            'monto_pago' => $monto/4,
+            'monto_equivalente' => $monto/4,
             'status' => '2',
             'fecha_pago' => fake()->dateTime(),
         ];

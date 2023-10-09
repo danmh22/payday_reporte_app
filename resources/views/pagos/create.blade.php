@@ -51,12 +51,17 @@
                     </ul>
                 </div>
             @endif
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="rounded border bg-white p-4">
             <h2 class="text-lg font-bold text-gray-800">Reporta tu pago</h2>
             <p class="text-xs mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
-                <form action="{{ route('update-reporte', $factura) }}" method="post" class="flex flex-wrap">
+                <form action="{{ route('guardar-pago', $factura) }}" method="post" class="flex flex-wrap">
                     @csrf
-                    @method('PUT')
+                    @method('POST')
                     <div class="w-2/4 mb-4 pr-4">
                         <label for="nombre_titular" class="block text-xs font-medium leading-6 text-gray-900">Nombre Títular</label>
                         <div class="mt-2">
