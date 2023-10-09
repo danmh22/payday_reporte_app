@@ -30,9 +30,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'cargar-facturas'])->assignRole($role1);
         Permission::create(['name' => 'importar-facturas'])->assignRole($role1);
         Permission::create(['name' => 'facturas-emitidas'])->assignRole($role1);
-        Permission::create(['name' => 'facturas-conciliar'])->assignRole($role1);
+        Permission::create(['name' => 'pagos-conciliar'])->assignRole($role1);
         Permission::create(['name' => 'conciliar-pago'])->assignRole($role1);
-        Permission::create(['name' => 'facturas-conciliadas'])->assignRole($role1);
+        Permission::create(['name' => 'pagos-conciliados'])->assignRole($role1);
 
         // PERMISOS DE ADMINISTRADOR - USUARIOS
         Permission::create(['name' => 'usuarios'])->assignRole($role1);

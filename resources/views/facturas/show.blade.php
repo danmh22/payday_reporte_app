@@ -13,6 +13,11 @@
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="flex flex-wrap w-3/4 py-6 px-8 rounded border border-gray-200 bg-white">
+                @if (session('success'))
+                <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <div class="w-full flex justify-between items-start mb-8">
                     <div>
                         <h2 class="text-xl font-bold text-slate-700">Factura - {{ $factura->id }}</h2>
@@ -71,8 +76,8 @@
                         <p class="text-gray-700">{{ $monto_restante }} USD</p>
                     </div>
                     <div class="w-1/3 pr-4">
-                        <p class="text-xs mb-3 text-slate-400">Progreso:</p>
-                        <div class="overflow-hidden h-1 text-xs flex rounded bg-green-50">
+                        <p class="text-xs mb-4 text-slate-400">Progreso:</p>
+                        <div class="overflow-hidden h-1 text-xs flex rounded bg-green-200">
                             <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
                         </div>
                     </div>
@@ -146,17 +151,17 @@
                             <hr class="border-b border-gray-100 my-8 mb-4 w-full">
                             </div> --}}
                         </div>
-                        
+
                     @endforeach
                     </div>
 
                     <div class="w-full mt-2 flex justify-end items-center">
-                        
+
                         @if (Auth::user()->role == 0)
                             @if ($factura->status <= 3)
                                 @if ($monto_pagos_totales >= $factura->monto_deudor)
-                                
-                                @else    
+
+                                @else
                                 <a href="{{ route('reportar-pago', $factura) }}" class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Reportar Pago</a>
                                 @endif
                             @else

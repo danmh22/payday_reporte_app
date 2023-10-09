@@ -16,12 +16,12 @@
                 <div class="flex mb-4">
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
                         <span class="bg-green-500 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_pagos_conciliados }}</span>
-                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas conciliadas</p>
+                        <p class="mb-0 text-xs font-bold text-gray-700">Pagos conciliados</p>
                     </div>
 
                     <div class="w-2/6 mr-2 flex items-center justify-start p-3 bg-white border rounded">
                         <span class="bg-amber-400 text-white rounded p-1 font-extrabold text-lg mr-2 w-9 h-9 text-center">{{ $total_pagos_por_conciliar }}</span>
-                        <p class="mb-0 text-xs font-bold text-gray-700">Facturas por conciliar</p>
+                        <p class="mb-0 text-xs font-bold text-gray-700">Pagos por conciliar</p>
                     </div>
 
                     <div class="w-2/6 flex items-center justify-start p-3 bg-white border rounded">
@@ -32,7 +32,7 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos por conciliar</h2>
-                        <a href="{{ route('facturas-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs font-bold hover:text-white hover:bg-blue-700">Ver todos</a>
+                        <a href="{{ route('pagos-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs font-bold hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded border border-gray-200">
                         <div class="w-full">
@@ -84,13 +84,12 @@
                                         @default
                                             Not found
                                     @endswitch
-
                                 </td>
                                 <td class="px-4 py-3 max-w-[150px]">
                                     <p class="font-bold flex justify-center items-center text-green-500 pr-4 text-base">{{ $pagoC->monto_equivalente }} <span class="text-green-600 text-xxs ml-2">USD</span></p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="text-xs font-medium text-gray-600">{{ $pagoC->fecha_pago->format('d/m/Y') }}</div>
+                                    <div class="text-xs font-bold text-gray-600">{{ $pagoC->fecha_pago->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex justify-end relative gap-4" x-data="{ open: false }">
@@ -140,7 +139,7 @@
                     <span class="text-xs mb-3 rounded text-gray-600 font-bold inline-block">Total recaudado este mes</span>
                     <h2 class="text-2xl text-gray-700 font-bold mb-4 flex items-center justify-start"><div class="bg-green-600 p-1 rounded flex items-center justify-center w-9 h-9 mr-2"><span class="material-symbols-outlined text-white">monitoring</span></div> ${{ number_format($monto_conciliados_final) }}</h2>
                     <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-white">
-                        <div style="width: 60%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
+                        <div style="width: {{ $progreso_pagos_abonados }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
                     </div>
                 </div>
 
@@ -148,7 +147,7 @@
                     <span class="text-xs mb-3 rounded text-gray-600 font-bold inline-block">Total por recaudar este mes</span>
                     <h2 class="text-2xl text-gray-700 font-bold mb-4 flex items-center justify-start"><div class="bg-blue-600 p-1 rounded flex items-center justify-center w-9 h-9 mr-2"><span class="material-symbols-outlined text-white">monitoring</span></div> ${{ number_format($monto_pendiente_final) }}</h2>
                     <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-white">
-                        <div style="width: 40%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"></div>
+                        <div style="width: {{ $progreso_pagos_pendientes }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"></div>
                     </div>
                 </div>
             </div>

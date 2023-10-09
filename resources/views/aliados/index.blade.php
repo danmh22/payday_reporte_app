@@ -36,33 +36,26 @@
                             </th> --}}
                             <td class="px-4 py-3">
                                 <div class="flex items-center">
-                                    <div class="rounded-full text-sm border border-blue-50 bg-blue-50 text-blue-500 font-bold mr-3 h-8 w-8 inline-flex justify-center items-center">
+                                    <div class="rounded-full text-sm border border-blue-50 bg-blue-50 text-blue-500 font-bold mr-2 h-8 w-8 inline-flex justify-center items-center">
                                         @php
-                                            $pickName = $aliado->user->name;
+                                            $pickName = $aliado->nombre_aliado;
                                             echo substr($pickName, 0, 1);
                                         @endphp
                                     </div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <p class="text-gray-500 font-bold">{{ $aliado->nombre_aliado }}</p>
-                                <span class="truncate text-xs leading-5 text-gray-500">{{ $aliado->user->name }}</span>
+                                <p class="text-gray-700 font-bold mb-1">{{ $aliado->nombre_aliado }}</p>
+                                <span class="truncate text-xs font-bold leading-5 text-gray-500">{{ $aliado->user->name }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-500 font-bold">{{ $aliado->codigo_aliado }}</span>
-                            </td>
-                            <td class="px-4 py-3 font-normal text-gray-900">
-                                <div class="text-xs font-medium text-gray-700">
-                                    <a href="#">{{ $aliado->user->email }}</a>
-                                </div>
+                                <span class="text-gray-700 font-bold">{{ $aliado->codigo_aliado }}</span>
                             </td>
                             <td class="px-4 py-3">
-
-                                @php
-                                    $aliado_state = $aliado->status;
-                                @endphp
-
-                                @if ($aliado_state == '1')
+                                <p class="text-xs font-bold text-gray-500">{{ $aliado->user->email }}</p>
+                            </td>
+                            <td class="px-4 py-3">
+                                @if ($aliado->status == '1')
                                     <span
                                     class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
                                     <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
@@ -77,7 +70,11 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3">
-                                @if ($aliado_state == '1')
+                                <div class="flex justify-end gap-4">
+                                    <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Aliado' }" href="{{ route('aliados.show', $aliado) }}">Ver Aliado</a>
+                                </div>
+
+                                {{-- @if ($aliado_state == '1')
                                     <form action="{{ route('aliado-status')}}" method="POST">
                                         @csrf
                                         @method('patch')
@@ -93,7 +90,7 @@
                                         <input type="hidden" name="status" value="1">
                                         <button class="px-4 py-2 text-xs bg-green-600 text-white rounded hover:bg-green-500">Activar</button>
                                     </form>
-                                @endif
+                                @endif --}}
                             </td>
                             </tr>
                             @endforeach

@@ -42,7 +42,7 @@
                             </th>
                             <td class="px-4 py-3 max-w-[130px]">
 
-                                <p class="text-gray-700 font-bold">{{ $factura->aliado->nombre_aliado }}</p>
+                                <p class="text-gray-700 font-bold mb-1">{{ $factura->aliado->nombre_aliado }}</p>
                                 <p class="text-gray-400 truncate font-bold leading-5">{{ $factura->concepto }}</p>
                             </td>
                             <td class="px-4 py-3">
@@ -101,11 +101,11 @@
                             </td>
                             <td class="px-4 py-3 font-normal text-gray-900">
                                 <div class="text-xs">
-                                    <div class="font-medium text-gray-700">{{ $factura->created_at->format('d/m/Y') }}</div>
+                                    <div class="font-bold text-gray-700">{{ $factura->created_at->format('d/m/Y') }}</div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <a class="px-3 py-2 text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">Ver Detalle</a>
+                                <a class="px-3 py-2 text-blue-600 font-bold border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">Ver Detalle</a>
                             </td>
                             </tr>
 

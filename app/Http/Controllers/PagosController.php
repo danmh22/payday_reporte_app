@@ -69,7 +69,7 @@ class PagosController extends Controller
         } else {
 
             $pago = new Pago;
-    
+
             $pago->nombre_titular     = $request->nombre_titular;
             $pago->tipo_documento     = $request->tipo_documento;
             $pago->num_documento      = $request->num_documento;
@@ -82,9 +82,9 @@ class PagosController extends Controller
             $pago->monto_equivalente  = $request->monto_pago;
             $pago->factura_id         = $factura->id;
             $pago->status             = '1';
-    
+
             $pago->save();
-    
+
             return redirect()->route('historial');
 
         }
@@ -123,7 +123,7 @@ class PagosController extends Controller
         $pago = Pago::findOrFail($request->id);
         $pago->status = '2';
         $pago->save();
-        
+
         $factura = $pago->factura;
 
         $monto_pagos_abonados = 0;
@@ -143,7 +143,7 @@ class PagosController extends Controller
 
         }
 
-        return redirect()->route('facturas-emitidas')->with('success', 'El pago fue conciliado exitosamente');
+        return redirect()->route('factura', [$pago->factura->id])->with('success', 'El pago fue conciliado exitosamente');
     }
 
     /**
