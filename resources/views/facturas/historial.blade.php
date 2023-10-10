@@ -33,7 +33,7 @@
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
 
                             @foreach ($pagos_realizados as $pago)
-                                
+
                                 <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3">
                                     <div class="w-8 h-8 text-blue-500"><span class="material-symbols-outlined">payments</span></div>
@@ -89,11 +89,6 @@
                                         x-transition:leave-end="opacity-0 scale-95"
                                         class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
                                                 <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $pago->factura) }}">Ver Factura</a></li>
-                                            @if ($pago->factura->status < 3)
-                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="">Editar Factura</a></li>
-                                            @else
-
-                                            @endif
                                         </ul>
 
                                     </div>

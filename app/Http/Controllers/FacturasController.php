@@ -27,8 +27,8 @@ class FacturasController extends Controller
             'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 1)->count(),
             'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 2)->count(),
             'total_facturas_conciliadas' => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->count(),
-            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 1)->get(),
-            'facturas_reportadas'        => Factura::where('aliado_id', $user->aliados->id)->get(),
+            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->where('status', '=', 1)->get(),
+            'facturas_reportadas'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 

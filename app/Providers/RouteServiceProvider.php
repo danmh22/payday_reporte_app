@@ -17,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    public const ADMINHOME = '/admin';
     public const HOME = '/';
 
     /**
@@ -36,5 +37,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::pattern('factura', '[0-9]+');
+        Route::pattern('aliado',  '[0-9]+');
     }
 }

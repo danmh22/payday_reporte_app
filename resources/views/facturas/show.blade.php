@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="w-1/6 px-4 py-4 gap-3">
-                                @if (Auth::user()->role == 1)
+                                @can('conciliar-pago')
                                     @if ($pago->status == 1)
                                         <form action="{{ route('conciliar-pago') }}" method="POST">
                                             @csrf
@@ -130,7 +130,8 @@
                                     @else
 
                                     @endif
-                                @endif
+                                @endcan
+
                             </div>
                             {{-- <div class="w-1/3 mb-6"><p class="font-bold text-xs mb-1 text-slate-800">Fecha de reporte:</p>
                                 <p class="text-gray-700">{{ $pago->updated_at->format('d/m/Y') }}</p>
@@ -157,7 +158,7 @@
 
                     <div class="w-full mt-2 flex justify-end items-center">
 
-                        @if (Auth::user()->role == 0)
+                        @can ('reportar-pago')
                             @if ($factura->status <= 3)
                                 @if ($monto_pagos_totales >= $factura->monto_deudor)
 
@@ -167,7 +168,7 @@
                             @else
 
                             @endif
-                        @endif
+                        @endcan
 
                         {{-- <form action="" method="post">
                             @csrf

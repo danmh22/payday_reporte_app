@@ -35,35 +35,34 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(FacturasController::class)->group(function () {
     Route::get('/',                                 'index')->name('dashboard-user');
-    Route::get('/facturas-pendientes', 'facturasPendientes')->name('facturas-pendientes');
-    Route::get('/historial',                    'historial')->name('historial');
-    Route::get('/factura/{factura}',                 'show')->name('factura');
+    Route::get('/facturas-pendientes', 'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
+    Route::get('/historial',                    'historial')->can('historial')->name('historial');
+    Route::get('/factura/{factura}',                 'show')->can('factura')->name('factura');
 })->middleware(['auth', 'verified']);
 
 Route::controller(AdminController::class)->group(function () {
-    Route::get('/dashboard-admin',               'index')->name('dashboard-admin');
-    Route::get('/cargar-facturas',      'cargarFacturas')->name('cargar-facturas');
-    Route::post('/cargar-facturas',   'importarFacturas')->name('importar-facturas');
-    Route::get('/facturas-emitidas',  'facturasEmitidas')->name('facturas-emitidas');
-    Route::get('/pagos/pendientes',  'pagosPorConciliar')->name('pagos-conciliar');
-    Route::get('/pagos/conciliados',  'pagosConciliados')->name('pagos-conciliados');
+    Route::get('/admin',                         'index')->can('dashboard-admin')->name('dashboard-admin');
+    Route::get('/cargar-facturas',      'cargarFacturas')->can('cargar-facturas')->name('cargar-facturas');
+    Route::post('/cargar-facturas',   'importarFacturas')->can('importar-facturas')->name('importar-facturas');
+    Route::get('/facturas-emitidas',  'facturasEmitidas')->can('facturas-emitidas')->name('facturas-emitidas');
+    Route::get('/pagos/pendientes',  'pagosPorConciliar')->can('pagos-conciliar')->name('pagos-conciliar');
+    Route::get('/pagos/conciliados',  'pagosConciliados')->can('pagos-conciliados')->name('pagos-conciliados');
 })->middleware(['auth', 'verified']);
 
 Route::controller(PagosController::class)->group(function (){
-    Route::get('/facturas/{factura}/pagos/reportar', 'create')->name('reportar-pago');
-    Route::post('/facturas/{factura}/pagos',          'store')->name('guardar-pago');
-    Route::patch('/pagos',                    'conciliarPago')->name('conciliar-pago');
+    Route::get('/facturas/{factura}/pagos/reportar', 'create')->can('reportar-pago')->name('reportar-pago');
+    Route::post('/facturas/{factura}/pagos',          'store')->can('guardar-pago')->name('guardar-pago');
+    Route::patch('/pagos',                    'conciliarPago')->can('conciliar-pago')->name('conciliar-pago');
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){
-    Route::get('/usuarios',   'vistaUsuarios')->name('usuarios');
-    Route::patch('/usuarios', 'cambiarStatus')->name('usuario-status');
+    Route::get('/usuarios',   'vistaUsuarios')->can('usuarios')->name('usuarios');
 })->middleware(['auth', 'verified']);
 
 Route::controller(AliadosController::class)->group(function(){
-    Route::get('/aliados',            'index')->name('aliados.index');
-    Route::get('/aliados/{aliado}',    'show')->name('aliados.show');
-    Route::patch('/aliados',  'cambiarStatus')->name('aliado-status');
+    Route::get('/aliados',            'index')->can('aliados.index')->name('aliados.index');
+    Route::get('/aliados/{aliado}',    'show')->can('aliados.show')->name('aliados.show');
+    Route::patch('/aliados',  'cambiarStatus')->can('aliado-status')->name('aliado-status');
 })->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

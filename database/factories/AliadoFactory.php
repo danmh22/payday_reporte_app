@@ -17,7 +17,7 @@ class AliadoFactory extends Factory
     public function definition(): array
     {
         return [
-            'codigo_aliado' => fake()->lexify('cod-') . fake()->unique()->numberBetween('0', '10'),
+            'codigo_aliado' => fake()->lexify('cod-') . fake()->unique()->numberBetween('0', '8'),
             'nombre_aliado' => fake()->company(),
             'status' => '1',
         ];
