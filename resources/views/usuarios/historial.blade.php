@@ -21,13 +21,13 @@
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Concepto</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Estatus</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Detalle</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Monto</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Fecha</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Concepto</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Estatus</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Detalle</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Monto</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Fecha</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
@@ -40,20 +40,20 @@
                                 </td>
                                 <td class="px-4 py-3 max-w-[200px]">
                                     <p class="text-gray-700 font-bold mb-1">{{ $pago->factura->concepto }}</p>
-                                    <span class="text-gray-600">Pago realizado por: {{ $pago->nombre_titular }}</span>
+                                    <span class="text-gray-400 font-bold">Pago realizado por: {{ $pago->nombre_titular }}</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     @switch( $pago->status )
                                         @case(1)
                                             <span
-                                            class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 font-semibold text-amber-600">
+                                            class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 text-xxs py-1 font-semibold text-amber-600">
                                             <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
                                             Por conciliar
                                             </span>
                                             @break
                                         @case(2)
                                             <span
-                                            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 font-semibold text-green-600">
+                                            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 text-xxs py-1 font-semibold text-green-600">
                                             <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                                             Conciliadas
                                             </span>
@@ -65,33 +65,16 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     <p class="text-gray-700 font-bold mb-1">{{ Str::ucfirst($pago->metodo_pago) }}</p>
-                                    <span class="text-gray-600">{{ Str::ucfirst($pago->plataforma_pago) }}</span>
+                                    <span class="text-gray-400 font-bold">{{ Str::ucfirst($pago->plataforma_pago) }}</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $pago->monto_equivalente }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <p class="text-gray-700">{{ $pago->fecha_pago->format('d-m-Y') }}</p>
+                                    <p class="text-gray-700 font-bold">{{ $pago->fecha_pago->format('d/m/Y') }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="flex justify-end relative gap-4" x-data="{ open: false }">
-
-                                        <button @click="open = true"><span class="material-symbols-outlined">
-                                            more_vert
-                                            </span></button>
-
-                                        <ul x-show="open" @click.outside="open = false"
-                                        x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 scale-95"
-                                        x-transition:enter-end="opacity-100 scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
-                                                <li><a class="p-2 block hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $pago->factura) }}">Ver Factura</a></li>
-                                        </ul>
-
-                                    </div>
+                                    <a href="{{ route('factura', $pago->factura) }}" class="px-3 py-2 text-blue-600 font-bold border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white">Ver Factura</a>
                                 </td>
                                 </tr>
 

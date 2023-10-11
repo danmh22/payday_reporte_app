@@ -33,9 +33,14 @@ class PagosController extends Controller
             $monto_pagos_abonados = $monto_pagos_abonados + $pago;
         }
 
+        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados;
+        $progreso_pagos_abonados  = round($monto_pagos_abonados*100/$factura->monto_deudor);
+
         return view('pagos.create', [
-            'factura'               => $factura,
-            'monto_pagos_abonados'  => $monto_pagos_abonados,
+            'factura'                 => $factura,
+            'monto_restante'          => $monto_restante,
+            'monto_pagos_abonados'    => $monto_pagos_abonados,
+            'progreso_pagos_abonados' => $progreso_pagos_abonados,
         ]);
     }
 
@@ -85,7 +90,7 @@ class PagosController extends Controller
 
             $pago->save();
 
-            return redirect()->route('historial');
+            return redirect()->route('reportar-pago', [$factura])->with('success', 'Su pago fue reportado exitosamente');
 
         }
 
@@ -127,16 +132,35 @@ class PagosController extends Controller
         $factura = $pago->factura;
 
         $monto_pagos_abonados = 0;
-        $pagos_abonadas = $factura->pagos()->pluck('monto_equivalente');
+        $pagos_abonadas = $factura->pagos->pluck('monto_equivalente');
         foreach ($pagos_abonadas as $pagoA) {
             $monto_pagos_abonados = $monto_pagos_abonados + $pagoA;
         }
-        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados;
+        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados + $pago->monto_equivalente;
 
         if ($pago->monto_equivalente < $monto_restante) {
+
+            // $respuesta = [
+            //     'status'                => 'El monto restante es mayor',
+            //     'monto_equivalente'     => $pago->monto_equivalente,
+            //     'monto_restante'        => $monto_restante,
+            //     'monto_deudor'          => $factura->monto_deudor,
+            //     'monto_pagos_abonados'  => $monto_pagos_abonados
+            // ];
+
+            // return $respuesta;
             $factura->status = '2';
             $factura->save();
         } else if ($pago->monto_equivalente >= $monto_restante) {
+            // $respuesta = [
+            //     'status'                => 'El monto restante es menor o igual',
+            //     'monto_equivalente'     => $pago->monto_equivalente,
+            //     'monto_restante'        => $monto_restante,
+            //     'monto_deudor'          => $factura->monto_deudor,
+            //     'monto_pagos_abonados'  => $monto_pagos_abonados
+            // ];
+
+            // return $respuesta;
             $factura->status = '3';
             $factura->save();
         } else {

@@ -43,7 +43,7 @@
         </div> --}}
         <div class="w-2/3 py-4 pr-8">
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="py-2 px-2 rounded border bg-red-50 text-red-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -52,18 +52,23 @@
                 </div>
             @endif
             @if (session('status'))
-                <div class="alert alert-success">
+                <div class="py-2 px-2 rounded border bg-red-50 text-red-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
                     {{ session('status') }}
                 </div>
             @endif
-            <div class="rounded border bg-white p-4">
+            @if (session('success'))
+                <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <div class="rounded border bg-white p-6">
             <h2 class="text-lg font-bold text-gray-800">Reporta tu pago</h2>
-            <p class="text-xs mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
+            <p class="text-sm mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
                 <form action="{{ route('guardar-pago', $factura) }}" method="post" class="flex flex-wrap">
                     @csrf
                     @method('POST')
                     <div class="w-2/4 mb-4 pr-4">
-                        <label for="nombre_titular" class="block text-xs font-medium leading-6 text-gray-900">Nombre Títular</label>
+                        <label for="nombre_titular" class="block text-xs font-bold leading-6 text-gray-500">Nombre Títular</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input type="text" name="nombre_titular" id="nombre_titular" autocomplete="nombre_titular" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Pedro Pérez">
@@ -72,7 +77,7 @@
                     </div>
 
                     <div class="w-2/4 mb-4 flex flex-wrap pr-4">
-                        <label for="dni_usuario" class="block w-full text-xs font-medium leading-6 text-gray-900">Tipo de Documento</label>
+                        <label for="dni_usuario" class="block w-full text-xs font-bold leading-6 text-gray-500">Tipo de Documento</label>
                         <div class="mt-2 w-2/6 pr-2">
                             <select id="tipo_documento" name="tipo_documento" autocomplete="tipo_documento" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <option>V</option>
@@ -88,7 +93,7 @@
                     </div>
 
                     <div class="w-2/5 mb-4 pr-4">
-                        <label for="referencia_pago" class="block text-xs font-medium leading-6 text-gray-900">Nro de Referencia</label>
+                        <label for="referencia_pago" class="block text-xs font-bold leading-6 text-gray-500">Nro de Referencia</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input type="text" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
@@ -97,7 +102,7 @@
                     </div>
 
                     <div class="w-1/5 mb-4 flex flex-wrap pr-4">
-                        <label for="divisa" class="block w-full text-xs font-medium leading-6 text-gray-900">Divisa</label>
+                        <label for="divisa" class="block w-full text-xs font-bold leading-6 text-gray-500">Divisa</label>
                         <div class="mt-2 w-full">
                             <select id="divisa" name="divisa" autocomplete="divisa" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <option>USD</option>
@@ -107,7 +112,7 @@
                     </div>
 
                     <div class="w-2/5 mb-4 flex flex-wrap pr-4">
-                        <label for="metodo_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Método de pago</label>
+                        <label for="metodo_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Método de pago</label>
                         <div class="mt-2 w-full">
                             <select id="metodo_pago" name="metodo_pago" autocomplete="metodo_pago" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <option>Seleccionar</option>
@@ -120,7 +125,7 @@
                     </div>
 
                     <div class="w-2/6 mb-4 flex flex-wrap pr-4">
-                        <label for="plataforma_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Plataforma de pago</label>
+                        <label for="plataforma_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Plataforma de pago</label>
                         <div class="mt-2 w-full">
                             <select id="plataforma_pago" name="plataforma_pago" autocomplete="plataforma_pago" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <option>Seleccionar</option>
@@ -137,7 +142,7 @@
                     </div>
 
                     <div class="w-2/6 mb-4 flex flex-wrap pr-4">
-                    <label for="monto_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Monto</label>
+                    <label for="monto_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Monto</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input type="number" step="any" name="monto_pago" id="monto_pago" autocomplete="monto_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
@@ -146,7 +151,7 @@
                     </div>
 
                     <div class="w-2/6 mb-4 flex flex-wrap pr-4">
-                    <label for="fecha_pago" class="block w-full text-xs font-medium leading-6 text-gray-900">Fecha de pago</label>
+                    <label for="fecha_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Fecha de pago</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input type="date" name="fecha_pago" id="fecha_pago" autocomplete="fecha_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
@@ -156,17 +161,69 @@
 
                     <input type="hidden" name="status" id="status" autocomplete="status" value="2">
 
-                    <button type="submit" class="px-3 py-2 text-sm !bg-blue-700 rounded block text-white w-1/4 mt-2">Enviar reporte</button>
+                    <button type="submit" class="px-3 py-2 font-bold text-sm !bg-blue-700 rounded block text-white w-1/4 mt-4">Enviar reporte</button>
 
                 </form>
             </div>
         </div>
         <div class="w-1/3 py-4">
-            <div class="bg-gradient-to-r border-blue-500 border from-blue-500 to-blue-700 py-8 px-7 text-white rounded">
-                <h2 class="text-lg font-bold mb-2">Detalles de la factura</h2>
-                <hr class="w-1/4 h-1 bg-white rounded-full mb-3">
-                <p class="text-xs mb-2"><strong>Concepto</strong>: {{ $factura->concepto }}</p>
-                <p class="text-xs"><strong>Monto</strong>: {{ $factura->monto_deudor }} USD</p>
+            <div class="bg-white flex flex-wrap text-center mb-4 rounded overflow-hidden">
+                <div class="w-full flex flex-wrap justify-between items-center border border-b-0 px-4 pt-4 pb-2">
+                    <div class="flex w-1/2 flex-col text-left">
+                        <p class="text-base font-bold text-gray-700 mb-1">Factura #{{ $factura->id }}</p>
+                        <p class="text-xs font-bold text-gray-500">{{ $factura->concepto }}</p>
+                    </div>
+                    <div class="w-1/2 text-right">
+                        @switch( $factura->categoria )
+                            @case('Gastos Generales')
+                                <span
+                                class="inline-flex items-center rounded bg-violet-50 text-xs py-1 px-2 font-semibold text-violet-600">
+                                
+                                Gastos Generales
+                                </span>
+                                @break
+                            @case('Mensualidad')
+                                <span
+                                class="inline-flex items-center rounded bg-emerald-50 text-xs py-1 px-2 font-semibold text-emerald-600">
+                                
+                                Mensualidad
+                                </span>
+
+                                @break
+                            @case('Otros')
+                                    <span
+                                    class="inline-flex items-center rounded bg-amber-50 text-xs py-1 px-2 font-semibold text-amber-600">
+                                    
+                                    Otros
+                                    </span>
+
+                                    @break
+                            @default
+                                Not found
+                        @endswitch
+                    </div>
+                </div>
+                <div class="w-full flex justify-center items-center border border-b-0 border-t-0 flex-col px-2 py-4">
+                    <span class="text-sm block text-gray-500 font-bold mb-2">Monto Pendiente:</span>
+                    <p class="text-2xl text-blue-600 font-bold">{{ $monto_restante }}<span class="text-xs font-bold ml-2">USD</span></p>
+                </div>
+                <div class="w-full border border-t-0 border-b-0 px-4 pt-1 pb-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs block text-gray-500 font-bold mb-2">Progreso:</span>
+                        <span class="text-sm block text-gray-500 font-bold mb-2">{{ $progreso_pagos_abonados }}%</span>
+                    </div>
+                    <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-green-200">
+                        <div style="width: {{ $progreso_pagos_abonados }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                    </div>
+                </div>
+                <div class="w-1/2 flex justify-center items-center border flex-col px-2 py-4">
+                    <span class="text-xs block text-gray-500 font-bold mb-2">Abonado:</span>
+                    <p class="text-2xl text-green-600 font-bold">{{ $monto_pagos_abonados }}<span class="text-xs font-bold ml-2">USD</span></p>
+                </div>
+                <div class="w-1/2 flex justify-center items-center border border-l-0 flex-col px-2 py-4">
+                    <span class="text-xs block text-gray-500 font-bold mb-2">Monto Total:</span>
+                    <p class="text-2xl text-blue-600 font-bold">{{ $factura->monto_deudor }}<span class="text-xs font-bold ml-2">USD</span></p>
+                </div>
             </div>
         </div>
     </div>

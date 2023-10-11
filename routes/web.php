@@ -34,9 +34,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::controller(FacturasController::class)->group(function () {
-    Route::get('/',                                 'index')->name('dashboard-user');
-    Route::get('/facturas-pendientes', 'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
-    Route::get('/historial',                    'historial')->can('historial')->name('historial');
     Route::get('/factura/{factura}',                 'show')->can('factura')->name('factura');
 })->middleware(['auth', 'verified']);
 
@@ -56,7 +53,9 @@ Route::controller(PagosController::class)->group(function (){
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){
-    Route::get('/usuarios',   'vistaUsuarios')->can('usuarios')->name('usuarios');
+    Route::get('/',                                 'index')->can('dashboard-user')->name('dashboard-user');
+    Route::get('/facturas-pendientes', 'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
+    Route::get('/historial',                    'historial')->can('historial')->name('historial');
 })->middleware(['auth', 'verified']);
 
 Route::controller(AliadosController::class)->group(function(){

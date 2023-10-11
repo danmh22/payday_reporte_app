@@ -13,67 +13,10 @@ class FacturasController extends Controller
 {
     // VISTAS DE USUARIO
 
-    public function index(Request $request) : View
+    public function index(Request $request)
     {
-        // Verifica si el usuario está autenticado.
-        if (!auth()->check()) {
-            // El usuario no está autenticado, redirige a la página de login.
-            return view('auth.login');
-        }
 
-        $user = User::find($request->user()->id);
-        return view('facturas.index', [
-            'user'=> $request->user(),
-            'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 1)->count(),
-            'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 2)->count(),
-            'total_facturas_conciliadas' => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->count(),
-            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->where('status', '=', 1)->get(),
-            'facturas_reportadas'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->get(),
-        ]);
     }
-
-    public function facturasPendientes(Request $request) : View
-    {
-        if (!auth()->check()) {
-            return view('auth.login');
-        }
-
-        $user = User::find($request->user()->id);
-        return view('facturas.facturas_pendientes', [
-            'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '<', 3)->count(),
-            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->where('status', '<', 3)->paginate(8),
-        ]);
-    }
-
-    public function historial(Request $request) : View
-    {
-        if (!auth()->check()) {
-            return view('auth.login');
-        }
-
-        $user = User::find($request->user()->id);
-        $facturas_con_pagos = Factura::where('aliado_id', $user->aliados->id)->has('pagos')->get();
-        return view('facturas.historial', [
-            'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '>', 1)->count(),
-            'pagos_realizados'           => Pago::whereBelongsTo($facturas_con_pagos)->orderBy('fecha_pago', 'desc')->paginate(8),
-        ]);
-    }
-
-
-    // VISTAS COMUNES
-
-    // public function factura(Factura $factura) : View
-    // {
-    //     if (!auth()->check()) {
-    //         return view('auth.login');
-    //     }
-    //     return view('facturas.factura', [
-    //         'factura' => $factura,
-    //         'user' => Auth::user(),
-    //     ]);
-    // }
-
-
 
     public function create(){
 
@@ -88,6 +31,8 @@ class FacturasController extends Controller
         if (!auth()->check()) {
             return view('auth.login');
         }
+
+        $this->authorize('invoiceOwner', $factura);
 
         $monto_pagos_abonados = 0;
         $pagos_abonadas = $factura->pagos()->where('status', 2)->pluck('monto_equivalente');
