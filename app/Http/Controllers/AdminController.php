@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\FacturasImport;
+use App\Models\Aliado;
 use App\Models\Factura;
 use App\Models\Pago;
 use Carbon\Carbon;
@@ -95,7 +96,10 @@ class AdminController extends Controller
         if (!auth()->check()) {
             return view('auth.login');
         }
-        return view('admin.admin_form_cargar_facturas');
+
+        return view('admin.admin_form_cargar_facturas', [
+            'aliados' => Aliado::where('id', '>', 1)->get(),
+        ]);
     }
 
     public function importarFacturas(Request $request)

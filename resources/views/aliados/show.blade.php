@@ -12,7 +12,7 @@
 
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
-            <div class="flex flex-wrap w-3/4 py-6 px-8 rounded border border-gray-200 bg-white">
+            <div class="flex flex-wrap w-5/6 py-6 px-8 rounded border border-gray-200 bg-white">
                 <div class="w-full flex justify-between items-start mb-8">
                     <div class="flex items-center">
                         <div class="rounded-full text-lg border border-blue-50 bg-blue-50 text-blue-500 font-bold mr-3 h-12 w-12 inline-flex justify-center items-center">
