@@ -38,7 +38,7 @@ class AliadosController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cargar_aliados');
     }
 
     /**
@@ -46,7 +46,28 @@ class AliadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_aliado'  => 'required|unique:aliados,nombre_aliado',
+            'codigo_aliado'  => 'required|unique:aliados,codigo_aliado',
+        ]);
+
+        $findAliado = Aliado::where('codigo_aliado', '=', $request->codigo_aliado)->get();
+
+        if ($findAliado->isEmpty()) {
+
+            $aliado = new Aliado;
+
+            $aliado->nombre_aliado  = $request->nombre_aliado;
+            $aliado->codigo_aliado  = $request->codigo_aliado;
+            $aliado->status         = '1';
+
+            $aliado->save();
+            
+            return redirect()->route('aliados.show', [$aliado])->with('success', 'El aliado fue creado exitosamente');
+        
+        } else {
+            return back()->with('status', 'Ya existe un aliado con este código');
+        }
     }
 
     /**

@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(FacturasController::class)->group(function () {
     Route::get('/factura/{factura}',                 'show')->can('factura')->name('factura');
+    Route::post('/crear-factura',                   'store')->name('facturas.store');
 })->middleware(['auth', 'verified']);
 
 Route::controller(AdminController::class)->group(function () {
@@ -61,6 +62,8 @@ Route::controller(UsuariosController::class)->group(function(){
 Route::controller(AliadosController::class)->group(function(){
     Route::get('/aliados',            'index')->can('aliados.index')->name('aliados.index');
     Route::get('/aliados/{aliado}',    'show')->can('aliados.show')->name('aliados.show');
+    Route::get('/cargar-aliados',    'create')->name('cargar-aliados');
+    Route::post('/crear-aliados',     'store')->name('aliados.store');
     Route::patch('/aliados',  'cambiarStatus')->can('aliado-status')->name('aliado-status');
 })->middleware(['auth', 'verified']);
 

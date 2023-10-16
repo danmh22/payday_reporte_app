@@ -66,7 +66,7 @@ class AdminController extends Controller
         if (!auth()->check()) {
             return view('auth.login');
         }
-        return view('admin.admin_facturas_emitidas', [
+        return view('admin.facturas_emitidas', [
             'lista_facturas_emitidas'      => Factura::where('status', '<', 3)->orderBy('created_at', 'desc')->paginate(8),
         ]);
     }
@@ -76,7 +76,7 @@ class AdminController extends Controller
         if (!auth()->check()) {
             return view('auth.login');
         }
-        return view('admin.admin_pagos_conciliados', [
+        return view('admin.pagos_conciliados', [
             'lista_pagos_conciliados'   => Pago::where('status', '=', 2)->orderBy('fecha_pago', 'desc')->paginate(8)
         ]);
     }
@@ -86,7 +86,7 @@ class AdminController extends Controller
         if (!auth()->check()) {
             return view('auth.login');
         }
-        return view('admin.admin_pagos_conciliar', [
+        return view('admin.pagos_conciliar', [
             'lista_pagos_por_conciliar' => Pago::where('status', '=', 1)->orderBy('fecha_pago', 'desc')->paginate(8)
         ]);
     }
@@ -97,7 +97,7 @@ class AdminController extends Controller
             return view('auth.login');
         }
 
-        return view('admin.admin_form_cargar_facturas', [
+        return view('admin.form_cargar_facturas', [
             'aliados' => Aliado::where('id', '>', 1)->get(),
         ]);
     }

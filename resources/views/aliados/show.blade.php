@@ -23,7 +23,11 @@
                         </div>
                         <div class="ml-2">
                             <h2 class="text-xl font-bold text-slate-700">{{ $aliado->nombre_aliado }}</h2>
-                            <span class="text-xs font-bold text-gray-500">{{ $aliado->user->name }}</span>
+                            @if (!$aliado->user)
+                                
+                            @else
+                                <span class="text-xs font-bold text-gray-500">{{ $aliado->user->name }}</span>
+                            @endif
                         </div>
                     </div>
                     @switch($aliado->status)
@@ -49,7 +53,11 @@
                 <div class="w-full flex flex-wrap text-sm font-bold">
                     <div class="w-1/4 mb-5 pr-1">
                         <p class="text-xs mb-1 text-slate-400">Usuario asociado:</p>
-                        <p class="text-gray-700">{{ $aliado->user->name }}</p>
+                        @if (!$aliado->user)
+                                
+                        @else
+                            <p class="text-gray-700">{{ $aliado->user->name }}</p>
+                        @endif
                     </div>
                     <div class="w-1/4 mb-5">
                         <p class="text-xs mb-1 text-slate-400">Código del aliado:</p>
@@ -61,7 +69,11 @@
                     </div>
                     <div class="w-1/4 mb-5">
                         <p class="text-xs mb-1 text-slate-400">Correo asociado:</p>
-                        <p class="text-gray-700">{{ $aliado->user->email }}</p>
+                        @if (!$aliado->user)
+                            
+                        @else
+                            <p class="text-gray-700">{{ $aliado->user->email }}</p>
+                        @endif
                     </div>
                     {{-- <div class="w-1/3">
                         <p class="text-xs mb-1 text-slate-400">Monto conciliado:</p>

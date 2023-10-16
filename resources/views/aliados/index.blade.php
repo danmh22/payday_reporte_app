@@ -4,7 +4,10 @@
 
 @section('header_section')
 
-    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listado de Aliados Comerciales</h1>
+    <div class="flex justify-between items-center w-5/6">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listado de Aliados Comerciales</h1>
+        <a href="{{ route('cargar-aliados') }}" class="px-3 py-2 font-bold text-sm !bg-blue-700 rounded block text-white mt-4 tracking-wider">Crear Aliado</a>
+    </div>
 
 @endsection()
 
@@ -46,13 +49,21 @@
                             </td>
                             <td class="px-4 py-3">
                                 <p class="text-gray-700 font-bold mb-1">{{ $aliado->nombre_aliado }}</p>
-                                <span class="truncate text-xs font-bold leading-5 text-gray-500">{{ $aliado->user->name }}</span>
+                                @if (!$aliado->user)
+                                
+                                @else
+                                    <span class="truncate text-xs font-bold leading-5 text-gray-500">{{ $aliado->user->name }}</span>
+                                @endif
                             </td>
                             <td class="px-4 py-3">
                                 <span class="text-gray-700 font-bold">{{ $aliado->codigo_aliado }}</span>
                             </td>
                             <td class="px-4 py-3">
-                                <p class="text-xs font-bold text-gray-500">{{ $aliado->user->email }}</p>
+                                @if (!$aliado->user)
+                                
+                                @else
+                                    <p class="text-xs font-bold text-gray-500">{{ $aliado->user->email }}</p>
+                                @endif
                             </td>
                             <td class="px-4 py-3">
                                 @if ($aliado->status == '1')

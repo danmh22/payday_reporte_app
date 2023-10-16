@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aliado;
 use App\Models\Factura;
 use App\Models\Pago;
 use App\Models\User;
@@ -22,8 +23,34 @@ class FacturasController extends Controller
 
     }
 
-    public function store(){
+    public function store(Request $request){
 
+        $request->validate([
+            'concepto'      => 'required',
+            'monto_deudor'  => 'required',
+            'categoria'     => 'required|in:Mensualidad,Gastos Generales,Otros',
+            'aliado'        => 'required|different:null',
+        ]);
+
+        $findAliado = Aliado::where('codigo_aliado', '=', $request->aliado)->get();
+
+        if ($findAliado->isEmpty()) {
+            return back()->with('status', 'El aliado comercial está inactivo o no existe');
+        } else {
+
+            $factura = new Factura;
+
+            $factura->concepto      = $request->concepto;
+            $factura->monto_deudor  = $request->monto_deudor;
+            $factura->categoria     = $request->categoria;
+            $factura->aliado_id     = $findAliado[0]->id;
+            $factura->status        = '1';
+
+            $factura->save();
+            
+            return redirect()->route('factura', [$factura])->with('success', 'La factura fue creada exitosamente');
+        }
+        
     }
 
     public function show(Factura $factura)
