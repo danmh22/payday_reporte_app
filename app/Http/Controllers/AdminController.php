@@ -67,7 +67,20 @@ class AdminController extends Controller
             return view('auth.login');
         }
         return view('admin.facturas_emitidas', [
-            'lista_facturas_emitidas'      => Factura::where('status', '<', 3)->orderBy('created_at', 'desc')->paginate(8),
+            'total_facturas_emitidas'  => Factura::where('status', '<', 3)->count(),
+            'lista_facturas_emitidas'  => Factura::where('status', '<', 3)->orderBy('created_at', 'desc')->paginate(8),
+        ]);
+    }
+
+    
+    public function facturasConciliadas() : View
+    {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+        return view('admin.facturas_conciliadas', [
+            'total_facturas_conciliadas'  => Factura::where('status', '=', 3)->count(),
+            'lista_facturas_conciliadas'  => Factura::where('status', '=', 3)->orderBy('created_at', 'desc')->paginate(8),
         ]);
     }
 
@@ -77,7 +90,8 @@ class AdminController extends Controller
             return view('auth.login');
         }
         return view('admin.pagos_conciliados', [
-            'lista_pagos_conciliados'   => Pago::where('status', '=', 2)->orderBy('fecha_pago', 'desc')->paginate(8)
+            'total_pagos_conciliados'  => Pago::where('status', '=', 2)->count(),
+            'lista_pagos_conciliados'  => Pago::where('status', '=', 2)->orderBy('fecha_pago', 'desc')->paginate(8)
         ]);
     }
 
@@ -87,7 +101,8 @@ class AdminController extends Controller
             return view('auth.login');
         }
         return view('admin.pagos_conciliar', [
-            'lista_pagos_por_conciliar' => Pago::where('status', '=', 1)->orderBy('fecha_pago', 'desc')->paginate(8)
+            'total_pagos_por_conciliar'  => Pago::where('status', '=', 1)->count(),
+            'lista_pagos_por_conciliar'  => Pago::where('status', '=', 1)->orderBy('fecha_pago', 'desc')->paginate(8)
         ]);
     }
 

@@ -1,10 +1,10 @@
 @extends('layouts.template')
 
-@section('title', 'Facturas Emitidas')
+@section('title', 'Facturas Conciliadas')
 
 @section('header_section')
 
-    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Facturas Emitidas</h1>
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Facturas Conciliadas</h1>
 
 @endsection()
 
@@ -14,12 +14,12 @@
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="w-full py-4">
 
-                @if ($total_facturas_emitidas > 0)
+                @if ($total_facturas_conciliadas > 0)
 
                     @if (session('success'))
-                    <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
-                        {{ session('success') }}
-                    </div>
+                        <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
+                            {{ session('success') }}
+                        </div>
                     @endif
                     <div class="overflow-x-auto rounded border border-gray-200">
                         <div class="w-full">
@@ -37,7 +37,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
 
-                                @foreach ($lista_facturas_emitidas as $factura)
+                                @foreach ($lista_facturas_conciliadas as $factura)
 
                                 <tr class="hover:bg-gray-50">
                                 <th class="px-4 gap-3">
@@ -118,20 +118,22 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-3">{{ $lista_facturas_emitidas->links() }}</div>
+                    <div class="mt-3">{{ $lista_facturas_conciliadas->links() }}</div>
+
                 @else
 
                     <div class="p-5">
                         <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
-                            <div class="w-60 h-60 p-4 bg-white rounded-full overflow-hidden border border-gray-100 mb-2">
+                            <div class="w-56 h-56 p-6 bg-white rounded-full overflow-hidden border border-gray-100 mb-2">
                                 <img src="{{ asset('img/ayuda.jpg') }}" alt="">
                             </div>
-                            <h2 class="text-lg font-bold text-neutral-700">¡Hey! parece que aquí no hay nada...</h2>
-                            <p class="text-sm w-1/2 font-bold text-neutral-500">Puede que aún no hayas cargado facturas para tus aliados comerciales. Prueba <a class="text-blue-600" href="{{ route('cargar-facturas') }}">cargar facturas</a>.</p>
+                            <h2 class="text-lg font-bold text-neutral-700">Parece que aquí no hay nada...</h2>
+                            <p class="text-sm font-bold text-neutral-500 w-1/2">Puede que tengas <a class="text-blue-500" href="{{ route('pagos-conciliar') }}">pagos por conciliar</a> o que aún no hayas cargado facturas a tus aliados comerciales.</p>
                         </div>
                     </div>
 
                 @endif
+
             </div>
         </div>
     </main>

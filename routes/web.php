@@ -39,12 +39,13 @@ Route::controller(FacturasController::class)->group(function () {
 })->middleware(['auth', 'verified']);
 
 Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin',                         'index')->can('dashboard-admin')->name('dashboard-admin');
-    Route::get('/cargar-facturas',      'cargarFacturas')->can('cargar-facturas')->name('cargar-facturas');
-    Route::post('/cargar-facturas',   'importarFacturas')->can('importar-facturas')->name('importar-facturas');
-    Route::get('/facturas-emitidas',  'facturasEmitidas')->can('facturas-emitidas')->name('facturas-emitidas');
-    Route::get('/pagos/pendientes',  'pagosPorConciliar')->can('pagos-conciliar')->name('pagos-conciliar');
-    Route::get('/pagos/conciliados',  'pagosConciliados')->can('pagos-conciliados')->name('pagos-conciliados');
+    Route::get('/admin',                              'index')->can('dashboard-admin')->name('dashboard-admin');
+    Route::get('/cargar-facturas',           'cargarFacturas')->can('cargar-facturas')->name('cargar-facturas');
+    Route::post('/cargar-facturas',        'importarFacturas')->can('importar-facturas')->name('importar-facturas');
+    Route::get('/facturas-emitidas',       'facturasEmitidas')->can('facturas-emitidas')->name('facturas-emitidas');
+    Route::get('/facturas-conciliadas', 'facturasConciliadas')->can('facturas-conciliadas')->name('facturas-conciliadas');
+    Route::get('/pagos/pendientes',       'pagosPorConciliar')->can('pagos-conciliar')->name('pagos-conciliar');
+    Route::get('/pagos/conciliados',       'pagosConciliados')->can('pagos-conciliados')->name('pagos-conciliados');
 })->middleware(['auth', 'verified']);
 
 Route::controller(PagosController::class)->group(function (){
