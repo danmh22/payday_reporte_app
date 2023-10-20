@@ -90,9 +90,9 @@
                         <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded border border-gray-200">
-                        <div class="w-full">
+                        <div class="w-full max-h-96">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-gray-50 sticky top-0 z-10">
                                 <tr>
                                     <th scope="col" class="pl-4 py-3 font-bold text-gray-500"></th>
                                     <th scope="col" class="pl-4 py-3 font-bold text-gray-500">Concepto</th>

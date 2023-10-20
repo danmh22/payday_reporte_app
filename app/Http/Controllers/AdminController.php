@@ -45,19 +45,24 @@ class AdminController extends Controller
 
         $monto_pendiente_final = $monto_pendiente_todas - $monto_pendiente_abonadas;
 
-        $progreso_pagos_abonados    = round($monto_conciliados_final*100/$monto_pendiente_todas);
+        $progreso_pagos_abonados    = round($monto_pendiente_abonadas*100/$monto_pendiente_todas);
         $progreso_pagos_pendientes  = round($monto_pendiente_final*100/$monto_pendiente_todas);
 
         return view('admin.index', [
             'user'=> $request->user(),
-            'total_facturas_emitidas'   => Factura::where('status', '=', 1)->count(),
-            'total_pagos_por_conciliar' => Pago::where('status', '=', 1)->count(),
-            'total_pagos_conciliados'   => Pago::where('status', '=', 2)->count(),
-            'lista_pagos_por_conciliar' => Pago::where('status', '=', 1)->orderBy('fecha_pago', 'desc')->paginate(7),
-            'monto_conciliados_final'   => $monto_conciliados_final,
-            'monto_pendiente_final'     => $monto_pendiente_final,
-            'progreso_pagos_abonados'   => $progreso_pagos_abonados,
-            'progreso_pagos_pendientes' => $progreso_pagos_pendientes,
+            'total_facturas_emitidas'    => Factura::where('status', '=', 1)->count(),
+            'total_facturas_reportadas'  => Factura::where('status', '=', 2)->count(),
+            'total_facturas_conciliadas' => Factura::where('status', '=', 3)->count(),
+            'total_pagos'                => Pago::count(),
+            'total_pagos_por_conciliar'  => Pago::where('status', '=', 1)->count(),
+            'total_pagos_conciliados'    => Pago::where('status', '=', 2)->count(),
+            'lista_pagos_por_conciliar'  => Pago::where('status', '=', 1)->orderBy('fecha_pago', 'desc')->paginate(7),
+            'monto_pendiente_todas'      => $monto_pendiente_todas,
+            'monto_pendiente_abonadas'   => $monto_pendiente_abonadas,
+            'monto_conciliados_final'    => $monto_conciliados_final,
+            'progreso_pagos_abonados'    => $progreso_pagos_abonados,
+            'monto_pendiente_final'      => $monto_pendiente_final,
+            'progreso_pagos_pendientes'  => $progreso_pagos_pendientes,
         ]);
     }
 

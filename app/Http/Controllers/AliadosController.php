@@ -59,7 +59,7 @@ class AliadosController extends Controller
 
             $aliado->nombre_aliado  = $request->nombre_aliado;
             $aliado->codigo_aliado  = $request->codigo_aliado;
-            $aliado->status         = '1';
+            $aliado->status         = '0';
 
             $aliado->save();
             

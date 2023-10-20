@@ -39,18 +39,15 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- Cod Aliado -->
+        <!-- Aliado -->
         <div class="mt-4">
-            <x-input-label for="codigo_aliado" :value="__('Código Aliado Comercial')" />
-            <x-text-input id="codigo_aliado" class="block mt-1 w-full" type="text" name="codigo_aliado" :value="old('codigo_aliado')" required autofocus autocomplete="codigo-aliado" />
-            <x-input-error :messages="$errors->get('codigo_aliado')" class="mt-2" />
-        </div>
-
-        <!-- Nombre Aliado -->
-        <div class="mt-4">
-            <x-input-label for="nombre_aliado" :value="__('Nombre del Aliado')" />
-            <x-text-input id="nombre_aliado" class="block mt-1 w-full" type="text" name="nombre_aliado" :value="old('nombre_aliado')" required autofocus autocomplete="nombre-aliado" />
-            <x-input-error :messages="$errors->get('nombre_aliado')" class="mt-2" />
+            <x-input-label for="aliado" :value="__('Aliado Comercial')" />
+            <select id="aliado" name="aliado" autocomplete="aliado" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <option>Seleccionar</option>
+                @foreach ($aliados as $aliado)
+                    <option value="{{ $aliado->codigo_aliado }}">{{ $aliado->nombre_aliado }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="flex items-center justify-end mt-4">

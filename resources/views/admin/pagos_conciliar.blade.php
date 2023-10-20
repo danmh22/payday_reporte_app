@@ -16,7 +16,7 @@
 
                 @if ($total_pagos_por_conciliar > 0)
 
-                    <div class="overflow-x-auto rounded border border-gray-200">
+                    <div class="overflow-x-auto rounded shadow border-gray-200">
                         <div class="w-full">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                                 <thead class="bg-gray-50">
@@ -78,7 +78,7 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex justify-end gap-4">
-                                                <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $pago->factura) }}">Ver Factura</a>
+                                                <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs transition-all hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $pago->factura) }}">Ver Factura</a>
                                             </div>
                                         </td>
                                     </tr>

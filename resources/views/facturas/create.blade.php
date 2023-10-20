@@ -18,7 +18,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="rounded border bg-white p-6">
+    <div class="rounded shadow bg-white p-6">
     <h2 class="text-lg font-bold text-gray-800">Crea una nueva factura para un aliado comercial</h2>
     <p class="text-sm mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para crear una nueva factura:</p>
         <form action="{{ route('facturas.store') }}" method="post" class="flex flex-wrap">
@@ -67,7 +67,7 @@
 
 
             <div class="w-full">
-                <button type="submit" class="px-3 py-2 font-bold text-sm !bg-blue-700 rounded block text-white w-1/4 mt-4">Crear Factura</button>
+                <button type="submit" class="px-3 py-2 font-bold text-sm bg-blue-700 transition-all hover:bg-indigo-700 rounded block text-white w-1/4 mt-4">Crear Factura</button>
             </div>
 
         </form>

@@ -14,7 +14,7 @@
     <div class="flex flex-wrap mx-auto py-4 pt-0">
         <div class="w-4/6 flex flex-wrap">
             <div class="w-full py-4 pr-4">
-                <div class="rounded border bg-white p-6">
+                <div class="rounded shadow bg-white p-6">
                     <h2 class="text-lg font-bold text-gray-800">Carga un nuevo listado de facturas</h2>
                     <p class="text-sm mb-4 mt-2 text-gray-500">Descarga el formato para la carga de facturas, rellena sus campos con los datos solicitados y carga un nuevo listado de facturas para tus aliados comerciales:</p>
                     <div class="flex items-center mt-2">
@@ -39,7 +39,7 @@
                                 hover:file:bg-cyan-100
                                 "/>
                             </label>
-                            <button type="submit" class="px-3 py-2 text-sm !bg-blue-700 rounded block text-white ml-4 w-1/4 font-bold">Cargar Facturas</button>
+                            <button type="submit" class="px-3 py-2 text-sm bg-blue-700 transition-all hover:bg-indigo-700 rounded block text-white ml-4 w-1/4 font-bold">Cargar Facturas</button>
                         </form>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
         </div>
         
         <div class="w-full sm:w-2/6 py-4 sm:px-4 lg:px-4">
-            <div class="bg-gradient-to-r from-blue-500 to-blue-700 py-7 px-7 text-white rounded">
+            <div class="shadow bg-gradient-to-r from-blue-500 to-blue-700 py-7 px-7 text-white rounded">
                 <div class="flex flex-wrap">
                     <div class="w-1/6">
                         <span class="flex justify-center items-center h-8 w-8 bg-white text-blue-500 rounded-full p-2 mb-2">
@@ -58,7 +58,7 @@
                     <h2 class="w-5/6 font-bold mb-3">Descarga el formato para cargar facturas</h2>
                 </div>
                 <p class="text-white text-sm mb-3">Asegurate de usar el formato correcto para la carga de facturas.</p>
-                <a href="{{ asset('downloadable/formato_carga_facturas.xlsx') }}" download="Formato para carga de Facturas" class="px-3 py-2 text-center text-sm bg-white rounded block text-blue-500 w-full font-bold">Descargar formato</a>
+                <a href="{{ asset('downloadable/formato_carga_facturas.xlsx') }}" download="Formato para carga de Facturas" class="px-3 py-2 text-center text-sm bg-white transition-all hover:bg-blue-700 hover:text-white rounded block text-blue-500 w-full font-bold">Descargar formato</a>
             </div>
         </div>
     </div>

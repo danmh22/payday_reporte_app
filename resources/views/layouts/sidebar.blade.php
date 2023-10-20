@@ -18,42 +18,54 @@
     <ul class="mt-12 px-5">
 
             @can('dashboard-user')
-                <li class="flex w-full justify-between rounded hover:bg-blue-700 hover:text-white cursor-pointer items-center">
-                    <a href="{{ route('dashboard-user') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
-                        <span class="w-7 h-7 flex justify-center items-center text-blue-600 hover:"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16"  class="icon icon-tabler">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
-                        </svg></span>
-                        <span class="text-sm ml-2">Dashboard</span>
+
+                <li class="flex w-full justify-between rounded cursor-pointer items-center">
+                    <a href="{{ route('dashboard-user') }}" class="flex items-center justify-start rounded bg-blue-700 text-white py-3 px-3 w-full transition-all hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-white">
+                        <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 hover: text-white">
+                            space_dashboard
+                            </span>
+                        <span class="text-sm font-medium ml-4">Dashboard</span>
                     </a>
                 </li>
 
             @endcan
             @can('facturas-pendientes')
-                <li class="flex w-full justify-between rounded hover:bg-blue-700 hover:text-white cursor-pointer items-center">
+            <span class="block mt-4 mb-2 font-bold text-gray-400 text-xs">FACTURAS</span>
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('facturas-pendientes') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
-                        <span class="w-7 h-7 flex justify-center items-center text-blue-600 hover:"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-tabler">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" />
-                            </svg></span>
-                        <span class="text-sm ml-2">Facturas Pendientes</span>
+                    <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
+                            receipt_long
+                            </span>
+                        <span class="text-sm font-medium ml-4">Facturas Pendientes</span>
                     </a>
-                    {{-- <div class="py-1 px-2 bg-blue-600 rounded-full text-white flex items-center justify-center text-xs mr-4">2</div> --}}
+                </li>
+            @endcan
+            @can('facturas-pendientes')
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
+                    <a href="{{ route('facturas-conciliadas-user') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
+                    <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
+                            receipt_long
+                            </span>
+                        <span class="text-sm font-medium ml-4">Facturas Conciliadas</span>
+                    </a>
                 </li>
             @endcan
 
             @can('historial')
-                <li class="flex w-full justify-between rounded hover:bg-blue-700 hover:text-white cursor-pointer items-center">
+            <span class="block mt-4 mb-2 font-bold text-gray-400 text-xs">PAGOS</span>
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('historial') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
-                        <span class="w-7 h-7 flex justify-center items-center text-blue-600 hover:"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-tabler">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                        </svg></span>
-                        <span class="text-sm ml-2">Historial de Pagos</span>
+                        <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
+                            payments
+                            </span>
+                        <span class="text-sm font-medium ml-4">Historial de Pagos</span>
                     </a>
                 </li>
             @endcan
 
             @can('dashboard-admin')
                 <li class="flex w-full justify-between rounded cursor-pointer items-center">
-                    <a href="{{ route('dashboard-admin') }}" class="flex items-center justify-start rounded bg-blue-700 text-white py-3 px-3 w-full hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-white">
+                    <a href="{{ route('dashboard-admin') }}" class="flex items-center justify-start rounded bg-blue-700 text-white py-3 px-3 w-full transition-all hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 hover: text-white">
                             space_dashboard
                             </span>
@@ -73,7 +85,7 @@
 
             @can('cargar-facturas')
             <span class="block mt-4 mb-2 font-bold text-gray-400 text-xs">FACTURAS</span>
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('cargar-facturas') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                         upload_file
@@ -84,7 +96,7 @@
             @endcan
 
             @can('facturas-emitidas')
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('facturas-emitidas') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                             receipt_long
@@ -95,7 +107,7 @@
             @endcan
             
             @can('facturas-conciliadas')
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('facturas-conciliadas') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                             receipt_long
@@ -107,7 +119,7 @@
 
             @can('pagos-conciliar')
             <span class="block mt-4 mb-2 font-bold text-gray-400 text-xs">PAGOS</span>
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('pagos-conciliar') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                             payments
@@ -119,7 +131,7 @@
             @endcan
 
             @can('pagos-conciliados')
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('pagos-conciliados') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                             payments
@@ -131,7 +143,7 @@
 
             @can('aliados.index')
             <span class="block mt-4 mb-2 font-bold text-gray-400 text-xs">ALIADOS</span>
-                <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white text-gray-600 cursor-pointer items-center">
+                <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white text-gray-600 cursor-pointer items-center">
                     <a href="{{ route('aliados.index') }}" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="material-symbols-outlined w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white">
                             group
@@ -141,7 +153,7 @@
                 </li>
             @endcan
 
-            {{-- <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white cursor-pointer items-center">
+            {{-- <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white cursor-pointer items-center">
                 <a href="/historial" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-tabler">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
@@ -150,7 +162,7 @@
                 </a>
             </li> --}}
 
-            {{-- <li class="flex w-full justify-between rounded group hover:bg-blue-700 hover:text-white cursor-pointer items-center">
+            {{-- <li class="flex w-full justify-between rounded group hover:bg-blue-700 transition-all hover:text-white cursor-pointer items-center">
                 <a href="javascript:void(0)" class="flex items-center px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="w-7 h-7 flex justify-center items-center text-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" />

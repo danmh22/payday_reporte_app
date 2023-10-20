@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aliado;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'aliados' => Aliado::where('status', '=', '0')->get()
+        ]);
     }
 
     /**
@@ -31,25 +34,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'codigo_aliado' => ['required', 'string', 'max:4'],
-            'nombre_aliado' => ['required', 'string', 'max:255']
+            'aliado'   => ['required', 'different:null'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'codigo_aliado' => $request->codigo_aliado,
-            'nombre_aliado' => $request->nombre_aliado,
-        ]);
+        $findAliado = Aliado::where('codigo_aliado', '=', $request->aliado)->get();
 
-        event(new Registered($user));
+        if ($findAliado->isEmpty()) {
+            return back()->with('status', 'El aliado comercial ya está registrado con otro usuario o no existe');
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ])->assignRole('Aliado');
 
-        Auth::login($user);
+            Aliado::where('codigo_aliado', '=', $request->aliado)->update(['user_id' => $user->id, 'status' => '1']);
+    
+            event(new Registered($user));
+    
+            Auth::login($user);
+    
+            return redirect(RouteServiceProvider::HOME);
+        }
 
-        return redirect(RouteServiceProvider::HOME);
     }
 }

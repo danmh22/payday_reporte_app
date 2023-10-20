@@ -19,13 +19,13 @@
     </head>
 
 
-    <body class="antialiased bg-gray-50">
+    <body class="antialiased bg-slate-100">
 
         <div class="w-full mx-auto flex flex-nowrap">
 
             <!-- Sidebar starts -->
 
-            <div class="w-1/5 sticky top-0 left-0 h-[100vh] bg-white border-r flex-col justify-between sm:flex hidden">
+            <div class="w-1/5 sticky shadow top-0 left-0 h-[100vh] bg-white flex-col justify-between sm:flex hidden">
                 @include('layouts.sidebar')
             </div>
 

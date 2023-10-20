@@ -27,16 +27,27 @@ class UsuariosController extends Controller
         }
 
         $monto_total_abonadas = 0;
+        $monto_pagos_abonados = 0;
+        $monto_pagos_pendientes = 0;
+        $progreso_pagos_abonados = 0;
+        $progreso_pagos_pendientes = 0;
+
         $facturas_abonadas = Factura::where('aliado_id', $request->user()->aliados->id)->where('status', '=', 2)->whereMonth('created_at', Carbon::now()->format('m'))->get();
-        $monto_pagos_abonados = Pago::whereBelongsTo($facturas_abonadas)->where('status', '=', 2)->pluck('monto_equivalente');
-        foreach ($monto_pagos_abonados as $monto_pago){
-            $monto_total_abonadas = floatval($monto_total_abonadas) + floatval($monto_pago);
+        
+        if ($facturas_abonadas->isEmpty()) {
+
+        } else {
+            $monto_pagos_abonados = Pago::whereBelongsTo($facturas_abonadas)->where('status', '=', 2)->pluck('monto_equivalente');
+            foreach ($monto_pagos_abonados as $monto_pago){
+                $monto_total_abonadas = floatval($monto_total_abonadas) + floatval($monto_pago);
+            }
+            
+            $monto_pagos_pendientes = $monto_pendiente_todas - $monto_total_abonadas;
+    
+            $progreso_pagos_abonados    = round($monto_total_abonadas*100/$monto_pendiente_todas);
+            $progreso_pagos_pendientes  = round($monto_pagos_pendientes*100/$monto_pendiente_todas);
         }
 
-        $monto_pagos_pendientes = $monto_pendiente_todas - $monto_total_abonadas;
-
-        $progreso_pagos_abonados    = round($monto_total_abonadas*100/$monto_pendiente_todas);
-        $progreso_pagos_pendientes  = round($monto_pagos_pendientes*100/$monto_pendiente_todas);
 
         $user = User::find($request->user()->id);
         return view('usuarios.index', [
@@ -44,8 +55,8 @@ class UsuariosController extends Controller
             'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 1)->count(),
             'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 2)->count(),
             'total_facturas_conciliadas' => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->count(),
-            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->where('status', '=', 1)->take(4)->get(),
-            'facturas_recibidas'         => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->take(6)->get(),
+            'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->where('status', '=', 1)->take(2)->get(),
+            'facturas_recibidas'         => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->take(8)->get(),
             'monto_pendiente_todas'      => $monto_pendiente_todas,
             'monto_total_abonadas'       => $monto_total_abonadas,
             'progreso_pagos_abonados'    => $progreso_pagos_abonados,
@@ -64,6 +75,19 @@ class UsuariosController extends Controller
         return view('usuarios.facturas_pendientes', [
             'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '<', 3)->orderBy('created_at', 'desc')->count(),
             'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->where('status', '<', 3)->orderBy('created_at', 'desc')->paginate(8),
+        ]);
+    }
+
+    public function facturasConciliadas(Request $request) : View
+    {
+        if (!auth()->check()) {
+            return view('auth.login');
+        }
+
+        $user = User::find($request->user()->id);
+        return view('usuarios.facturas_conciliadas', [
+            'total_facturas_conciliadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->orderBy('created_at', 'desc')->count(),
+            'facturas_conciliadas'        => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->orderBy('created_at', 'desc')->paginate(8),
         ]);
     }
 

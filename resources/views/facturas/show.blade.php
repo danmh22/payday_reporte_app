@@ -12,7 +12,7 @@
 
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
-            <div class="flex flex-wrap w-3/4 py-6 px-8 rounded border border-gray-200 bg-white">
+            <div class="flex flex-wrap w-3/4 py-6 px-8 rounded shadow border-gray-200 bg-white">
                 @if (session('success'))
                 <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
                     {{ session('success') }}
@@ -84,9 +84,9 @@
                 </div>
 
                 <h3 class="text-sm mt-8 font-bold text-slate-800 mb-4">Resumen de pagos realizados:</h3>
-                <div class="w-full mb-4 border-gray-100 bg-gray-50 p-4">
+                <div class="w-full mb-4 border-gray-100 bg-slate-100 p-4 max-h-96 overflow-scroll">
                     @foreach ($factura->pagos as $pago)
-                        <div class="w-full flex flex-wrap items-center text-sm border border-gray-100 bg-white rounded mb-1">
+                        <div class="w-full flex flex-wrap items-center text-sm shadow border-gray-100 bg-white rounded mb-1">
                             <div class="w-3/6 px-4 py-4">
                                 @switch( $pago->status )
                                     @case(1)

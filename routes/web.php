@@ -56,7 +56,8 @@ Route::controller(PagosController::class)->group(function (){
 
 Route::controller(UsuariosController::class)->group(function(){
     Route::get('/',                                 'index')->can('dashboard-user')->name('dashboard-user');
-    Route::get('/facturas-pendientes', 'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
+    Route::get('/facturas/pendientes',  'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
+    Route::get('/facturas/conciliadas', 'facturasConciliadas')->name('facturas-conciliadas-user');
     Route::get('/historial',                    'historial')->can('historial')->name('historial');
 })->middleware(['auth', 'verified']);
 

@@ -6,7 +6,7 @@
 
     <div class="flex justify-between items-center w-5/6">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listado de Aliados Comerciales</h1>
-        <a href="{{ route('cargar-aliados') }}" class="px-3 py-2 font-bold text-sm !bg-blue-700 rounded block text-white mt-4 tracking-wider">Crear Aliado</a>
+        <a href="{{ route('cargar-aliados') }}" class="px-3 py-2 font-bold text-sm bg-blue-700 rounded block text-white mt-4 tracking-wider transition-all hover:bg-blue-600">Crear Aliado</a>
     </div>
 
 @endsection()
@@ -16,7 +16,7 @@
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="w-5/6 py-4">
-                <div class="overflow-x-auto rounded border border-gray-200">
+                <div class="overflow-x-auto rounded shadow border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                         <thead class="bg-gray-50">
@@ -82,7 +82,7 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-4">
-                                    <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Aliado' }" href="{{ route('aliados.show', $aliado) }}">Ver Aliado</a>
+                                    <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs transition-all hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Aliado' }" href="{{ route('aliados.show', $aliado) }}">Ver Aliado</a>
                                 </div>
 
                                 {{-- @if ($aliado_state == '1')
