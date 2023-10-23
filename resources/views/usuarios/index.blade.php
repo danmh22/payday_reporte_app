@@ -15,12 +15,12 @@
             <div class="sm:w-4/6 py-4 pr-4 w-full">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-l font-bold mb-0 text-gray-800">Facturas Pendientes</h2>
-                    <a href="{{ route('facturas-pendientes') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
+                    <a href="{{ route('facturas-pendientes') }}" class="py-2 px-2 rounded text-blue-700 text-xs transition-all hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
                 </div>
                 <div class="grid gap-2 grid-cols-2 mb-4">
                     @foreach ($facturas_pendientes as $facturasP)
 
-                        <div class="flex flex-wrap items-center justify-between border border-gray-200 rounded bg-white p-4">
+                        <div class="flex flex-wrap items-center justify-between shadow border-gray-200 rounded bg-white p-4">
                             <div class="w-4/6 text-xs">
                                 @switch($facturasP->status)
                                     @case(1)
@@ -78,7 +78,7 @@
                             </div>
                             <div class="w-2/6 flex flex-col justify-between items-end h-full">
                                 <p class="text-base text-gray-700 font-bold">{{ $facturasP->monto_deudor }} <span class="text-xs text-gray-500 font-bold">USD</span></p>
-                                <a href="{{ route('factura', $facturasP) }}" class="bg-blue-700 p-2 text-white text-xs rounded text-center">Ver Factura</a>
+                                <a href="{{ route('factura', $facturasP) }}" class="bg-blue-700 p-2 text-white text-xs rounded shadow text-center transition-all hover:bg-blue-600">Ver Factura</a>
                             </div>
                         </div>
 
@@ -87,10 +87,10 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimas facturas recibidas</h2>
-                        <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
+                        <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs transition-all hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
                     </div>
-                    <div class="overflow-x-auto rounded border border-gray-200">
-                        <div class="w-full max-h-96">
+                    <div class="overflow-x-auto rounded shadow border-gray-200">
+                        <div class="w-full max-h-88">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                             <thead class="bg-gray-50 sticky top-0 z-10">
                                 <tr>
@@ -163,8 +163,8 @@
                                             x-transition:leave-start="opacity-100 scale-100"
                                             x-transition:leave-end="opacity-0 scale-95"
                                             class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
-                                                    <li><a class="p-2 block text-xs font-bold hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $facturaR) }}">Ver Factura</a></li>
-                                                    <li><a class="p-2 block text-xs font-bold hover:text-blue-500 hover:bg-blue-50" href="{{ route('reportar-pago', $facturaR) }}">Reportar Pago</a></li>
+                                                    <li><a class="p-2 block text-xs font-bold transition-all hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $facturaR) }}">Ver Factura</a></li>
+                                                    <li><a class="p-2 block text-xs font-bold transition-all hover:text-blue-500 hover:bg-blue-50" href="{{ route('reportar-pago', $facturaR) }}">Reportar Pago</a></li>
                                             </ul>
 
                                         </div>
@@ -183,12 +183,12 @@
                 <div class="flex justify-between items-center mb-3 mt-2">
                     <h2 class="text-l font-bold mb-0 text-gray-800">Resumen:</h2>
                 </div>
-                <div class="bg-white flex flex-wrap text-center mb-4 rounded overflow-hidden">
-                    <div class="w-full flex justify-center items-center border border-b-0 flex-col px-2 py-4">
+                <div class="bg-white flex flex-wrap text-center mb-4 shadow rounded overflow-hidden">
+                    <div class="w-full flex justify-center items-center border-b-0 flex-col px-2 py-4">
                         <span class="text-sm block text-gray-500 font-bold mb-2">Total facturado este mes:</span>
                         <p class="text-2xl text-blue-600 font-bold">{{ number_format($monto_pendiente_todas) }}<span class="text-xs font-bold ml-2">USD</span></p>
                     </div>
-                    <div class="w-full border border-t-0 border-b-0 px-4 pt-1 pb-3">
+                    <div class="w-full px-4 pt-1 pb-3">
                         <div class="flex justify-between items-center">
                             <span class="text-xs block text-gray-500 font-bold mb-2">Progreso:</span>
                             <span class="text-sm block text-gray-500 font-bold mb-2">{{ $progreso_pagos_abonados }}%</span>
@@ -197,11 +197,11 @@
                             <div style="width: {{ $progreso_pagos_abonados }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
                         </div>
                     </div>
-                    <div class="w-1/2 flex justify-center items-center border flex-col px-2 py-4">
+                    <div class="w-1/2 flex justify-center items-center border-t flex-col px-2 py-4">
                         <span class="text-xs block text-gray-500 font-bold mb-2">Abonado:</span>
                         <p class="text-2xl text-green-600 font-bold">{{ number_format($monto_total_abonadas) }}<span class="text-xs font-bold ml-2">USD</span></p>
                     </div>
-                    <div class="w-1/2 flex justify-center items-center border border-l-0 flex-col px-2 py-4">
+                    <div class="w-1/2 flex justify-center items-center border-t border-l flex-col px-2 py-4">
                         <span class="text-xs block text-gray-500 font-bold mb-2">Por pagar:</span>
                         <p class="text-2xl text-blue-600 font-bold">{{ number_format($monto_pagos_pendientes) }}<span class="text-xs font-bold ml-2">USD</span></p>
                     </div>

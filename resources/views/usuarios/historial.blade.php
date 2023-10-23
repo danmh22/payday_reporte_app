@@ -16,7 +16,7 @@
 
                 @if ($total_facturas_reportadas > 0)
 
-                <div class="overflow-x-auto rounded border border-gray-200">
+                <div class="overflow-x-auto rounded shadow border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
                         <thead class="bg-gray-50">

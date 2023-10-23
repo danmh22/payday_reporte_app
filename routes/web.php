@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('header');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class,       'edit'])->name('profile.edit');
@@ -55,7 +55,7 @@ Route::controller(PagosController::class)->group(function (){
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){
-    Route::get('/',                                 'index')->can('dashboard-user')->name('dashboard-user');
+    Route::get('/dashboard',                         'index')->can('dashboard-user')->name('dashboard-user');
     Route::get('/facturas/pendientes',  'facturasPendientes')->can('facturas-pendientes')->name('facturas-pendientes');
     Route::get('/facturas/conciliadas', 'facturasConciliadas')->name('facturas-conciliadas-user');
     Route::get('/historial',                    'historial')->can('historial')->name('historial');

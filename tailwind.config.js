@@ -20,6 +20,9 @@ export default {
             fontWeight:{
                 extrabold: '800',
             },
+            spacing: {
+                '88': '22rem',
+            }
         },
     },
 
