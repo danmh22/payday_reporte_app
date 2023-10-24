@@ -49,12 +49,12 @@
                     @if (Route::has('login'))
                     <div class="text-left mt-6 z-10">
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="font-semibold w-40 text-center inline-block bg-emerald-400 text-white py-3 px-4 rounded shadow shadow-green-800 hover:bg-emerald-600 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar Sesión</a>
+                            <a href="{{ route('login') }}" class="font-semibold w-40 text-center inline-block bg-emerald-400 text-white py-3 px-4 rounded shadow shadow-green-800 hover:bg-emerald-600 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar Sesión</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
+                                <a href="{{ route('register') }}" class="ml-4 font-semibold w-40 text-center inline-block bg-emerald-400 text-white py-3 px-4 rounded shadow shadow-green-800 hover:bg-emerald-600 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
                             @endif
                         @endauth
                     </div>
