@@ -13,20 +13,30 @@
 <main>
     <div class="flex flex-wrap mx-auto py-4 pt-0">
         <div class="w-4/6 flex flex-wrap">
+            @if ($errors->any())
+                <div class="py-2 px-4 rounded shadow w-2/3 bg-red-50 text-red-600 text-xs mb-1 font-semibold tracking-wider" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('status'))
+                <div class="py-2 px-4 rounded shadow w-2/3 bg-red-50 text-red-600 text-xs mb-1 font-semibold tracking-wider" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="py-2 px-4 rounded shadow w-2/3 bg-green-50 text-green-600 text-xs mb-1 font-semibold tracking-wider" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="w-full py-4 pr-4">
                 <div class="rounded shadow bg-white p-6">
                     <h2 class="text-lg font-bold text-gray-800">Carga un nuevo listado de facturas</h2>
                     <p class="text-sm mb-4 mt-2 text-gray-500">Descarga el formato para la carga de facturas, rellena sus campos con los datos solicitados y carga un nuevo listado de facturas para tus aliados comerciales:</p>
                     <div class="flex items-center mt-2">
-                        @if (isset($errors) && $errors->any())
-    
-                        <div class="alert alert-danger" role="alert">
-                            @foreach ($errors->all() as $error)
-                            {{ $error }}
-                            @endforeach
-                        </div>
-    
-                        @endif
                         <form action="{{ route('importar-facturas') }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap w-full">
                             @csrf
                             <label class="block">

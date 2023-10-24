@@ -22,7 +22,10 @@ export default {
             },
             spacing: {
                 '88': '22rem',
-            }
+            },
+            lineHeight: {
+                '12': '3.5rem',
+            },
         },
     },
 

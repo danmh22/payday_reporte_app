@@ -36,18 +36,28 @@ class AdminController extends Controller
             $monto_pendiente_todas = floatval($monto_pendiente_todas) + floatval($monto_pago);
         }
 
-        $monto_pendiente_abonadas = 0;
+        $monto_pendiente_abonadas  = 0;
+        $monto_pagos_abonados      = 0;
+        $monto_pendiente_final     = 0;
+        $progreso_pagos_abonados   = 0;
+        $progreso_pagos_pendientes = 0;
+        
         $facturas_abonadas = Factura::where('status', '=', 2)->get();
-        $monto_pagos_abonados = Pago::whereBelongsTo($facturas_abonadas)->where('status', '=', 2)->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_equivalente');
-        foreach ($monto_pagos_abonados as $monto_pago){
-            $monto_pendiente_abonadas = floatval($monto_pendiente_abonadas) + floatval($monto_pago);
+        
+        if ($facturas_abonadas->isEmpty()) {
+
+        } else {
+            $monto_pagos_abonados = Pago::whereBelongsTo($facturas_abonadas)->where('status', '=', 2)->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_equivalente');
+            foreach ($monto_pagos_abonados as $monto_pago){
+                $monto_pendiente_abonadas = floatval($monto_pendiente_abonadas) + floatval($monto_pago);
+            }
+
+            $monto_pendiente_final = $monto_pendiente_todas - $monto_pendiente_abonadas;
+
+            $progreso_pagos_abonados    = round($monto_pendiente_abonadas*100/$monto_pendiente_todas);
+            $progreso_pagos_pendientes  = round($monto_pendiente_final*100/$monto_pendiente_todas);
         }
-
-        $monto_pendiente_final = $monto_pendiente_todas - $monto_pendiente_abonadas;
-
-        $progreso_pagos_abonados    = round($monto_pendiente_abonadas*100/$monto_pendiente_todas);
-        $progreso_pagos_pendientes  = round($monto_pendiente_final*100/$monto_pendiente_todas);
-
+        
         return view('admin.index', [
             'user'=> $request->user(),
             'total_facturas_emitidas'    => Factura::where('status', '=', 1)->count(),
@@ -124,6 +134,10 @@ class AdminController extends Controller
 
     public function importarFacturas(Request $request)
     {
+        $request->validate([
+            'file'  => 'required|file',
+        ]);
+        
         $file = $request->file('lote_facturas');
         Excel::import(new FacturasImport, $file);
 

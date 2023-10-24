@@ -77,7 +77,7 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos por conciliar</h2>
-                        <a href="{{ route('pagos-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs font-bold hover:text-white hover:bg-blue-700">Ver todos</a>
+                        <a href="{{ route('pagos-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs font-bold transition-all hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
                     <div class="overflow-x-auto rounded shadow border-gray-200 max-h-96">
                         <div class="w-full">

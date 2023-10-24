@@ -19,11 +19,48 @@
     </head>
 
 
-    <body class="bg-white antialiased">
-        <div class="w-full mx-auto flex flex-nowrap">
-            <div class="w-1/2">
+    <body class="bg-white antialiased h-screen">
+        <div class="w-full h-full mx-auto flex flex-nowrap">
+            <div class="w-1/2 bg-emerald-200">
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="">
+                        <img src="{{ asset('img/home-img.png') }}" alt="">
+                    </div>
+                </div>
             </div>
-            <div class="w-1/2">
+            <div class="w-1/2 flex flex-col justify-start items-start bg-white">
+                @if (Route::has('login'))
+                    <div class="p-6 flex justify-end w-full text-right z-10">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold text-green-600 hover:text-green-400 dark:text-green-500 dark:hover:text-green-700 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="font-semibold text-green-600 hover:text-green-400 dark:text-green-500 dark:hover:text-green-700 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar Sesión</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="ml-4 font-semibold text-green-600 hover:text-green-400 dark:text-green-500 dark:hover:text-green-700 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
+                <div class="px-14 w-full mt-32 flex flex-col text-left">
+                    <p class="font-extrabold text-gray-700 text-lg">HOLA, USUARIO</p>
+                    <h1 class="text-5xl w-11/12 font-extrabold text-gray-700 mt-2 mb-4 leading-12">BIENVENIDO AL SISTEMA DE ADMINISTRACIÓN DE PAGOS</h1>
+                    <p class="w-5/6 font-semibold text-gray-500">Realiza el reporte de pagos de tus facturas desde un mismo lugar. Lleva el control de la facturación de tu inmueble, visualiza cuanto has gastado y de cuanto es tu deuda en todo momento.</p>
+                    @if (Route::has('login'))
+                    <div class="text-left mt-6 z-10">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar Sesión</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="ml-4 font-semibold w-40 text-center inline-block bg-emerald-600 text-white p-4 rounded shadow shadow-green-800 hover:bg-emerald-400 transition-all focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
+                </div>
+                {{-- <div class="h-14 w-full bg-emerald-200"></div> --}}
             </div>
         </div>
     </body>

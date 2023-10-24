@@ -1,23 +1,4 @@
 <div class="w-full py-4 pr-4">
-    @if ($errors->any())
-        <div class="py-2 px-2 rounded border bg-red-50 text-red-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if (session('status'))
-        <div class="py-2 px-2 rounded border bg-red-50 text-red-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
     <div class="rounded shadow bg-white p-6">
     <h2 class="text-lg font-bold text-gray-800">Crea una nueva factura para un aliado comercial</h2>
     <p class="text-sm mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para crear una nueva factura:</p>
