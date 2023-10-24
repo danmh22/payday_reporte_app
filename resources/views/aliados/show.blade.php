@@ -4,6 +4,9 @@
 
 @section('header_section')
 
+    <a href="{{ route('aliados.index') }}" class="text-blue-700 hover:text-blue-500 text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
+        keyboard_backspace
+        </span> Regresar a los aliados</a>
     <h1 class="text-2xl font-bold tracking-tight text-gray-900">Resumen del Aliado Comercial</h1>
 
 @endsection()

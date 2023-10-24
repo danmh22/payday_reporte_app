@@ -3,7 +3,10 @@
 @section('title', 'Detalles de Factura')
 
 @section('header_section')
-
+    
+    <a href="{{ URL::previous() }}" class="text-blue-700 hover:text-blue-500 text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
+        keyboard_backspace
+        </span> Regresar a las facturas</a>
     <h1 class="text-2xl font-bold tracking-tight text-gray-900">Detalles de Factura</h1>
 
 @endsection()
@@ -133,24 +136,6 @@
                                 @endcan
 
                             </div>
-                            {{-- <div class="w-1/3 mb-6"><p class="font-bold text-xs mb-1 text-slate-800">Fecha de reporte:</p>
-                                <p class="text-gray-700">{{ $pago->updated_at->format('d/m/Y') }}</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Plataforma de pago:</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Nombre del títular:</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Documento de identidad:</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Método de pago:</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Fecha del pago:</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Monto:</p>
-                                <p class="text-gray-700">{{ $pago->monto_pago }} {{ $pago->divisa }}</p>
-                                <p class="font-bold text-xs mb-1 text-slate-800">Referencia:</p>
-                            </div>
-                            <div class="w-1/3 mb-6">
-                            </div>
-                            <div class="w-1/3 mb-6">
-                            </div>
-                            <div class="w-1/3 mb-6">
-                            <hr class="border-b border-gray-100 my-8 mb-4 w-full">
-                            </div> --}}
                         </div>
 
                     @endforeach

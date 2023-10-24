@@ -135,7 +135,7 @@ class AdminController extends Controller
     public function importarFacturas(Request $request)
     {
         $request->validate([
-            'file'  => 'required|file',
+            'lote_facturas'  => 'required|file',
         ]);
         
         $file = $request->file('lote_facturas');

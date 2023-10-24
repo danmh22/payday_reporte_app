@@ -13,10 +13,15 @@
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
             <div class="sm:w-4/6 py-4 pr-4 w-full">
+                
+                @if ($total_facturas_pendientes > 0)
+
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-l font-bold mb-0 text-gray-800">Facturas Pendientes</h2>
                     <a href="{{ route('facturas-pendientes') }}" class="py-2 px-2 rounded text-blue-700 text-xs transition-all hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
                 </div>
+
+           
                 <div class="grid gap-2 grid-cols-2 mb-4">
                     @foreach ($facturas_pendientes as $facturasP)
 
@@ -82,13 +87,19 @@
                             </div>
                         </div>
 
-                        @endforeach
+                    @endforeach
                 </div>
+                    
+                @endif
+
                 <div class="">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimas facturas recibidas</h2>
                         <a href="{{ route('historial') }}" class="py-2 px-2 rounded text-blue-700 text-xs transition-all hover:text-white hover:bg-blue-700 font-bold">Ver todos</a>
                     </div>
+
+                    @if ($total_facturas_recibidas > 0)
+                    
                     <div class="overflow-x-auto rounded shadow border-gray-200">
                         <div class="w-full max-h-88">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
@@ -177,6 +188,21 @@
                             </table>
                         </div>
                     </div>
+                        
+                    @else
+
+                    <div class="p-12 bg-white rounded shadow">
+                        <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
+                            <div class="w-60 h-60 p-6 bg-white rounded-full overflow-hidden shadow shadow-slate-200 mb-2">
+                                <img src="{{ asset('img/ayuda.jpg') }}" alt="">
+                            </div>
+                            <h2 class="text-lg font-bold text-neutral-700">¡Hey! No hay nada nuevo por acá...</h2>
+                            <p class="text-sm text-neutral-600 w-2/3">Parece que aún no has recibido nuevas facturas. Mantente atento a las fechas habituales de facturación.</p>
+                        </div>
+                    </div>
+
+                    @endif
+
                 </div>
             </div>
             <div class="sm:w-2/6 py-4 sm:px-4 lg:px-4 w-full">
@@ -243,7 +269,7 @@
                 <div class="bg-gradient-to-r from-blue-500 to-blue-700 py-8 px-7 text-white rounded">
                     <span class="text-xs bg-blue-50 mb-3 rounded text-blue-700 p-1 px-2 font-bold inline-block">Anuncio</span>
                     <h2 class="text-lg font-bold mb-3">Recuerda reportar el pago de tus facturas a tiempo</h2>
-                    <p class="text-sm">Cuando cancelas tus facturas dentro del plazo corresponiente y realizas tus reportes a través de la aplicación estás contribuyendo a la prestación de un servicio más eficiente</p>
+                    <p class="text-sm">Cuando cancelas tus facturas dentro del plazo correspondiente y realizas tus reportes a través de la aplicación estás contribuyendo a la prestación de un servicio más eficiente</p>
                 </div>
             </div>
 

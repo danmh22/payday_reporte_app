@@ -55,6 +55,7 @@ class UsuariosController extends Controller
             'total_facturas_pendientes'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 1)->count(),
             'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 2)->count(),
             'total_facturas_conciliadas' => Factura::where('aliado_id', $user->aliados->id)->where('status', '=', 3)->count(),
+            'total_facturas_recibidas'   => Factura::where('aliado_id', $user->aliados->id)->count(),
             'facturas_pendientes'        => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->where('status', '=', 1)->take(2)->get(),
             'facturas_recibidas'         => Factura::where('aliado_id', $user->aliados->id)->orderBy('created_at', 'desc')->take(8)->get(),
             'monto_pendiente_todas'      => $monto_pendiente_todas,
@@ -98,10 +99,20 @@ class UsuariosController extends Controller
         }
 
         $user = User::find($request->user()->id);
+        
+        $pagos_realizados       = 0;
+        $total_pagos_realizados = 0;
         $facturas_con_pagos = Factura::where('aliado_id', $user->aliados->id)->has('pagos')->get();
+        
+        if ($facturas_con_pagos->isEmpty()) {
+            
+        } else {
+            $pagos_realizados = Pago::whereBelongsTo($facturas_con_pagos)->orderBy('fecha_pago', 'desc')->paginate(8);
+        }
+        
         return view('usuarios.historial', [
             'total_facturas_reportadas'  => Factura::where('aliado_id', $user->aliados->id)->where('status', '>', 1)->count(),
-            'pagos_realizados'           => Pago::whereBelongsTo($facturas_con_pagos)->orderBy('fecha_pago', 'desc')->paginate(8),
+            'pagos_realizados'           => $pagos_realizados,
         ]);
     }
 

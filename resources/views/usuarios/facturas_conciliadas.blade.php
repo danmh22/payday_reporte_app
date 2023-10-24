@@ -137,11 +137,11 @@
 
                     <div class="p-5">
                         <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
-                            <div class="w-56 h-56 p-6 bg-white rounded-full overflow-hidden border border-gray-100 mb-2">
-                                <img src="{{ asset('img/facturas-pendientes.jpg') }}" alt="">
+                            <div class="w-60 h-60 p-4 bg-white rounded-full overflow-hidden shadow border-gray-100 mb-2">
+                                <img src="{{ asset('img/ayuda.jpg') }}" alt="">
                             </div>
                             <h2 class="text-lg font-bold text-neutral-700">Nada nuevo por acá...</h2>
-                            <p class="text-sm font-semibold text-neutral-400">Parece que tienes facturas por conciliar o aún no has recibido facturas del administrador</p>
+                            <p class="text-sm font-bold text-neutral-500 w-2/3">Parece que tienes facturas por conciliar o aún no has recibido facturas del administrador</p>
                         </div>
                     </div>
 

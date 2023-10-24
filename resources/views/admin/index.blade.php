@@ -26,8 +26,14 @@
                         </div>
                         <div>
                             <div class="flex items-center flex-wrap max-w-md px-4 bg-white rounded-2xl"
-                            x-data="{ circumference: 30 * 2 * Math.PI, percent: {{ round($total_pagos_conciliados*100/$total_pagos )}} }"
-                            >
+                            x-data="{ 
+                                circumference: 30 * 2 * Math.PI, 
+                                @if ($total_pagos == 0)
+                                    percent: 0
+                                @else 
+                                    percent: {{ round($total_pagos_conciliados*100/$total_pagos )}}  
+                                @endif
+                            }">
                                 <div class="flex items-center justify-center overflow-hidden bg-white rounded-full">
                                     <svg class="w-20 h-20" x-cloak aria-hidden="true">
                                     <circle
@@ -75,10 +81,14 @@
 
             <div class="sm:w-4/6 py-4 pr-4 w-full">
                 <div class="">
+
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-l font-bold mb-0 text-gray-800">Últimos pagos por conciliar</h2>
                         <a href="{{ route('pagos-conciliar') }}" class="py-2 px-2 rounded text-blue-700 text-xs font-bold transition-all hover:text-white hover:bg-blue-700">Ver todos</a>
                     </div>
+
+                    @if ($total_pagos_por_conciliar > 0)
+
                     <div class="overflow-x-auto rounded shadow border-gray-200 max-h-96">
                         <div class="w-full">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
@@ -176,6 +186,17 @@
                             </table>
                         </div>
                     </div>
+                    @else
+                        <div class="p-12 bg-white rounded shadow">
+                            <div class="w-full flex flex-col flex-wrap text-center justify-center items-center">
+                                <div class="w-60 h-60 p-6 bg-white rounded-full overflow-hidden shadow shadow-slate-200 mb-2">
+                                    <img src="{{ asset('img/facturas-pendientes.jpg') }}" alt="">
+                                </div>
+                                <h2 class="text-lg font-bold text-neutral-700">Parece que no hay nada nuevo por acá...</h2>
+                                <p class="text-sm text-neutral-600">No has recibido nuevos pagos por parte de tus aliados comerciales</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
