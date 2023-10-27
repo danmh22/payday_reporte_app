@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+// use Symfony\Component\BrowserKit\HttpBrowser;
+// use Symfony\Component\HttpClient\HttpClient;
 
 class AdminController extends Controller
 {
@@ -23,6 +25,10 @@ class AdminController extends Controller
             // El usuario no está autenticado, redirige a la página de login.
             return view('auth.login');
         }
+
+        // $browser = new HttpBrowser(HttpClient::create());
+        // $browser->request('GET', 'https://www.bcv.org.ve/');
+        // $tasa_dolar_hoy = $browser->filter('#dolar strong')->text();
 
         $monto_conciliados_final = 0;
         $monto_conciliados = Pago::where('status', '=', 2)->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_equivalente');
@@ -60,6 +66,7 @@ class AdminController extends Controller
         
         return view('admin.index', [
             'user'=> $request->user(),
+            // 'tasa_dolar_hoy'             => $tasa_dolar_hoy,
             'total_facturas_emitidas'    => Factura::where('status', '=', 1)->count(),
             'total_facturas_reportadas'  => Factura::where('status', '=', 2)->count(),
             'total_facturas_conciliadas' => Factura::where('status', '=', 3)->count(),

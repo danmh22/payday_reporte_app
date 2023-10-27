@@ -12,7 +12,7 @@
 
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
-
+            {{-- <p>{{ $tasa_dolar_hoy }}</p> --}}
             <div class="sm:w-2/6 py-4 sm:pr-4 lg:pr-4 w-full">
                 <div class="w-full shadow bg-white px-6 py-4 rounded h-32">
                     

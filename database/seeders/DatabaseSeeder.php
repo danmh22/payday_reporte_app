@@ -36,21 +36,21 @@ class DatabaseSeeder extends Seeder
                 ]);
 
         
-        // for ($i=0; $i < 5; $i++) { 
-        //     $currentUser = User::factory()->create()->assignRole('Aliado');
-        //     // Se asigna un aliado al usuario
-        //     $aliado = Aliado::factory()->count(1)->for($currentUser)->create();
-        //     // Se crean facturas con diferentes estatus
-        //     $facturas_creadas = Factura::factory()->count(4)->for($aliado[0])->create();
-        //     $facturas_abonadas = Factura::factory()->count(6)->for($aliado[0])
-        //         ->create(['status' => '2']);
-        //     foreach ($facturas_abonadas as $factura) {
-        //         Pago::factory()->count(2)->for($factura)->create();
-        //         Pago::factory()->count(2)->for($factura)
-        //         ->create(['status' => '1']);
-        //     }
+        for ($i=0; $i < 5; $i++) { 
+            $currentUser = User::factory()->create()->assignRole('Aliado');
+            // Se asigna un aliado al usuario
+            $aliado = Aliado::factory()->count(1)->for($currentUser)->create();
+            // Se crean facturas con diferentes estatus
+            $facturas_creadas = Factura::factory()->count(4)->for($aliado[0])->create();
+            $facturas_abonadas = Factura::factory()->count(6)->for($aliado[0])
+                ->create(['status' => '2']);
+            foreach ($facturas_abonadas as $factura) {
+                Pago::factory()->count(2)->for($factura)->create();
+                Pago::factory()->count(2)->for($factura)
+                ->create(['status' => '1']);
+            }
             
-        // }
+        }
  
 
     }
