@@ -12,10 +12,10 @@
 
     <main>
         <div class="flex flex-wrap mx-auto py-4 pt-0">
-
+            
             <div class="sm:w-2/6 py-4 sm:pr-4 lg:pr-4 w-full">
+                {{-- {{ $tasa_dolar_bcv }} --}}
                 <div class="w-full shadow bg-white px-6 py-4 rounded h-32">
-                    
                     <div class="flex justify-between items-center h-full">
                         <div>
                             <div class="w-9 h-9 text-xs bg-blue-100 text-blue-600 rounded flex justify-center items-center"><span class="material-symbols-outlined">
@@ -74,7 +74,7 @@
                         <p class="text-sm font-semibold">¿Llegó la fecha de cobro? Carga un nuevo lote de facturas para tus aliados comerciales fácil y rápido</p>
                     </div>
                     <div class="relative w-2/6 z-10 flex justify-end items-center pr-4">
-                        <a href="{{ route('cargar-facturas') }}" class="bg-white text-blue-600 font-bold text-sm rounded py-3 px-4 border border-2 border-white transition-all hover:bg-transparent hover:text-white">Cargar Facturas</a>
+                        <a href="{{ route('cargar-facturas') }}" class="bg-white text-blue-600 font-bold text-sm rounded py-3 px-4 border-2 border-white transition-all hover:bg-transparent hover:text-white">Cargar Facturas</a>
                     </div>
                 </div>
             </div>

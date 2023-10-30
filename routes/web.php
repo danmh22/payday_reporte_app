@@ -5,6 +5,7 @@ use App\Http\Controllers\AliadosController;
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,5 +69,9 @@ Route::controller(AliadosController::class)->group(function(){
     Route::post('/crear-aliados',     'store')->name('aliados.store');
     Route::patch('/aliados',  'cambiarStatus')->can('aliado-status')->name('aliado-status');
 })->middleware(['auth', 'verified']);
+
+Route::controller(ScraperController::class)->group(function(){
+    Route::get('/scraper', 'index')->name('scraper.index');
+});
 
 require __DIR__.'/auth.php';

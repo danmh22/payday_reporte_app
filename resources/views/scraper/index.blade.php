@@ -1,0 +1,1 @@
+{{ $tasa_dolar_bcv }}

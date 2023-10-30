@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
-        $colorsPalette = ['red', 'orange', 'amber', 'lime', 'green', 'blue', 'indigo', 'violet', 'purple'];
-        view()->share('colorsPalette', $colorsPalette);
+        
+        
+        // view()->share();
     }
 }
