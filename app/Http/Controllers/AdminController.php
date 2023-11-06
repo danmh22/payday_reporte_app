@@ -33,8 +33,8 @@ class AdminController extends Controller
             $monto_conciliados_final = floatval($monto_conciliados_final) + floatval($monto_pago);
         }
 
-        $monto_pendiente_todas = 0;
-        $monto_facturas_pendiente = Factura::whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_deudor');
+        $monto_pendiente_todas = 1;
+        $monto_facturas_pendiente = Factura::whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_dolar');
         foreach ($monto_facturas_pendiente as $monto_pago){
             $monto_pendiente_todas = floatval($monto_pendiente_todas) + floatval($monto_pago);
         }

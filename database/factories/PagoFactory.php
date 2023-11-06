@@ -25,7 +25,7 @@ class PagoFactory extends Factory
             'referencia_pago' => fake()->unique()->numerify('1020######'),
             'divisa' => fake()->randomElement(['VES', 'USD']),
             'metodo_pago' => fake()->randomElement(['Transferencia', 'Pago Móvil', 'Efectivo', 'Depósito']),
-            'plataforma_pago' => fake()->words(2, true),
+            'plataforma_pago' => fake()->randomElement(['Banesco', 'Bancamiga', 'Mercantil Panamá', 'Zelle']),
             'monto_pago' => $monto/4,
             'monto_equivalente' => $monto/4,
             'status' => '2',

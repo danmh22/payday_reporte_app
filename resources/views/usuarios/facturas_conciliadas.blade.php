@@ -70,7 +70,7 @@
                                         @endswitch
                                     </td>
                                     <td class="px-4 py-3">
-                                        <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturasC->monto_deudor }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                        <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturasC->monto_dolar }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
                                     </td>
                                     <td class="px-4 py-3">
                                         @switch($facturasC->status)

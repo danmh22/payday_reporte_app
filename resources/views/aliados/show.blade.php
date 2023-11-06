@@ -98,14 +98,14 @@
                 <div class="overflow-x-auto w-full rounded border border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-slate-200">
                             <tr>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">ID</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Concepto</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Monto a pagar</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Status</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500">Fecha de creado</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">ID</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Concepto</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Monto a pagar</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Status</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Fecha de creado</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
@@ -114,36 +114,23 @@
 
                             <tr class="hover:bg-gray-50">
                             <th class="px-4 gap-3">
-                                <span class="flex justify-center items-center p-2 rounded bg-blue-100 text-blue-600 w-8 h-8">{{ $factura->id }}</span>
+                                <span class="flex justify-center items-center p-2 rounded bg-emerald-100 text-emerald-700 w-8 h-8">{{ $factura->id }}</span>
                             </th>
                             <td class="px-4 py-3 max-w-[200px]">
-                                @switch($factura->categoria)
-                                    @case('Gastos Generales')
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded text-xxs bg-violet-50 px-1 py-0.5 font-semibold text-violet-600">
-                                        Gastos Generales
-                                        </span>
-                                        @break
-                                    @case('Mensualidad')
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded text-xxs bg-emerald-50 px-1 py-0.5 font-semibold text-emerald-600">
-                                        Mensualidad
-                                        </span>
-                                        @break
-                                    @case('Otros')
-                                        <span
-                                        class="inline-flex items-center gap-1 rounded text-xxs bg-amber-50 px-1 py-0.5 font-semibold text-amber-600">
-                                        Otros
-                                        </span>
-                                        @break
-                                    @default
-                                        Not found
-                                @endswitch
+                                @if ($factura->categoria)
+                                    <span
+                                    class="inline-flex items-center gap-1 rounded text-xs bg-teal-50 px-2 py-1 font-semibold text-teal-600">
+                                    {{ $factura->categoria }}
+                                    </span>
+                                @else
+                                    Not found
+                                @endif
 
                                 <p class="font-bold truncate leading-3 text-gray-600 mt-2">{{ $factura->concepto }}</p>
                             </td>
                             <td class="px-4 py-3">
-                                <p class="font-bold flex justify-start items-center text-blue-500 pr-4 text-base">{{ $factura->monto_deudor }} <span class="text-blue-600 text-xxs ml-2">USD</span></p>
+                                <p class="font-bold flex justify-start items-center text-emerald-700 pr-4 text-base">{{ $factura->monto_dolar }} <span class="text-emerald-800 text-xxs ml-2">USD</span></p>
+                                <p class="font-bold flex justify-start items-center text-cyan-700 pr-4 text-xs">≈ {{ number_format($factura->monto_actual_bs, 2) }} <span class="text-cyan-800 text-xxs ml-1">Bs</span></p>
                             </td>
                             <td class="px-4 py-3">
                                 @switch($factura->status)
@@ -156,14 +143,14 @@
                                     @break
                                     @case(2)
                                         <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xxs font-semibold text-blue-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                                        class="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-2 py-1 text-xxs font-semibold text-cyan-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-cyan-600"></span>
                                         Abonadas
                                         </span>
                                         @break
                                     @case(3)
-                                        <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                        <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xxs font-semibold text-emerald-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                         Conciliado
                                         </span>
                                         @break
@@ -177,7 +164,7 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <a class="px-3 py-2 text-blue-600 border-2 rounded border-blue-600 text-xs hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">Ver Detalle</a>
+                                <a class="px-3 py-2 font-bold text-emerald-600 border-2 rounded border-emerald-600 text-xs hover:bg-emerald-600 hover:text-white" x-data="{ tooltip: 'Ver Factura' }" href="{{ route('factura', $factura) }}">Ver Detalle</a>
                             </td>
                             </tr>
 

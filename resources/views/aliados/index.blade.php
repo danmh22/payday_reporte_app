@@ -19,15 +19,15 @@
                 <div class="overflow-x-auto rounded shadow border-gray-200">
                     <div class="w-full">
                         <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-slate-200">
                             <tr>
                                 {{-- <th scope="col" class="px-4 py-3 font-medium text-gray-900">ID</th> --}}
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Usuario</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Código</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Email</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900">Status</th>
-                                <th scope="col" class="px-4 py-3 font-medium text-gray-900"></th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Usuario</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Código</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Email</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Status</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">

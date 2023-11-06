@@ -15,6 +15,7 @@ class Aliado extends Model
     protected $fillable = [
         'codigo_aliado',
         'nombre_aliado',
+        'saldo',
         'status',
         'user_id',
     ];

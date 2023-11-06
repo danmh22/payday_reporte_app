@@ -16,9 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('aliado_id');
             $table->foreign('aliado_id')->references('id')->on('aliado');
             $table->text('concepto');
-            $table->float('monto_deudor', 8, 2);
+            $table->float('monto_dolar', 8, 2);
+            $table->float('monto_original_bs', 8, 2);
+            $table->float('monto_actual_bs', 8, 2)->nullable();
+            $table->float('dif_cambiario', 8, 2)->nullable();
             $table->enum('status', [1,2,3])->default(1);
-            $table->enum('categoria', ['Mensualidad','Gastos Generales','Otros'])->default('Mensualidad');
+            $table->enum('categoria', ['Alquiler','Parking','Gastos Comunes','Gastos No Comunes','Reembolsables','Condominios'])->default('Alquiler');
+            $table->boolean('con_retraso')->default(0);
             $table->timestamps();
         });
     }

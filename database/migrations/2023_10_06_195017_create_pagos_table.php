@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('referencia_pago');
             $table->set('divisa', ['VES', 'USD']);
             $table->set('metodo_pago', ['transferencia', 'pago móvil', 'depósito', 'efectivo']);
-            $table->string('plataforma_pago')->nullable();
+            $table->set('plataforma_pago', ['Banesco', 'Bancamiga', 'Mercantil Panamá', 'Zelle'])->nullable();
             $table->float('monto_pago', 8, 2);
             $table->float('monto_equivalente', 8, 2);
             $table->date('fecha_pago');

@@ -31,11 +31,12 @@ class FacturasImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
         if ($queryAliado == true) 
         {
             return new Factura([
-                'aliado_id'    => $this->aliado[$row['aliado']],
-                'concepto'     => $row['concepto'],
-                'monto_deudor' => $row['monto'],
-                'categoria'    => $row['categoria'],
-                'status'       => '1',
+                'aliado_id'         => $this->aliado[$row['aliado']],
+                'concepto'          => $row['concepto'],
+                'monto_dolar'      => $row['monto_dolar'],
+                'monto_original_bs' => $row['monto_bs'],
+                'categoria'         => $row['categoria'],
+                'status'            => '1',
             ]);
         } else {
 

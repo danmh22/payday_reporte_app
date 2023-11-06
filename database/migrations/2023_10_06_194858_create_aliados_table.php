@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo_aliado')->unique();
             $table->string('nombre_aliado');
+            $table->string('saldo');
             $table->integer('status')->default('1');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('user');

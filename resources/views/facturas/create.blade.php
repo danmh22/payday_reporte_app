@@ -31,18 +31,21 @@
                 <label for="categoria" class="block w-full text-xs font-bold leading-6 text-gray-500">Categoría</label>
                 <div class="mt-2 w-full">
                     <select id="categoria" name="categoria" autocomplete="categoria" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                        <option>Mensualidad</option>
-                        <option>Gastos Generales</option>
-                        <option>Otros</option>
+                        <option>Alquiler</option>
+                        <option>Parking</option>
+                        <option>Gastos Comunes</option>
+                        <option>Gastos No Comunes</option>
+                        <option>Reembolsables</option>
+                        <option>Condominios</option>
                     </select>
                 </div>
             </div>
             
             <div class="w-2/6 mb-4 pr-4">
-            <label for="monto_deudor" class="block w-full text-xs font-bold leading-6 text-gray-500">Monto en USD</label>
+            <label for="monto_dolar" class="block w-full text-xs font-bold leading-6 text-gray-500">Monto en USD</label>
             <div class="mt-2 w-full">
                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                    <input type="number" step="any" name="monto_deudor" id="monto_deudor" autocomplete="monto_deudor" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
+                    <input type="number" step="any" name="monto_dolar" id="monto_dolar" autocomplete="monto_dolar" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
                 </div>
                 </div>
             </div>

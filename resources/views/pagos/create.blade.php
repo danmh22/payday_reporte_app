@@ -222,7 +222,7 @@
                 </div>
                 <div class="w-1/2 flex justify-center items-center border border-l-0 flex-col px-2 py-4">
                     <span class="text-xs block text-gray-500 font-bold mb-2">Monto Total:</span>
-                    <p class="text-2xl text-blue-600 font-bold">{{ $factura->monto_deudor }}<span class="text-xs font-bold ml-2">USD</span></p>
+                    <p class="text-2xl text-blue-600 font-bold">{{ $factura->monto_dolar }}<span class="text-xs font-bold ml-2">USD</span></p>
                 </div>
             </div>
         </div>

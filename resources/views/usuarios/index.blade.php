@@ -107,7 +107,7 @@
                                 @endswitch
                             </div>
                             <div class="w-2/6 flex flex-col justify-between items-end h-full">
-                                <p class="text-base text-gray-700 font-bold">{{ $facturasP->monto_deudor }} <span class="text-xs text-gray-500 font-bold">USD</span></p>
+                                <p class="text-base text-gray-700 font-bold">{{ $facturasP->monto_dolar }} <span class="text-xs text-gray-500 font-bold">USD</span></p>
                                 <a href="{{ route('factura', $facturasP) }}" class="bg-emerald-700 p-2 text-white text-xs rounded shadow text-center transition-all hover:bg-emerald-600">Ver Factura</a>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                                         @endswitch
                                     </td>
                                     <td class="px-4 py-3">
-                                        <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturaR->monto_deudor }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                        <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturaR->monto_dolar }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
                                     </td>
                                     <td class="px-4 py-3 font-normal text-gray-900">
                                         <div class="text-xs">
@@ -282,7 +282,7 @@
                         <div class="flex flex-wrap items-center justify-between border border-gray-200 rounded bg-white p-4 mb-2">
                             <div class="w-4/6">
                                 <h5 class="text-sm">{{ $facturasP->concepto }}</h5>
-                                <p class="text-xxs text-gray-500">Monto: {{ $facturasP->monto_deudor }} USD</p>
+                                <p class="text-xxs text-gray-500">Monto: {{ $facturasP->monto_dolar }} USD</p>
                             </div>
                             <a href="{{ route('reportar-pago', $facturasP) }}" class="w-2/6 bg-emerald-700 p-2 text-white text-xs rounded text-center">Reportar pago</a>
                         </div>

@@ -47,28 +47,14 @@
                                             <p class="truncate leading-5 font-bold text-gray-400">Ref: {{ $pago->referencia_pago }}</p>
                                         </td>
                                         <td class="px-4 py-3">
-                                            @switch($pago->factura->categoria)
-                                                @case('Gastos Generales')
-                                                    <span
-                                                    class="inline-flex items-center gap-1 rounded text-xs bg-violet-50 px-2 py-1 font-semibold text-violet-600">
-                                                    Gastos Generales
-                                                    </span>
-                                                    @break
-                                                @case('Mensualidad')
-                                                    <span
-                                                    class="inline-flex items-center gap-1 rounded text-xs bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
-                                                    Mensualidad
-                                                    </span>
-                                                    @break
-                                                @case('Otros')
-                                                    <span
-                                                    class="inline-flex items-center gap-1 rounded text-xs bg-amber-50 px-2 py-1 font-semibold text-amber-600">
-                                                    Otros
-                                                    </span>
-                                                    @break
-                                                @default
-                                                    Not found
-                                            @endswitch
+                                            @if ($pago->factura->categoria)
+                                                <span
+                                                class="inline-flex items-center gap-1 rounded text-xs bg-teal-50 px-2 py-1 font-semibold text-teal-600">
+                                                {{ $pago->factura->categoria }}
+                                                </span>
+                                            @else
+                                                Not found
+                                            @endif
                                         </td>
                                         <td class="px-4 py-3 max-w-[150px]">
                                             <p class="font-bold flex justify-start items-center text-emerald-600 pr-4 text-base">{{ $pago->monto_equivalente }} <span class="text-emerald-700 text-xxs ml-2">USD</span></p>

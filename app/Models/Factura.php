@@ -17,9 +17,13 @@ class Factura extends Model
     protected $fillable = [
         'aliado_id',
         'concepto',
-        'monto_deudor',
+        'monto_dolar',
+        'monto_original_bs',
+        'monto_actual_bs',
+        'dif_cambiario',
         'status',
         'categoria',
+        'con_retraso',
     ];
     protected $hidden = [
 

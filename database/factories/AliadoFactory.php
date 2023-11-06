@@ -16,10 +16,12 @@ class AliadoFactory extends Factory
      */
     public function definition(): array
     {
+        $saldo = fake()->numberBetween('0', '150');
         return [
             'codigo_aliado' => fake()->lexify('cod-') . fake()->unique()->numberBetween('0', '8'),
             'nombre_aliado' => fake()->company(),
-            'status' => '1',
+            'saldo'         => $saldo,
+            'status'        => '1',
         ];
     }
 }

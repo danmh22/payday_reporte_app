@@ -24,7 +24,7 @@ class UsuariosController extends Controller
         $tasa_dolar_hoy = Tasa::latest('id')->first();
 
         $monto_pendiente_todas = 0;
-        $monto_facturas_pendiente = Factura::where('aliado_id', $request->user()->aliados->id)->whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_deudor');
+        $monto_facturas_pendiente = Factura::where('aliado_id', $request->user()->aliados->id)->whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_dolar');
         foreach ($monto_facturas_pendiente as $monto_pago){
             $monto_pendiente_todas = floatval($monto_pendiente_todas) + floatval($monto_pago);
         }

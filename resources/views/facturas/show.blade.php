@@ -14,8 +14,8 @@
 @section('content')
 
     <main>
-        <div class="flex flex-wrap mx-auto py-4 pt-0">
-            <div class="flex flex-wrap w-3/4 py-6 px-8 rounded shadow border-gray-200 bg-white">
+        <div class="flex flex-wrap items-start mx-auto py-4 pt-0">
+            <div class="flex flex-wrap w-4/6 py-6 px-8 rounded shadow border-gray-200 bg-white">
                 @if (session('success'))
                 <div class="py-2 px-2 rounded border bg-green-50 text-green-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
                     {{ session('success') }}
@@ -29,15 +29,15 @@
                     @switch($factura->status)
                         @case(1)
 
-                        <div class="px-3 py-2 rounded bg-cyan-50 border border-cyan-200">
-                            <span class="text-cyan-700 font-bold text-sm">Pendiente</span>
+                        <div class="px-3 py-2 rounded bg-amber-50 border border-amber-200">
+                            <span class="text-amber-700 font-bold text-sm">Pendiente</span>
                         </div>
 
                         @break
                         @case(2)
 
-                        <div class="px-3 py-2 rounded bg-amber-50 border border-amber-200">
-                            <span class="text-amber-600 font-bold text-sm">Abonada</span>
+                        <div class="px-3 py-2 rounded bg-cyan-50 border border-cyan-200">
+                            <span class="text-cyan-600 font-bold text-sm">Abonada</span>
                         </div>
 
                         @break
@@ -52,25 +52,33 @@
                             Not found
                     @endswitch
 
-                    </div>
+                </div>
                 <div class="w-full flex flex-wrap text-sm font-bold">
-                    <div class="w-2/5 mb-5 pr-1">
+                    <div class="w-2/4 mb-5 pr-2">
                         <p class="text-xs mb-1 text-slate-400">Concepto:</p>
                         <p class="text-gray-700">{{ $factura->concepto }}</p>
                     </div>
-                    <div class="w-1/5 mb-5">
-                        <p class="text-xs mb-1 text-slate-400">Monto a pagar:</p>
-                        <p class="text-gray-700">{{ $factura->monto_deudor }} USD</p>
-                    </div>
-                    <div class="w-1/5 mb-5">
+                    <div class="w-1/4 mb-5">
                         <p class="text-xs mb-1 text-slate-400">Categoria:</p>
                         <p class="text-gray-700">{{ $factura->categoria }}</p>
                     </div>
-                    <div class="w-1/5 mb-5">
+                    <div class="w-1/4 mb-5">
                         <p class="text-xs mb-1 text-slate-400">Fecha de emisión:</p>
                         <p class="text-gray-700">{{ $factura->created_at->format('d/m/Y') }}</p>
                     </div>
-                    <div class="w-1/3">
+                    <div class="w-1/3 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Monto a pagar en USD:</p>
+                        <p class="text-gray-700">{{ $factura->monto_dolar }} USD</p>
+                    </div>
+                    <div class="w-1/3 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Monto a pagar en Bs:</p>
+                        <p class="text-gray-700">{{ $factura->monto_actual_bs }} Bs</p>
+                    </div>
+                    <div class="w-1/3 mb-5">
+                        <p class="text-xs mb-1 text-slate-400">Diferencia Cambiario:</p>
+                        <p class="text-gray-700">{{ $factura->dif_cambiario }} Bs</p>
+                    </div>
+                    {{-- <div class="w-1/3">
                         <p class="text-xs mb-1 text-slate-400">Monto conciliado:</p>
                         <p class="text-gray-700">{{ $monto_pagos_abonados }} USD</p>
                     </div>
@@ -83,10 +91,12 @@
                         <div class="overflow-hidden h-1 text-xs flex rounded bg-emerald-200">
                             <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-600"></div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <h3 class="text-sm mt-8 font-bold text-slate-800 mb-4">Resumen de pagos realizados:</h3>
+                @if ($factura->pagos->count() > 0)
+                    
+                <h3 class="text-sm mt-6 font-bold text-slate-800 mb-4">Resumen de pagos realizados:</h3>
                 <div class="w-full mb-4 border-gray-100 bg-slate-100 p-4 max-h-96 overflow-scroll">
                     @foreach ($factura->pagos as $pago)
                         <div class="w-full flex flex-wrap items-center text-sm shadow border-gray-100 bg-white rounded mb-1">
@@ -139,27 +149,68 @@
                         </div>
 
                     @endforeach
-                    </div>
+                </div>
 
-                    <div class="w-full mt-2 flex justify-end items-center">
+                @else
+                    
+                @endif
 
-                        @can ('reportar-pago')
-                            @if ($factura->status <= 3)
-                                @if ($monto_pagos_totales >= $factura->monto_deudor)
+                <div class="w-full mt-2 flex justify-end items-center">
 
-                                @else
-                                <a href="{{ route('reportar-pago', $factura) }}" class="bg-emerald-700 px-6 py-2 text-sm rounded text-white hover:bg-emerald-600" type="submit">Reportar Pago</a>
-                                @endif
+                    @can ('reportar-pago')
+                        @if ($factura->status <= 3)
+                            @if ($monto_pagos_totales >= $factura->monto_dolar)
+
                             @else
-
+                            <a href="{{ route('reportar-pago', $factura) }}" class="bg-emerald-700 px-6 py-2 text-sm rounded text-white hover:bg-emerald-600" type="submit">Reportar Pago</a>
                             @endif
-                        @endcan
+                        @else
 
-                        {{-- <form action="" method="post">
-                            @csrf
-                            <button class="bg-red-600 px-6 py-2 text-sm rounded text-white ml-4 hover:bg-red-700" type="submit">Reportar Error</button>
-                        </form> --}}
+                        @endif
+                    @endcan
+
+                    {{-- <form action="" method="post">
+                        @csrf
+                        <button class="bg-red-600 px-6 py-2 text-sm rounded text-white ml-4 hover:bg-red-700" type="submit">Reportar Error</button>
+                    </form> --}}
+                </div>
+
+            </div>
+            <div class="sm:w-2/6 pb-4 sm:px-4 lg:px-4 w-full">
+                <div class="bg-white shadow flex flex-wrap text-center mb-4 rounded overflow-hidden">
+                    <div class="w-full flex justify-center items-center border-b-0 flex-col px-2 py-4">
+                        <span class="text-sm block text-gray-500 font-bold mb-3">Tasa del dolar hoy:</span>
+                        <p class="text-2xl text-emerald-700 font-bold">{{ $tasa_dolar_hoy->tasa_dolar }}<span class="text-xs font-bold ml-1">Bs</span></p>
+                        <span class="text-xxs block text-gray-400 font-bold mt-4">Registrado el: {{ $tasa_dolar_hoy->created_at }}</span>
                     </div>
+                </div>
+
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-l font-bold mb-0 text-gray-800">Resumen:</h2>
+                </div>
+                <div class="bg-white shadow flex flex-wrap text-center mb-4 rounded overflow-hidden">
+                    <div class="w-full flex justify-center items-center border-b-0 flex-col px-2 py-4">
+                        <span class="text-sm block text-gray-500 font-bold mb-2">Monto total de la factura:</span>
+                        <p class="text-2xl text-emerald-700 font-bold">{{ number_format($factura->monto_dolar) }}<span class="text-xs font-bold ml-2">USD</span></p>
+                    </div>
+                    <div class="w-full border-t-0 border-b-0 px-4 pt-1 pb-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs block text-gray-500 font-bold mb-2">Progreso:</span>
+                            <span class="text-sm block text-gray-500 font-bold mb-2">{{ $progreso_pago }}%</span>
+                        </div>
+                        <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-green-200">
+                            <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-600"></div>
+                        </div>
+                    </div>
+                    <div class="w-1/2 flex justify-center items-center border-r border-t border-slate-100 flex-col px-2 py-4">
+                        <span class="text-xs block text-gray-500 font-bold mb-2">Monto restante:</span>
+                        <p class="text-2xl text-amber-600 font-bold">{{ number_format($monto_restante) }}<span class="text-xs font-bold ml-2">USD</span></p>
+                    </div>
+                    <div class="w-1/2 flex justify-center items-center border-t border-slate-100 flex-col px-2 py-4">
+                        <span class="text-xs block text-gray-500 font-bold mb-2">Monto abonado:</span>
+                        <p class="text-2xl text-emerald-700 font-bold">{{ number_format($monto_pagos_abonados) }}<span class="text-xs font-bold ml-2">USD</span></p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

@@ -91,8 +91,8 @@ class AliadosController extends Controller
         //     $monto_pagos_totales = $monto_pagos_totales + $pagoT;
         // }
 
-        // $monto_restante = $aliado->monto_deudor - $monto_pagos_abonados;
-        // $progreso_pago  = round($monto_pagos_abonados*100/$aliado->monto_deudor);
+        // $monto_restante = $aliado->monto_dolar - $monto_pagos_abonados;
+        // $progreso_pago  = round($monto_pagos_abonados*100/$aliado->monto_dolar);
 
         return view('aliados.show', [
             'aliado'                => $aliado,

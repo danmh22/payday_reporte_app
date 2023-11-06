@@ -49,32 +49,18 @@
                                     <p class="text-gray-400 truncate font-bold leading-5">{{ $factura->concepto }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    @switch($factura->categoria)
-                                        @case('Gastos Generales')
-                                            <span
-                                            class="inline-flex items-center gap-1 rounded text-xs bg-violet-50 px-2 py-1 font-semibold text-violet-600">
-                                            Gastos Generales
-                                            </span>
-                                            @break
-                                        @case('Mensualidad')
-                                            <span
-                                            class="inline-flex items-center gap-1 rounded text-xs bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
-                                            Mensualidad
-                                            </span>
-                                            @break
-                                        @case('Otros')
-                                            <span
-                                            class="inline-flex items-center gap-1 rounded text-xs bg-amber-50 px-2 py-1 font-semibold text-amber-600">
-                                            Otros
-                                            </span>
-                                            @break
-                                        @default
-                                            Not found
-                                    @endswitch
-
+                                    @if ($factura->categoria)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded text-xs bg-teal-50 px-2 py-1 font-semibold text-teal-600">
+                                        {{ $factura->categoria }}
+                                        </span>
+                                    @else
+                                        Not found
+                                    @endif
                                 </td>
                                 <td class="px-4 py-3">
-                                    <p class="font-bold flex justify-start items-center text-blue-500 pr-4 text-base">{{ $factura->monto_deudor }} <span class="text-blue-600 text-xxs ml-2">USD</span></p>
+                                    <p class="font-bold flex justify-start items-center text-emerald-600 pr-4 text-base">{{ $factura->monto_dolar }} <span class="text-emerald-700 text-xxs ml-2">USD</span></p>
+                                    <p class="font-bold flex justify-start items-center text-cyan-700 pr-4 text-xs">≈ {{ number_format($factura->monto_actual_bs, 2) }} <span class="text-cyan-800 text-xxs ml-1">Bs</span></p>
                                 </td>
                                 <td class="px-4 py-3">
                                     @switch($factura->status)

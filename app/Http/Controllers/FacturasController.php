@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aliado;
 use App\Models\Factura;
 use App\Models\Pago;
+use App\Models\Tasa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class FacturasController extends Controller
 
         $request->validate([
             'concepto'      => 'required',
-            'monto_deudor'  => 'required',
+            'monto_dolar'  => 'required',
             'categoria'     => 'required|in:Mensualidad,Gastos Generales,Otros',
             'aliado'        => 'required|different:null',
         ]);
@@ -41,7 +42,7 @@ class FacturasController extends Controller
             $factura = new Factura;
 
             $factura->concepto      = $request->concepto;
-            $factura->monto_deudor  = $request->monto_deudor;
+            $factura->monto_dolar  = $request->monto_dolar;
             $factura->categoria     = $request->categoria;
             $factura->aliado_id     = $findAliado[0]->id;
             $factura->status        = '1';
@@ -60,6 +61,8 @@ class FacturasController extends Controller
         }
 
         $this->authorize('invoiceOwner', $factura);
+        
+        $tasa_dolar_hoy = Tasa::latest('id')->first();
 
         $monto_pagos_abonados = 0;
         $pagos_abonadas = $factura->pagos()->where('status', 2)->pluck('monto_equivalente');
@@ -73,8 +76,8 @@ class FacturasController extends Controller
             $monto_pagos_totales = $monto_pagos_totales + $pagoT;
         }
 
-        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados;
-        $progreso_pago  = round($monto_pagos_abonados*100/$factura->monto_deudor);
+        $monto_restante = $factura->monto_dolar - $monto_pagos_abonados;
+        $progreso_pago  = round($monto_pagos_abonados*100/$factura->monto_dolar);
 
         return view('facturas.show', [
             'factura'               => $factura,
@@ -83,6 +86,7 @@ class FacturasController extends Controller
             'monto_pagos_totales'   => $monto_pagos_totales,
             'monto_restante'        => $monto_restante,
             'progreso_pago'         => $progreso_pago,
+            'tasa_dolar_hoy'        => $tasa_dolar_hoy,
         ]);
     }
     public function edit(){

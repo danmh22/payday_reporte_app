@@ -33,8 +33,8 @@ class PagosController extends Controller
             $monto_pagos_abonados = $monto_pagos_abonados + $pago;
         }
 
-        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados;
-        $progreso_pagos_abonados  = round($monto_pagos_abonados*100/$factura->monto_deudor);
+        $monto_restante = $factura->monto_dolar - $monto_pagos_abonados;
+        $progreso_pagos_abonados  = round($monto_pagos_abonados*100/$factura->monto_dolar);
 
         return view('pagos.create', [
             'factura'                 => $factura,
@@ -67,7 +67,7 @@ class PagosController extends Controller
             $monto_pagos_abonados = $monto_pagos_abonados + $pago;
         }
 
-        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados;
+        $monto_restante = $factura->monto_dolar - $monto_pagos_abonados;
 
         if ($request->monto_pago > $monto_restante) {
             return back()->with('status', 'El monto ingresado es mayor al monto deudor actual');
@@ -136,7 +136,7 @@ class PagosController extends Controller
         foreach ($pagos_abonadas as $pagoA) {
             $monto_pagos_abonados = $monto_pagos_abonados + $pagoA;
         }
-        $monto_restante = $factura->monto_deudor - $monto_pagos_abonados + $pago->monto_equivalente;
+        $monto_restante = $factura->monto_dolar - $monto_pagos_abonados + $pago->monto_equivalente;
 
         if ($pago->monto_equivalente < $monto_restante) {
 
@@ -144,7 +144,7 @@ class PagosController extends Controller
             //     'status'                => 'El monto restante es mayor',
             //     'monto_equivalente'     => $pago->monto_equivalente,
             //     'monto_restante'        => $monto_restante,
-            //     'monto_deudor'          => $factura->monto_deudor,
+            //     'monto_dolar'          => $factura->monto_dolar,
             //     'monto_pagos_abonados'  => $monto_pagos_abonados
             // ];
 
@@ -156,7 +156,7 @@ class PagosController extends Controller
             //     'status'                => 'El monto restante es menor o igual',
             //     'monto_equivalente'     => $pago->monto_equivalente,
             //     'monto_restante'        => $monto_restante,
-            //     'monto_deudor'          => $factura->monto_deudor,
+            //     'monto_dolar'          => $factura->monto_dolar,
             //     'monto_pagos_abonados'  => $monto_pagos_abonados
             // ];
 
