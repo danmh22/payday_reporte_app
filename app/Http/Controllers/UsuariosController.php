@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Factura;
 use App\Models\Pago;
+use App\Models\Tasa;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -19,6 +20,8 @@ class UsuariosController extends Controller
             // El usuario no está autenticado, redirige a la página de login.
             return view('auth.login');
         }
+        
+        $tasa_dolar_hoy = Tasa::latest('id')->first();
 
         $monto_pendiente_todas = 0;
         $monto_facturas_pendiente = Factura::where('aliado_id', $request->user()->aliados->id)->whereIn('status', [1, 2])->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_deudor');
@@ -62,7 +65,8 @@ class UsuariosController extends Controller
             'monto_total_abonadas'       => $monto_total_abonadas,
             'progreso_pagos_abonados'    => $progreso_pagos_abonados,
             'monto_pagos_pendientes'     => $monto_pagos_pendientes,
-            'progreso_pagos_pendientes'  => $progreso_pagos_pendientes
+            'progreso_pagos_pendientes'  => $progreso_pagos_pendientes,
+            'tasa_dolar_hoy'             => $tasa_dolar_hoy,
         ]);
     }
 

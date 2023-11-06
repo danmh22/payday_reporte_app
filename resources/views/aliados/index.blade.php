@@ -6,7 +6,7 @@
 
     <div class="flex justify-between items-center w-5/6">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listado de Aliados Comerciales</h1>
-        <a href="{{ route('cargar-aliados') }}" class="px-3 py-2 font-bold text-sm bg-blue-700 rounded block text-white mt-4 tracking-wider transition-all hover:bg-blue-600">Crear Aliado</a>
+        <a href="{{ route('cargar-aliados') }}" class="px-3 py-2 font-bold text-sm bg-emerald-700 rounded block text-white mt-4 tracking-wider transition-all hover:bg-emerald-600">Crear Aliado</a>
     </div>
 
 @endsection()
@@ -39,7 +39,7 @@
                             </th> --}}
                             <td class="px-4 py-3">
                                 <div class="flex items-center">
-                                    <div class="rounded-full text-sm border border-blue-50 bg-blue-50 text-blue-500 font-bold mr-2 h-8 w-8 inline-flex justify-center items-center">
+                                    <div class="rounded-full text-sm border border-cyan-50 bg-cyan-50 text-cyan-700 font-bold mr-2 h-8 w-8 inline-flex justify-center items-center">
                                         @php
                                             $pickName = $aliado->nombre_aliado;
                                             echo substr($pickName, 0, 1);
@@ -68,21 +68,21 @@
                             <td class="px-4 py-3">
                                 @if ($aliado->status == '1')
                                     <span
-                                    class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                    class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-600">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                         Activo
                                     </span>
                                 @else
                                     <span
-                                    class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                                    class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-600"></span>
                                         Inactivo
                                     </span>
                                 @endif
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-4">
-                                    <a class="px-3 py-2 font-bold text-blue-600 border-2 rounded border-blue-600 text-xs transition-all hover:bg-blue-600 hover:text-white" x-data="{ tooltip: 'Ver Aliado' }" href="{{ route('aliados.show', $aliado) }}">Ver Aliado</a>
+                                    <a class="px-3 py-2 font-bold text-emerald-600 border-2 rounded border-emerald-600 text-xs transition-all hover:bg-emerald-600 hover:text-white" x-data="{ tooltip: 'Ver Aliado' }" href="{{ route('aliados.show', $aliado) }}">Ver Aliado</a>
                                 </div>
 
                                 {{-- @if ($aliado_state == '1')

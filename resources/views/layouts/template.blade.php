@@ -19,7 +19,7 @@
     </head>
 
 
-    <body class="antialiased bg-slate-100">
+    <body class="antialiased bg-slate-50">
 
         <div class="w-full mx-auto flex flex-nowrap">
 

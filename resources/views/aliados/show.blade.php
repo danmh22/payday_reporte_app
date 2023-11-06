@@ -4,7 +4,7 @@
 
 @section('header_section')
 
-    <a href="{{ route('aliados.index') }}" class="text-blue-700 hover:text-blue-500 text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
+    <a href="{{ route('aliados.index') }}" class="text-emerald-700 hover:text-emerald-500 transition-all text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
         keyboard_backspace
         </span> Regresar a los aliados</a>
     <h1 class="text-2xl font-bold tracking-tight text-gray-900">Resumen del Aliado Comercial</h1>
@@ -18,7 +18,7 @@
             <div class="flex flex-wrap w-5/6 py-6 px-8 rounded shadow border-gray-200 bg-white">
                 <div class="w-full flex justify-between items-start mb-8">
                     <div class="flex items-center">
-                        <div class="rounded-full text-lg border border-blue-50 bg-blue-50 text-blue-500 font-bold mr-3 h-12 w-12 inline-flex justify-center items-center">
+                        <div class="rounded-full text-lg border border-cyan-50 bg-cyan-50 text-cyan-700 font-bold mr-3 h-12 w-12 inline-flex justify-center items-center">
                             @php
                                 $pickName = $aliado->nombre_aliado;
                                 echo substr($pickName, 0, 1);
@@ -36,15 +36,15 @@
                     @switch($aliado->status)
                         @case(0)
 
-                        <div class="px-3 py-2 rounded bg-red-50 border border-red-200">
-                            <span class="text-red-700 font-bold text-sm">Inactivo</span>
+                        <div class="px-3 py-2 rounded bg-orange-50 border border-orange-200">
+                            <span class="text-orange-700 font-bold text-sm">Inactivo</span>
                         </div>
 
                         @break
                         @case(1)
 
-                        <div class="px-3 py-2 rounded bg-green-50 border border-green-200">
-                            <span class="text-green-500 font-bold text-sm">Activo</span>
+                        <div class="px-3 py-2 rounded bg-emerald-50 border border-emerald-200">
+                            <span class="text-emerald-600 font-bold text-sm">Activo</span>
                         </div>
 
                         @break

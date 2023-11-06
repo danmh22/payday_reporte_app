@@ -18,15 +18,15 @@
                     <div class="overflow-x-auto rounded shadow border-gray-200">
                         <div class="w-full">
                             <table class="w-full border-collapse bg-white text-left text-xs text-gray-500">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-slate-200">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Concepto</th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Categoria</th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Monto a pagar</th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Estatus</th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500">Fecha de creado</th>
-                                    <th scope="col" class="px-4 py-3 font-bold text-gray-500"></th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600">Concepto</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600">Categoria</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600">Monto a pagar</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600">Estatus</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600">Fecha de creado</th>
+                                    <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-xs">
@@ -34,7 +34,7 @@
 
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-3">
-                                        <div class="w-8 h-8 text-blue-500"><span class="material-symbols-outlined">receipt_long</span></div>
+                                        <div class="w-8 h-8 text-emerald-500"><span class="material-symbols-outlined">receipt_long</span></div>
                                     </td>
                                     <td class="px-4 py-3 max-w-[200px]">
                                         <p class="text-gray-700 font-bold mb-1">Factura #{{ $facturasC->id }}</p>
@@ -83,14 +83,14 @@
                                             @break
                                             @case(2)
                                                 <span
-                                                class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 font-semibold text-blue-600">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                                                class="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-2 py-1 font-semibold text-cyan-600">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-cyan-600"></span>
                                                 Abonadas
                                                 </span>
                                                 @break
                                             @case(3)
-                                                <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 font-semibold text-green-600">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 font-semibold text-emerald-600">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                                 Conciliado
                                                 </span>
                                                 @break
@@ -117,7 +117,7 @@
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
                                         class="absolute bg-white z-50 mt-2 w-32 rounded-md shadow-lg right-full p-1">
-                                                <li><a class="p-2 block text-xs font-bold hover:text-blue-500 hover:bg-blue-50" href="{{ route('factura', $facturasC) }}">Ver Factura</a></li>
+                                                <li><a class="p-2 block text-xs font-bold hover:text-emerald-700 hover:bg-emerald-50" href="{{ route('factura', $facturasC) }}">Ver Factura</a></li>
                                         </ul>
                                     </div>
                                 </td>

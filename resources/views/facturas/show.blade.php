@@ -4,7 +4,7 @@
 
 @section('header_section')
     
-    <a href="{{ URL::previous() }}" class="text-blue-700 hover:text-blue-500 text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
+    <a href="{{ URL::previous() }}" class="text-emerald-700 hover:text-emerald-500 transition-all text-sm font-bold mb-3 flex items-center justify-start w-52"><span class="material-symbols-outlined mr-2">
         keyboard_backspace
         </span> Regresar a las facturas</a>
     <h1 class="text-2xl font-bold tracking-tight text-gray-900">Detalles de Factura</h1>
@@ -29,22 +29,22 @@
                     @switch($factura->status)
                         @case(1)
 
-                        <div class="px-3 py-2 rounded bg-blue-50 border border-blue-200">
-                            <span class="text-blue-700 font-bold text-sm">Pendiente</span>
+                        <div class="px-3 py-2 rounded bg-cyan-50 border border-cyan-200">
+                            <span class="text-cyan-700 font-bold text-sm">Pendiente</span>
                         </div>
 
                         @break
                         @case(2)
 
                         <div class="px-3 py-2 rounded bg-amber-50 border border-amber-200">
-                            <span class="text-amber-500 font-bold text-sm">Abonada</span>
+                            <span class="text-amber-600 font-bold text-sm">Abonada</span>
                         </div>
 
                         @break
                         @case(3)
 
-                        <div class="px-3 py-2 rounded bg-green-50 border border-green-200">
-                            <span class="text-green-700 font-bold text-sm">Conciliada</span>
+                        <div class="px-3 py-2 rounded bg-emerald-50 border border-emerald-200">
+                            <span class="text-emerald-700 font-bold text-sm">Conciliada</span>
                         </div>
 
                         @break
@@ -80,8 +80,8 @@
                     </div>
                     <div class="w-1/3 pr-4">
                         <p class="text-xs mb-4 text-slate-400">Progreso:</p>
-                        <div class="overflow-hidden h-1 text-xs flex rounded bg-green-200">
-                            <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"></div>
+                        <div class="overflow-hidden h-1 text-xs flex rounded bg-emerald-200">
+                            <div style="width: {{ $progreso_pago }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-600"></div>
                         </div>
                     </div>
                 </div>
@@ -101,8 +101,8 @@
                                         @break
                                     @case(2)
                                         <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                        class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                         Conciliado
                                         </span>
 
@@ -114,7 +114,7 @@
                                 <p class="text-gray-400 font-bold text-xs">Ref: {{ $pago->referencia_pago }}</p>
                             </div>
                             <div class="w-1/6 px-4 py-4 gap-3">
-                                <p class="font-bold flex justify-center items-center text-green-500 pr-4 text-lg">{{ $pago->monto_equivalente }} <span class="text-green-600 text-xxs ml-2">USD</span></p>
+                                <p class="font-bold flex justify-center items-center text-emerald-600 pr-4 text-lg">{{ $pago->monto_equivalente }} <span class="text-emerald-700 text-xxs ml-2">USD</span></p>
                             </div>
                             <div class="w-1/6 px-4 py-4 gap-3">
                                 <p class="text-gray-400 font-bold text-xs mb-2">Reportado el:</p>
@@ -128,7 +128,7 @@
                                             @csrf
                                             @method('patch')
                                             <input type="hidden" name="id" value="{{ $pago->id }}">
-                                            <button class="bg-blue-600 px-4 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Conciliar</button>
+                                            <button class="bg-emerald-600 px-4 transition-all py-2 text-sm rounded text-white hover:bg-emerald-700" type="submit">Conciliar</button>
                                         </form>
                                     @else
 
@@ -148,7 +148,7 @@
                                 @if ($monto_pagos_totales >= $factura->monto_deudor)
 
                                 @else
-                                <a href="{{ route('reportar-pago', $factura) }}" class="bg-blue-600 px-6 py-2 text-sm rounded text-white hover:bg-blue-700" type="submit">Reportar Pago</a>
+                                <a href="{{ route('reportar-pago', $factura) }}" class="bg-emerald-700 px-6 py-2 text-sm rounded text-white hover:bg-emerald-600" type="submit">Reportar Pago</a>
                                 @endif
                             @else
 

@@ -43,7 +43,7 @@
             </div>
 
             <div class="w-full">
-                <button type="submit" class="px-3 py-2 font-bold text-sm bg-blue-700 rounded block text-white w-1/4 mt-4 transition-all hover:bg-blue-600">Crear Aliado</button>
+                <button type="submit" class="px-3 py-2 font-bold text-sm bg-emerald-700 rounded block text-white w-1/4 mt-4 transition-all hover:bg-emerald-600">Crear Aliado</button>
             </div>
 
         </form>

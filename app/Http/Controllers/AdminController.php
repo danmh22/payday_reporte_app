@@ -6,6 +6,7 @@ use App\Imports\FacturasImport;
 use App\Models\Aliado;
 use App\Models\Factura;
 use App\Models\Pago;
+use App\Models\Tasa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,8 @@ class AdminController extends Controller
             // El usuario no está autenticado, redirige a la página de login.
             return view('auth.login');
         }
+
+        $tasa_dolar_hoy = Tasa::latest('id')->first();
 
         $monto_conciliados_final = 0;
         $monto_conciliados = Pago::where('status', '=', 2)->whereMonth('created_at', Carbon::now()->format('m'))->pluck('monto_equivalente');
@@ -73,6 +76,7 @@ class AdminController extends Controller
             'progreso_pagos_abonados'    => $progreso_pagos_abonados,
             'monto_pendiente_final'      => $monto_pendiente_final,
             'progreso_pagos_pendientes'  => $progreso_pagos_pendientes,
+            'tasa_dolar_hoy'             => $tasa_dolar_hoy,
         ]);
     }
 
