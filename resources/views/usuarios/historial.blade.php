@@ -24,7 +24,7 @@
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600">Concepto</th>
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600">Estatus</th>
-                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Detalle</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-slate-600">Método de pago</th>
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600">Monto</th>
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600">Fecha</th>
                                 <th scope="col" class="px-4 py-3 font-bold text-slate-600"></th>
@@ -64,11 +64,11 @@
                                     @endswitch
                                 </td>
                                 <td class="px-4 py-3">
-                                    <p class="text-gray-700 font-bold mb-1">{{ Str::ucfirst($pago->metodo_pago) }}</p>
-                                    <span class="text-gray-400 font-bold">{{ Str::ucfirst($pago->plataforma_pago) }}</span>
+                                    <p class="truncate font-bold leading-5 text-gray-700 flex justify-start items-center mb-1">{{ Str::ucfirst($pago->metodo_pago) }} <span class="material-symbols-outlined mx-2 text-xs">trending_flat</span> {{ Str::ucfirst($pago->plataforma_pago) }}</p>
+                                    <p class="truncate leading-5 font-bold text-gray-400">Ref: {{ $pago->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $pago->monto_equivalente }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                    <p class="font-bold flex justify-start items-center text-gray-700 pr-4 text-sm">{{ $pago->monto_equivalente }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
                                 </td>
                                 <td class="px-4 py-3">
                                     <p class="text-gray-700 font-bold">{{ $pago->fecha_pago->format('d/m/Y') }}</p>

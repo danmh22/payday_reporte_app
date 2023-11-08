@@ -29,7 +29,9 @@ class ObtenerTasaDolar extends Command
      */
     public function handle()
     {
-        $response = Http::timeout(300)->get('https://www.bcv.org.ve/');
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->timeout(300)->get('https://www.bcv.org.ve/');
         $htmlString = (string) $response->getBody();
         libxml_use_internal_errors(true);
         

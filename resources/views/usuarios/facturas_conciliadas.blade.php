@@ -41,36 +41,18 @@
                                         <span class="text-gray-400 font-bold">{{ $facturasC->concepto }}</span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        @switch( $facturasC->categoria )
-                                            @case('Gastos Generales')
-                                                <span
-                                                class="inline-flex items-center rounded bg-violet-50 text-xs py-1 px-2 font-semibold text-violet-600">
-                                                
-                                                Gastos Generales
-                                                </span>
-                                                @break
-                                            @case('Mensualidad')
-                                                <span
-                                                class="inline-flex items-center rounded bg-emerald-50 text-xs py-1 px-2 font-semibold text-emerald-600">
-                                                
-                                                Mensualidad
-                                                </span>
-
-                                                @break
-                                            @case('Otros')
-                                                    <span
-                                                    class="inline-flex items-center rounded bg-amber-50 text-xs py-1 px-2 font-semibold text-amber-600">
-                                                    
-                                                    Otros
-                                                    </span>
-        
-                                                    @break
-                                            @default
-                                                Not found
-                                        @endswitch
+                                        @if ($facturasC->categoria)
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded text-xs bg-teal-50 px-2 py-1 font-semibold text-teal-600">
+                                            {{ $facturasC->categoria }}
+                                            </span>
+                                        @else
+                                            Not found
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3">
                                         <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturasC->monto_dolar }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                        <p class="font-bold flex justify-start items-center text-slate-500 pr-4 text-xs">≈ {{ number_format($facturasC->monto_actual_bs, 2) }} <span class="text-cyan-800 text-xxs ml-1">Bs</span></p>
                                     </td>
                                     <td class="px-4 py-3">
                                         @switch($facturasC->status)

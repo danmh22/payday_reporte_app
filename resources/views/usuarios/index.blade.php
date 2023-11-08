@@ -161,14 +161,14 @@
                                             @break
                                             @case(2)
                                                 <span
-                                                class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xxs font-semibold text-emerald-600">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                                                class="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-2 py-1 text-xxs font-semibold text-cyan-600">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-cyan-600"></span>
                                                 Abonadas
                                                 </span>
                                                 @break
                                             @case(3)
-                                                <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xxs font-semibold text-green-600">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                                                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xxs font-semibold text-emerald-600">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                                 Conciliado
                                                 </span>
                                                 @break
@@ -177,7 +177,8 @@
                                         @endswitch
                                     </td>
                                     <td class="px-4 py-3">
-                                        <p class="font-bold flex justify-center items-center text-gray-700 pr-4 text-sm">{{ $facturaR->monto_dolar }} <span class="text-gray-500 text-xxs ml-2">USD</span></p>
+                                        <p class="font-bold flex justify-start items-center text-gray-700 pr-4 text-sm">{{ $facturaR->monto_dolar }} <span class="text-gray-500 text-xxs ml-1">USD</span></p>
+                                        <p class="font-bold flex justify-start items-center text-slate-500 pr-4 text-xs">≈ {{ number_format($facturaR->monto_actual_bs, 2) }} <span class="text-cyan-800 text-xxs ml-1">Bs</span></p>
                                     </td>
                                     <td class="px-4 py-3 font-normal text-gray-900">
                                         <div class="text-xs">

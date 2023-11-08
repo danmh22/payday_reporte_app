@@ -111,7 +111,7 @@ class UsuariosController extends Controller
         if ($facturas_con_pagos->isEmpty()) {
             
         } else {
-            $pagos_realizados = Pago::whereBelongsTo($facturas_con_pagos)->orderBy('fecha_pago', 'desc')->paginate(8);
+            $pagos_realizados = Pago::whereBelongsTo($facturas_con_pagos)->orderBy('fecha_pago', 'desc')->paginate(7);
         }
         
         return view('usuarios.historial', [

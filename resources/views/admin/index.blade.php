@@ -113,7 +113,7 @@
                                 <td class="pr-4 py-3 max-w-[180px]">
 
                                     <p class="truncate font-bold leading-5 text-gray-700 flex justify-start items-center">{{ Str::ucfirst($pagoC->metodo_pago) }} <span class="material-symbols-outlined mx-2 text-xs">trending_flat</span> {{ Str::ucfirst($pagoC->plataforma_pago) }}</p>
-                                    <span class="text-slate-500 my-2 font-bold">{{ $pagoC->factura->aliado->nombre_aliado }}</span>
+                                    {{-- <span class="text-slate-500 my-2 font-bold">{{ $pagoC->factura->aliado->nombre_aliado }}</span> --}}
                                     <p class="truncate text-xxs leading-5 font-bold text-slate-500">Ref: {{ $pagoC->referencia_pago }}</p>
                                 </td>
                                 <td class="px-4 py-3">
