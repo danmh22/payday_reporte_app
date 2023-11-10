@@ -28,7 +28,7 @@ class FacturasController extends Controller
 
         $request->validate([
             'concepto'      => 'required',
-            'monto_dolar'  => 'required',
+            'monto_dolar'   => 'required',
             'categoria'     => 'required|in:Mensualidad,Gastos Generales,Otros',
             'aliado'        => 'required|different:null',
         ]);
