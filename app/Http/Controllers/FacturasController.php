@@ -29,7 +29,7 @@ class FacturasController extends Controller
         $request->validate([
             'concepto'      => 'required',
             'monto_dolar'   => 'required',
-            'categoria'     => 'required|in:Mensualidad,Gastos Generales,Otros',
+            'categoria'     => 'required|in:Alquiler,Parking,Gastos Comunes,Gastos No Comunes,Reembolsables,Condominios',
             'aliado'        => 'required|different:null',
         ]);
 

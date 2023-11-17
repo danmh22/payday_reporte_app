@@ -75,7 +75,7 @@
                         <p class="text-gray-700">{{ $factura->monto_actual_bs }} Bs</p>
                     </div>
                     <div class="w-1/3 mb-5">
-                        <p class="text-xs mb-1 text-slate-400">Diferencia Cambiario:</p>
+                        <p class="text-xs mb-1 text-slate-400">Diferencial Cambiario:</p>
                         <p class="text-gray-700">{{ $factura->dif_cambiario }} Bs</p>
                     </div>
                     {{-- <div class="w-1/3">
@@ -177,13 +177,13 @@
 
             </div>
             <div class="sm:w-2/6 pb-4 sm:px-4 lg:px-4 w-full">
-                <div class="bg-white shadow flex flex-wrap text-center mb-4 rounded overflow-hidden">
+                {{-- <div class="bg-white shadow flex flex-wrap text-center mb-4 rounded overflow-hidden">
                     <div class="w-full flex justify-center items-center border-b-0 flex-col px-2 py-4">
                         <span class="text-sm block text-gray-500 font-bold mb-3">Tasa del dolar hoy:</span>
                         <p class="text-2xl text-emerald-700 font-bold">{{ $tasa_dolar_hoy->tasa_dolar }}<span class="text-xs font-bold ml-1">Bs</span></p>
                         <span class="text-xxs block text-gray-400 font-bold mt-4">Registrado el: {{ $tasa_dolar_hoy->created_at }}</span>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-l font-bold mb-0 text-gray-800">Resumen:</h2>
