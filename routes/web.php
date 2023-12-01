@@ -50,9 +50,12 @@ Route::controller(AdminController::class)->group(function () {
 })->middleware(['auth', 'verified']);
 
 Route::controller(PagosController::class)->group(function (){
-    Route::get('/facturas/{factura}/pagos/reportar', 'create')->can('reportar-pago')->name('reportar-pago');
-    Route::post('/facturas/{factura}/pagos',          'store')->can('guardar-pago')->name('guardar-pago');
-    Route::patch('/pagos',                    'conciliarPago')->can('conciliar-pago')->name('conciliar-pago');
+    Route::get('/facturas/{factura}/pagos/reportar',  'create')->can('reportar-pago')->name('reportar-pago');
+    Route::post('/facturas/{factura}/pagos',           'store')->can('guardar-pago')->name('guardar-pago');
+    Route::get('/facturas/{factura}/pagos/{pago}/edit', 'edit')->can('reportar-pago')->name('editar-pago');
+    Route::put('/pagos/{pago}',                       'update')->can('reportar-pago')->name('actualizar-pago');
+    Route::patch('/pagos/{pago}',                     'report')->can('conciliar-pago')->name('reportar-error');
+    Route::patch('/pagos',                     'conciliarPago')->can('conciliar-pago')->name('conciliar-pago');
 })->middleware(['auth', 'verified']);
 
 Route::controller(UsuariosController::class)->group(function(){

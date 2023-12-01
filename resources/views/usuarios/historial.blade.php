@@ -57,7 +57,13 @@
                                             <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
                                             Conciliadas
                                             </span>
-
+                                            @break
+                                        @case(3)
+                                            <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 text-xxs py-1 font-semibold text-red-600">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                                            Error
+                                            </span>
                                             @break
                                         @default
                                             Not found
@@ -73,8 +79,14 @@
                                 <td class="px-4 py-3">
                                     <p class="text-gray-700 font-bold">{{ $pago->fecha_pago->format('d/m/Y') }}</p>
                                 </td>
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 text-right">
                                     <a href="{{ route('factura', $pago->factura) }}" class="px-3 py-2 text-emerald-600 font-bold border-2 rounded border-emerald-600 text-xs hover:bg-emerald-600 hover:text-white">Ver Factura</a>
+                                    @if ($pago->status == 3)
+                                        <a href="{{ route('editar-pago', [$pago->factura, $pago]) }}" class="px-3 py-2 text-emerald-600 font-bold border-2 rounded border-emerald-600 text-xs ml-2 hover:bg-emerald-600 hover:text-white">Editar</a>
+                                    @else
+                                        
+                                    @endif
+
                                 </td>
                                 </tr>
 

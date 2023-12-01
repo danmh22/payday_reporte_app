@@ -24,7 +24,7 @@
                 <div class="w-full flex justify-between items-start mb-8">
                     <div>
                         <h2 class="text-xl font-bold text-slate-700">Factura - {{ $factura->id }}</h2>
-                        <span class="text-xs font-bold text-gray-500">{{ $factura->aliado->nombre_aliado }}</span>
+                        <a class="transition-all text-gray-500 hover:text-emerald-600" href="{{ route('aliados.show', $factura->aliado) }}"><span class="text-xs font-bold">{{ $factura->aliado->nombre_aliado }}</span></a>
                     </div>
                     @switch($factura->status)
                         @case(1)
@@ -117,6 +117,14 @@
                                         </span>
 
                                         @break
+                                    @case(3)
+                                        <span
+                                        class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                                        Error
+                                        </span>
+
+                                        @break
                                     @default
                                         Not found
                                 @endswitch
@@ -131,14 +139,62 @@
                                 <p class="text-gray-700 font-bold">{{ $pago->fecha_pago->format('d/m/Y') }}</p>
                             </div>
 
-                            <div class="w-1/6 px-4 py-4 gap-3">
+                            <div class="w-1/6 px-4 py-4 gap-3 flex items-center justify-center">
+                                @role('Aliado')
+                                    @if ($pago->status == 3)
+                                    <a href="{{ route('editar-pago', [$pago->factura, $pago]) }}" class="px-3 py-2 text-emerald-600 font-bold border-2 rounded border-emerald-600 text-sm ml-2 hover:bg-emerald-600 hover:text-white">Editar</a>
+                                    @endif
+                                @endrole
                                 @can('conciliar-pago')
                                     @if ($pago->status == 1)
                                         <form action="{{ route('conciliar-pago') }}" method="POST">
                                             @csrf
                                             @method('patch')
                                             <input type="hidden" name="id" value="{{ $pago->id }}">
-                                            <button class="bg-emerald-600 px-4 transition-all py-2 text-sm rounded text-white hover:bg-emerald-700" type="submit">Conciliar</button>
+                                            <button
+                                            x-data="{ tooltip: false }" 
+                                            x-on:mouseover="tooltip = true" 
+                                            x-on:mouseleave="tooltip = false"
+                                            class="text-emerald-600 transition-all rounded relative hover:text-emerald-700 group" 
+                                            type="submit">
+                                            <span 
+                                            x-show="tooltip"
+                                            x-transition:enter="ease-out duration-300"
+                                            x-transition:enter-start="opacity-0"
+                                            x-transition:enter-end="opacity-100"
+                                            x-transition:leave="ease-in duration-200"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            class="text-xs w-36 font-semibold text-cyan-600 absolute bg-cyan-100 border border-cyan-300 rounded p-2
+                                            transform transition-all bottom-10 right-0"
+                                            >Conciliar pago</span>
+                                            <span class="material-symbols-outlined text-3xl transition-all group-hover:scale-125">
+                                            check_circle
+                                            </span></button>
+                                        </form>
+                                        <form action="{{ route('reportar-error', $pago) }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <button 
+                                            x-data="{ tooltip: false }" 
+                                            x-on:mouseover="tooltip = true" 
+                                            x-on:mouseleave="tooltip = false"
+                                            class="text-amber-600 transition-all rounded relative ml-1 hover:text-amber-700 group" 
+                                            type="submit">
+                                            <span 
+                                            x-show="tooltip"
+                                            x-transition:enter="ease-out duration-300"
+                                            x-transition:enter-start="opacity-0"
+                                            x-transition:enter-end="opacity-100"
+                                            x-transition:leave="ease-in duration-200"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            class="text-xs w-40 font-semibold text-cyan-600 absolute bg-cyan-100 border border-cyan-300 rounded p-2
+                                            transform transition-all bottom-10 right-0"
+                                            >Notificar error en el reporte de pago</span>
+                                            <span class="material-symbols-outlined text-3xl transition-all group-hover:scale-125">
+                                            report
+                                            </span></button>
                                         </form>
                                     @else
 

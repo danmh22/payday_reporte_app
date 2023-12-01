@@ -4,7 +4,7 @@
 
 @section('header_section')
 
-    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Reporta el pago de tu factura</h1>
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Edita el reporte de pago de tu factura</h1>
 
 @endsection()
 
@@ -12,35 +12,6 @@
 
 <main>
     <div class="flex flex-wrap mx-auto py-4 pt-0">
-        {{-- <div class="sm:w-1/4 py-4 w-full">
-            <div class="mb-4">
-                <h2 class="text-l font-bold mb-3 text-gray-800">Seleccione una factura</h2>
-                <div>
-                    <div class="bg-white rounded drop-shadow-lg p-3 mb-3">
-                        <div class="flex flex-wrap items-center justify-between rounded p-1">
-                            <div class="">
-                                <h5 class="text-sm">Mes de Julio</h5>
-                                <p class="text-xxs text-gray-500">Monto: 250,00 USD</p>
-                            </div>
-                            <a href="#" class="bg-blue-700 p-2 text-white text-xs rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded drop-shadow-lg p-3 mb-3">
-                        <div class="flex flex-wrap items-center justify-between rounded p-1">
-                            <div class="">
-                                <h5 class="text-sm">Mes de Julio</h5>
-                                <p class="text-xxs text-gray-500">Monto: 250,00 USD</p>
-                            </div>
-                            <a href="#" class="bg-blue-700 p-2 text-white text-xs rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="w-2/3 py-4 pr-8">
             @if ($errors->any())
                 <div class="py-2 px-2 rounded border bg-red-50 text-red-600 text-xs mb-2 font-semibold tracking-wider" role="alert">
@@ -62,16 +33,16 @@
                 </div>
             @endif
             <div class="rounded border bg-white p-6">
-            <h2 class="text-lg font-bold text-gray-800">Reporta tu pago</h2>
-            <p class="text-sm mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para realizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
-                <form action="{{ route('guardar-pago', $factura) }}" method="post" class="flex flex-wrap">
+            <h2 class="text-lg font-bold text-gray-800">Reporta tu pago nuevamente</h2>
+            <p class="text-sm mb-4 mt-2 text-gray-500">Completa los campos del siguiente formulario para actualizar el reporte de tu pago. Ingresa los datos del titular y la información bancaria correspondiente.</p>
+                <form action="{{ route('actualizar-pago', $pago) }}" method="post" class="flex flex-wrap">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <div class="w-2/4 mb-4 pr-4">
                         <label for="nombre_titular" class="block text-xs font-bold leading-6 text-gray-500">Nombre Títular</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-600">
-                            <input type="text" name="nombre_titular" id="nombre_titular" autocomplete="nombre_titular" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Pedro Pérez">
+                            <input type="text" name="nombre_titular" id="nombre_titular" autocomplete="nombre_titular" value="{{ $pago->nombre_titular }}" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Pedro Pérez">
                         </div>
                         </div>
                     </div>
@@ -87,7 +58,7 @@
                         </div>
                         <div class="mt-2 w-4/6">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-600">
-                            <input type="text" name="num_documento" id="num_documento" autocomplete="num_documento" maxlength="9" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
+                            <input type="text" name="num_documento" id="num_documento" autocomplete="num_documento" value="{{ $pago->num_documento }}" maxlength="9" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Nro de Documento">
                             </div>
                         </div>
                     </div>
@@ -96,7 +67,7 @@
                         <label for="referencia_pago" class="block text-xs font-bold leading-6 text-gray-500">Nro de Referencia</label>
                         <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-600">
-                            <input type="text" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
+                            <input type="text" name="referencia_pago" id="referencia_pago" autocomplete="referencia_pago" value="{{ $pago->referencia_pago }}" onkeypress="return event.charCode>=48 && event.charCode<=57" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Referencia Bancaria">
                         </div>
                         </div>
                     </div>
@@ -145,7 +116,7 @@
                     <label for="monto_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Monto</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-600">
-                            <input type="number" step="any" name="monto_pago" id="monto_pago" autocomplete="monto_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
+                            <input type="number" step="any" name="monto_pago" id="monto_pago" autocomplete="monto_pago" value="{{ $pago->monto_pago }}" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
                         </div>
                         </div>
                     </div>
@@ -154,14 +125,14 @@
                     <label for="fecha_pago" class="block w-full text-xs font-bold leading-6 text-gray-500">Fecha de pago</label>
                     <div class="mt-2 w-full">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-600">
-                            <input type="date" name="fecha_pago" id="fecha_pago" autocomplete="fecha_pago" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
+                            <input type="date" name="fecha_pago" id="fecha_pago" autocomplete="fecha_pago" value="{{ $pago->fecha_pago }}" class="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="300,00">
                         </div>
                         </div>
                     </div>
 
                     <input type="hidden" name="status" id="status" autocomplete="status" value="2">
 
-                    <button type="submit" class="px-3 py-2 font-bold text-sm transition-all bg-emerald-700 hover:bg-emerald-600 rounded block text-white w-1/4 mt-4">Enviar reporte</button>
+                    <button type="submit" class="px-3 py-2 font-bold text-sm transition-all bg-emerald-700 hover:bg-emerald-600 rounded block text-white w-1/4 mt-4">Actualizar reporte</button>
 
                 </form>
             </div>
