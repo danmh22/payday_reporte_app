@@ -61,12 +61,14 @@ class PagosController extends Controller
             'fecha_pago'        => 'required',
         ]);
 
+        //Se obtiene la suma de los pagos abonados a la factura
         $monto_pagos_abonados = 0;
         $pagos_abonadas = $factura->pagos()->pluck('monto_equivalente');
         foreach ($pagos_abonadas as $pago) {
             $monto_pagos_abonados = $monto_pagos_abonados + $pago;
         }
 
+        //Se resta el monto abonado al monto de la factura para obtener el restante por pagar
         $monto_restante = $factura->monto_dolar - $monto_pagos_abonados;
 
         if ($request->monto_pago > $monto_restante) {
